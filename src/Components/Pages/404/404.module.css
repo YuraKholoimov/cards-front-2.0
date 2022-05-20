@@ -1,0 +1,10 @@
+.container {
+    height: 100vh;
+    background-color: #f4f5f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.notFound {
+    content: url("https://static.collectui.com/shots/4144886/pikabu-error-404-large");
+}
