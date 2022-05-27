@@ -12,14 +12,14 @@ function App() {
         <div className="App">
             <Routes>
                 <Route path={'/'} element={<Home/>}/>
-                <Route path={'/login'} element={<Login/>}/>
-                <Route path={'/registration'} element={<Registration/>}/>
-                <Route path={'/profile'} element={<Profile/>}/>
-                <Route path={'/*'} element={<Navigate to={'/404'}/>}/>
+                <Route path={'login'} element={<Login/>}/>
+                <Route path={'registration'} element={<Registration/>}/>
+                <Route path={'profile'} element={<Profile/>}/>
+                <Route path={'*'} element={<Navigate to={'/404'}/>}/>
                 <Route path={'/404'} element={<NotFound/>}/>
-                <Route path={'/password_restore'} element={<div>Restore your password</div>}/>
-                <Route path={'/password_new'} element={<div>Your new password</div>}/>
-                <Route path={'/test'} element={<Test/>}/>
+                <Route path={'password_restore'} element={<div>Restore your password</div>}/>
+                <Route path={'password_new'} element={<div>Your new password</div>}/>
+                <Route path={'test'} element={<Test/>}/>
             </Routes>
         </div>
     );
