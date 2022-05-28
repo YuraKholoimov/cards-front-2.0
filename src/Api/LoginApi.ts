@@ -23,7 +23,7 @@ export const instance = axios.create({
 // }
 
 export type LoginParamsType = {
-    login: string
+    email: string
     password: string
     rememberMe: boolean
 // - куки умрут если пользователь будет
@@ -31,6 +31,13 @@ export type LoginParamsType = {
 
 export const authAPI = {
     login(data: LoginParamsType) {
-        return instance.post('POST/auth/login', data)
-    }
+        return instance.post('/auth/login', data)
+    },
+    logout() {
+        return instance.delete('/auth/me')
+    },
+    me() {
+      return instance.post('/auth/me')
+    },
+
 }

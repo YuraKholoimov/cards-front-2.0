@@ -3,7 +3,7 @@ import {AppReducer} from "../App/AppReducer";
 import thunk from "redux-thunk";
 import {authReducer} from "./LoginReducer";
 const rootReducer = combineReducers({
-    // app: AppReducer,
+    app: AppReducer,
     auth: authReducer
 })
 
