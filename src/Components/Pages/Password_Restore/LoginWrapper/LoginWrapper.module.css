@@ -1,0 +1,24 @@
+.loginWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: linear-gradient(to top, #9795f0 0%, #fbc8d4 100%);
+}
+
+.frame {
+    width: 413px;
+    height: 540px;
+    background: #F9F9FE;
+    border-radius: 8px;
+    padding: 25px 33px 31px;
+}
+
+.frame .title {
+    margin-bottom: 32px;
+    height: 39px;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 39px;
+    color: #2D2E46;
+}
