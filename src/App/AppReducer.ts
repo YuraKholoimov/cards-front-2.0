@@ -1,18 +1,24 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../Api/LoginApi";
+import {setIsLoggedIn} from "../Store/LoginReducer";
+
 export type InitialStateType = {
-    status: RequestStatusType
+    status: boolean
     isInitialized: boolean
 }
-export type RequestStatusType = 'loading' | 'succeeded'
+
 
 const initialState: InitialStateType = {
-    status: "succeeded",
+    status: false,
     isInitialized: false
 }
 
 export const AppReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case "IS-INITIALIZED":
+        case "APP/IS-INITIALIZED":
             return {...state, isInitialized: action.isInitialized}
+        case "APP/SET-STATUS":
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -21,12 +27,29 @@ export const AppReducer = (state: InitialStateType = initialState, action: Actio
 }
 export const isInitializedAc = (isInitialized: boolean) => {
     return {
-        type: 'IS-INITIALIZED',
+        type: 'APP/IS-INITIALIZED',
         isInitialized
 
     } as const
 }
+export const setStatus = (status: boolean) => {
+    return {
+        type: 'APP/SET-STATUS',
+        status
+    } as const
+}
 
-export type ActionsType = isInitializedType
+export const initializeAppThunk = () => (dispatch: Dispatch<ActionsType>) => {
+    authAPI.me()
+        .then(() => {
+            dispatch(setIsLoggedIn(true))
+        })
+        .finally(() => {
+            dispatch(isInitializedAc(true))
+        })
+}
+
+export type ActionsType = isInitializedType | setStatusType | setIsLoggedIn
+export type setStatusType = ReturnType<typeof setStatus>
 export type isInitializedType = ReturnType<typeof isInitializedAc>
 

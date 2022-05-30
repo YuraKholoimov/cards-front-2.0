@@ -1,5 +1,7 @@
-import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from 'react'
-import s from './SuperInputText.module.css'
+import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent, useState} from 'react'
+import s from './SuperInputPassword.module.css'
+import {useDispatch} from "react-redux";
+import {setError} from "../../../Store/LoginReducer";
 
 // тип пропсов обычного инпута
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
@@ -14,7 +16,7 @@ type SuperInputTextPropsType = DefaultInputPropsType & { // и + ещё проп
     resetError?: () => void;
 }
 
-const SuperInputText: React.FC<SuperInputTextPropsType> = (
+const SuperInputPassword: React.FC<SuperInputTextPropsType> = (
     {
         type, // достаём и игнорируем чтоб нельзя было задать другой тип инпута
         onChange, onChangeText,
@@ -25,6 +27,10 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
         ...restProps// все остальные пропсы попадут в объект restProps
     }
 ) => {
+    const [showMode, setShowMode] = useState(false)
+    const showModeHandler = () => {
+        setShowMode(!showMode)
+    }
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
         onChange // если есть пропс onChange
         && onChange(e) // то передать ему е (поскольку onChange не обязателен)
@@ -47,13 +53,14 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
     return (
         <>
             <input
-                type={'text'}
+                type={showMode ? 'text' : 'password'}
                 onChange={onChangeCallback}
                 onKeyPress={onKeyPressCallback}
                 className={finalInputClassName}
 
                 {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
             />
+            <button onClick={showModeHandler}>глаз</button>
             {error &&
 
                 <span className={finalSpanClassName}>{error}</span>}
@@ -61,4 +68,4 @@ const SuperInputText: React.FC<SuperInputTextPropsType> = (
     )
 }
 
-export default SuperInputText
+export default SuperInputPassword

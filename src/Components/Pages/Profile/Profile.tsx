@@ -10,11 +10,15 @@ import Preloader from "../../Preloader/Preloader";
 const Profile = () => {
     const dispatch:ThunkDispatch<AppRootReducerType, unknown, ActionsType> = useDispatch()
     const isLogin = useSelector<AppRootReducerType, boolean>(state => state.auth.isInitialize)
+    const status = useSelector<AppRootReducerType, boolean>(state => state.app.status)
     const logoutHandler = () => {
         dispatch(logoutThunk())
     }
     if(!isLogin) {
         return <Navigate to={'/login'}/>
+    }
+    if(status) {
+        return <Preloader/>
     }
     return (
         <div>

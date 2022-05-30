@@ -1,6 +1,6 @@
 import {authAPI, LoginParamsType} from "../Api/LoginApi";
 import {Dispatch} from "redux";
-import {isInitializedAc, isInitializedType} from "../App/AppReducer";
+import {isInitializedAc, isInitializedType, setStatus, setStatusType} from "../App/AppReducer";
 
 const initialState = {
     isInitialize: false,
@@ -29,39 +29,36 @@ export const setError = (error: string) => ({
 }) as const
 
 export const loginThunk = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
-
+    dispatch(setStatus(true))
     authAPI.login(data)
         .then((res) => {
             console.log(res)
             dispatch(setIsLoggedIn(true))
+
+
         })
         .catch((err) => {
 
             dispatch(setError(err.response.data.error))
-            // setInterval(() => {
-            //     dispatch(setError(''))
-            // }, 3000)
+
+        })
+        .finally(()=>{
+            dispatch(setStatus(false))
         })
 }
 export const logoutThunk = () => (dispatch: Dispatch<ActionsType>) => {
-
+    dispatch(setStatus(true))
     authAPI.logout()
         .then((res) => {
             dispatch(setIsLoggedIn(false))
+            dispatch(setStatus(false))
         })
 
 }
-export const initializeAppThunk = () => (dispatch: Dispatch<ActionsType>) => {
-    authAPI.me()
-        .then(() => {
-            dispatch(setIsLoggedIn(true))
-        })
-        .finally(() => {
-            dispatch(isInitializedAc(true))
-        })
-}
+
 
 // types
-export type ActionsType = isInitializedType |
-    ReturnType<typeof setIsLoggedIn> |
+export type ActionsType = isInitializedType | setStatusType | setIsLoggedIn |
+
     ReturnType<typeof setError>
+export type  setIsLoggedIn = ReturnType<typeof setIsLoggedIn>

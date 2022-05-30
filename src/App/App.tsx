@@ -9,9 +9,10 @@ import Profile from "../Components/Pages/Profile/Profile";
 import React, {useEffect} from "react";
 import {ThunkDispatch} from "redux-thunk";
 import {AppRootReducerType} from "../Store/Store";
-import {ActionsType, initializeAppThunk} from "../Store/LoginReducer";
+import {ActionsType} from "../Store/LoginReducer";
 import {useDispatch, useSelector} from "react-redux";
 import Preloader from "../Components/Preloader/Preloader";
+import {initializeAppThunk} from "./AppReducer";
 
 function App() {
     const isInitialize = useSelector<AppRootReducerType, boolean>(state => state.app.isInitialized)

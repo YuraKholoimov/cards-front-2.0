@@ -4,4 +4,5 @@
 .error {
     position: absolute;
     color: red;
+    width: 100%;
 }
