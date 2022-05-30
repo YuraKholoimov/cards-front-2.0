@@ -4,39 +4,45 @@ import SuperInputText from '../../UI/SuperInputText/SuperInputText';
 import SuperButton from '../../UI/SuperButton/SuperButton';
 import {useAppSelector, useTypedDispatch} from '../../../Store/Store';
 import {PATH} from '../../../App/App';
-import {passwordForgotTC} from './PasswordRestore-reducer';
+import {sendEmailTC} from './PasswordRestore-reducer';
+import s from './PasswordRestore.module.css'
+import {LoginWrapper} from './LoginWrapper/LoginWrapper';
 
 export const PasswordRestore = () => {
 
-    const isSend = useAppSelector<boolean>((state) => state.restore.isSend)
-
+    const isSend = useAppSelector((state) => state.restore.isSend)
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
     const [email, setEmail] = useState<string>('')
 
     const onClickHandler = () => {
-        dispatch(passwordForgotTC(email))
+        dispatch(sendEmailTC(email))
+        //         .then((res) => {
+        //         if (res.data.success) {
+        //             navigate(PATH.LOGIN)
+        //         }
+        // })
+        setEmail('')
     }
-
 
     if (isSend) {
-        navigate(PATH.LOGIN)
+        navigate(PATH.CHECK_EMAIL)
     }
 
-
     return (
-        <div>
-            <h2>it-incubator</h2>
-            <h3>Forgot Your password?</h3>
-            <div>
-                <label>Email</label>
-                <SuperInputText value={email} onChangeText={setEmail}/>
+        <LoginWrapper>
+            <h3 className={s.subtitle}>Forgot your password?</h3>
+            <div className={s.input}>
+                <SuperInputText value={email} onChangeText={setEmail} placeholder={'Email'}/>
             </div>
-            <p>Enter your email address and we will send you further instruction</p>
-            <SuperButton onClick={onClickHandler}>Send instructions</SuperButton>
-            <p>Did you remember your password?</p>
-            <NavLink to='/login'>Try logging in</NavLink>
-        </div>
+            <p className={s.instructions}>Enter your email address and we will send you further instruction</p>
+            <div className={s.button}>
+                <SuperButton onClick={onClickHandler}>Send instructions</SuperButton>
+            </div>
+            <p className={s.text}>Did you remember your password?</p>
+            <NavLink to={PATH.LOGIN} className={s.linkToLogin}>Try logging in</NavLink>
+        </LoginWrapper>
+
     );
 };
 

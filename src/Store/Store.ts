@@ -1,11 +1,11 @@
 import {combineReducers, createStore, applyMiddleware} from 'redux';
 import thunkMiddleware, { ThunkDispatch } from 'redux-thunk'
-import {AppReducer} from '../App/AppReducer';
+// import {AppReducer} from '../App/AppReducer';
 import {ActionsType, passwordRestoreReducer} from '../Components/Pages/Password_Restore/PasswordRestore-reducer';
 import {TypedUseSelectorHook, useDispatch, useSelector} from 'react-redux';
 
 const rootReducer = combineReducers({
-    app: AppReducer,
+    // app: AppReducer,
     restore: passwordRestoreReducer
 })
 
