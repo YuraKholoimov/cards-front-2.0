@@ -6,7 +6,7 @@ import {useDispatch} from "react-redux";
 const rootReducer = combineReducers({
     app: appReducer,
     register: registerReducer,
-
+    profilePage: profilePageReducer
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

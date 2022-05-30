@@ -11,6 +11,7 @@ import {AppRootStateType, useAppDispatch} from "../Store/Store";
 import {useEffect} from "react";
 import Preloader from "../Components/UI/common/Preloader/Preloader";
 import {initializeAppTC} from "../Store/AppReducer";
+import ProfilePage from "../Components/Pages/Profile/ProfilePage";
 
 function App() {
 
