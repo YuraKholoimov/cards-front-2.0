@@ -16,7 +16,7 @@ export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppActionsType = AppReducerActionsType | AuthActionsType
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>
 
-export const useAppDispatch = () => useDispatch<ThunkDispatch<AppRootStateType, unknown, AppActionsType>>()
+export const useAppDispatch = () => useDispatch<ThunkDispatch<AppRootStateType, unknown, AppActionsType>>()//require in new redux version
 
 
 // @ts-ignore

@@ -1,7 +1,4 @@
 import {Dispatch} from "redux";
-
-
-
 import {authAndProfileApi} from "../Components/DAL/authAndProfileApi";
 import {setErrorAC, setLoadingAC} from "./AppReducer";
 import {AppThunkType} from "./Store";

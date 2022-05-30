@@ -15,6 +15,7 @@ export const Registration = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
+
     const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
     const error = useSelector<AppRootStateType, string>(state => state.app.error)
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);

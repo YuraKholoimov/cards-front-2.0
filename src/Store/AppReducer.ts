@@ -57,10 +57,12 @@ type setErrorAPPType = ReturnType<typeof setErrorAPPAC>
 // thunk
 export const initializeAppTC = (): AppThunkType => {
     return (dispatch: Dispatch) => {
+        dispatch(setLoadingAC(true))
         authAndProfileApi.me()
             .then((res) => {
                // dispatch(setProfileData(res.data))
                 // dispatch(setIsLoggedInAC(true));
+
             })
             .catch(e => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
@@ -68,6 +70,7 @@ export const initializeAppTC = (): AppThunkType => {
             })
             .finally(() => {
                 dispatch(setIsInitializedAC(true));
+                dispatch(setLoadingAC(false))
             })
     }
 };
