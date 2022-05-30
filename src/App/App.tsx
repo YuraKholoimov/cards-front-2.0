@@ -12,7 +12,7 @@ import {AppRootReducerType} from "../Store/Store";
 import {ActionsType} from "../Store/LoginReducer";
 import {useDispatch, useSelector} from "react-redux";
 import Preloader from "../Components/Preloader/Preloader";
-import {initializeAppThunk} from "./AppReducer";
+import {initializeAppThunk} from "../Store/AppReducer";
 
 function App() {
     const isInitialize = useSelector<AppRootReducerType, boolean>(state => state.app.isInitialized)

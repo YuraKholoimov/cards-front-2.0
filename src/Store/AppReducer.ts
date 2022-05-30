@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../Api/LoginApi";
-import {setIsLoggedIn} from "../Store/LoginReducer";
+import {setIsLoggedIn} from "./LoginReducer";
 
 export type InitialStateType = {
     status: boolean
