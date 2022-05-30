@@ -1,9 +1,16 @@
+import {applyMiddleware, combineReducers, createStore } from "redux";
+import {AppReducer} from "./AppReducer";
+import thunk from "redux-thunk";
+import {authReducer} from "./LoginReducer";
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {AuthActionsType, registerReducer} from "./registerReducer";
 import {appReducer, AppReducerActionsType} from "./AppReducer";
 import {useDispatch} from "react-redux";
+
 const rootReducer = combineReducers({
+    app: AppReducer,
+    auth: authReducer,
     app: appReducer,
     register: registerReducer,
     profilePage: profilePageReducer

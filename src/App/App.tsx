@@ -12,6 +12,13 @@ import {useEffect} from "react";
 import Preloader from "../Components/UI/common/Preloader/Preloader";
 import {initializeAppTC} from "../Store/AppReducer";
 import ProfilePage from "../Components/Pages/Profile/ProfilePage";
+import React, {useEffect} from "react";
+import {ThunkDispatch} from "redux-thunk";
+import {AppRootReducerType} from "../Store/Store";
+import {ActionsType} from "../Store/LoginReducer";
+import {useDispatch, useSelector} from "react-redux";
+import Preloader from "../Components/Preloader/Preloader";
+import {initializeAppThunk} from "../Store/AppReducer";
 
 function App() {
 
@@ -26,6 +33,16 @@ function App() {
     if (!isInitialized) {
         return <Preloader/>
     }
+    const isInitialize = useSelector<AppRootReducerType, boolean>(state => state.app.isInitialized)
+    const dispatch:ThunkDispatch<AppRootReducerType, unknown, ActionsType> = useDispatch()
+    useEffect(() => {
+        dispatch(initializeAppThunk())
+
+
+    }, [])
+if(!isInitialize) {
+    return    <Preloader/>
+}
     return (
         <div className="App">
             <Routes>

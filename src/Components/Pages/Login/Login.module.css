@@ -1,0 +1,11 @@
+.btnLogin {
+    margin-top: 50px;
+}
+.error {
+    position: absolute;
+    color: red;
+    width: 100%;
+}
+.inp {
+    margin-top: 40px;
+}
