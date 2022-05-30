@@ -4,10 +4,27 @@ import Login from "../Components/Pages/Login/Login";
 import NotFound from "../Components/Pages/404/404";
 import Test from '../Components/Pages/Test/Test';
 import Home from "../Components/Pages/Home/Home";
-import Registration from "../Components/Pages/Registration/Registration";
 import Profile from "../Components/Pages/Profile/Profile";
+import {Registration} from "../Components/Pages/Registration/Registration";
+import {useSelector} from "react-redux";
+import {AppRootStateType, useAppDispatch} from "../Store/Store";
+import {useEffect} from "react";
+import Preloader from "../Components/UI/common/Preloader/Preloader";
+import {initializeAppTC} from "../Store/AppReducer";
 
 function App() {
+
+    const dispatch = useAppDispatch();
+
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+
+    useEffect(() => {
+        dispatch(initializeAppTC())
+    }, [dispatch])
+
+    if (!isInitialized) {
+        return <Preloader/>
+    }
     return (
         <div className="App">
             <Routes>
