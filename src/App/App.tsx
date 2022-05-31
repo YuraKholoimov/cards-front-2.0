@@ -3,19 +3,18 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Login from "../Components/Pages/Login/Login";
 import NotFound from "../Components/Pages/404/404";
 import Test from '../Components/Pages/Test/Test';
-import Home from "../Components/Pages/Home/Home";
 import {Registration} from "../Components/Pages/Registration/Registration";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../Store/Store";
 import ProfilePage from "../Components/Pages/Profile/ProfilePage";
 import React, {useEffect} from "react";
-import {ThunkDispatch} from "redux-thunk";
-import {ActionsType} from "../Store/LoginReducer";
 import {PasswordRestore} from '../Components/Pages/Password_Restore/PasswordRestore';
 import {CheckEmail} from '../Components/Pages/Password_Restore/CheckEmail/CheckEmail';
 import {NewPassword} from '../Components/Pages/Password_Restore/NewPassword/NewPassword';
-import {initializeAppThunk, isInitializedAc } from '../Store/AppReducer';
+import {initializeAppThunk} from '../Store/AppReducer';
 import Preloader from '../Components/UI/common/Preloader/Preloader';
+import Profile from "../Components/Pages/Profile/Profile";
+import {LoadingHOC} from "../HOC/LoadingHOC";
 
 export const PATH = {
     LOGIN: '/login',
@@ -26,6 +25,7 @@ export const PATH = {
     CHECK_EMAIL: '/check-email',
     TEST: '/test',
     NOT_FOUND: '/404',
+    EDIT_PROFILE: '/edit-profile',
 }
 
 function App() {
@@ -38,7 +38,6 @@ function App() {
         dispatch(initializeAppThunk())
     }, [])
 
-
     if (!isInitialized) {
         return <Preloader/>
     }
@@ -48,7 +47,8 @@ function App() {
                 <Route path={'/'} element={<Login/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
-                <Route path={PATH.PROFILE} element={<ProfilePage/>}/>
+                <Route path={PATH.PROFILE} element={<LoadingHOC><Profile/></LoadingHOC>}/>
+                <Route path={PATH.EDIT_PROFILE} element={<LoadingHOC><ProfilePage/></LoadingHOC>}/>
                 <Route path={'/*'} element={<Navigate to={PATH.NOT_FOUND}/>}/>
                 <Route path={PATH.NOT_FOUND} element={<NotFound/>}/>
                 <Route path={PATH.PASSWORD_RESTORE} element={<PasswordRestore/>}/>

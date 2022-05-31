@@ -16,7 +16,7 @@ import {AppRootStateType} from '../../../Store/Store';
 
 const Login = () => {
     const dispatch: ThunkDispatch<AppRootStateType, unknown, ActionsType> = useDispatch()
-    const isLogin = useSelector<AppRootStateType, boolean>(state => state.auth.isInitialize)
+    const isLogin = useSelector<AppRootStateType, boolean>(state => state.auth.isLogin)
     const error = useSelector<AppRootStateType, string>(state => state.auth.error)
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.status)
     const validations = yup.object().shape({
@@ -80,7 +80,8 @@ const Login = () => {
                                 <label>
                                     Password
                                 </label>
-                                <SuperInputPassword name={'password'}
+                                <SuperInputPassword
+                                    name={'password'}
                                                     onChange={handleChange}
                                                     onBlur={handleBlur}
                                                     value={values.password}/>
@@ -98,7 +99,7 @@ const Login = () => {
 
                             </div>
 
-                            <SuperButton onClick={() => {
+                            <SuperButton  onClick={() => {
                                 handleSubmit()
                             }} style={{padding: '10px 60px'}}>Login</SuperButton>
                             <div className={s.text}>

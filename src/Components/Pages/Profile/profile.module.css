@@ -1,0 +1,20 @@
+.text {
+    font-size: 20px;
+}
+
+.link {
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.profileContainer {
+    display: flex;
+    justify-content: center;
+}
+
+.img {
+    width: 20px;
+}
+.btn {
+    margin-top: 10px;
+}

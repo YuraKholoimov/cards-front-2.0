@@ -2,6 +2,7 @@ import {Dispatch} from "redux";
 import {api} from "../Api/Api";
 
 import {setIsLoggedIn} from "./LoginReducer";
+import {setProfileAC, setProfileType} from "../Components/Pages/Profile/profileReducer";
 
 export type InitialStateType = {
     status: boolean
@@ -42,14 +43,15 @@ export const setStatus = (status: boolean) => {
 
 export const initializeAppThunk = () => (dispatch: Dispatch<ActionsType>) => {
     api.me()
-        .then(() => {
+        .then((res) => {
             dispatch(setIsLoggedIn(true))
+            dispatch(setProfileAC(res.data))
         })
         .finally(() => {
             dispatch(isInitializedAc(true))
         })
 }
 
-export type ActionsType = isInitializedType | setStatusType | setIsLoggedIn
+export type ActionsType = isInitializedType | setStatusType | setIsLoggedIn | setProfileType
 export type setStatusType = ReturnType<typeof setStatus>
 export type isInitializedType = ReturnType<typeof isInitializedAc>

@@ -8,12 +8,14 @@ export type ReturnParamsType = {
     avatar?: string;
     publicCardPacksCount: number;
 // количество колод
-
-    created: Date;
-    updated: Date;
+    __v: number | null,
+    created: string;
+    updated: string;
     isAdmin: boolean;
     verified: boolean;
     rememberMe: boolean;
+    token: string
+    tokenDeathTime: string
 
     error?: string;
 }
@@ -29,9 +31,6 @@ type RegistrationResponseType = {
     error?: string
 }
 export const api = {
-    registration(email: string, password: number) {
-        return instance.post('/auth/register', {email, password})
-    },
     login(data: LoginParamsType) {
         return instance.post<ReturnParamsType>('/auth/login', data)
     },

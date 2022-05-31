@@ -1,10 +1,10 @@
-
 import {Dispatch} from "redux";
-import { api, LoginParamsType } from "../Api/Api";
-import { setStatus, setStatusType } from "./AppReducer";
+import {api, LoginParamsType} from "../Api/Api";
+import {setStatus, setStatusType} from "./AppReducer";
+import {setProfileAC, setProfileType} from "../Components/Pages/Profile/profileReducer";
 
 const initialState = {
-    isInitialize: false,
+    isLogin: false,
     error: ''
 }
 type InitialStateType = typeof initialState
@@ -12,7 +12,7 @@ type InitialStateType = typeof initialState
 export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
         case 'LOGIN/SET-IS-LOGGED-IN':
-            return {...state, isInitialize: action.payload}
+            return {...state, isLogin: action.payload}
         case "LOGIN/SET-ERROR":
             return {...state, error: action.payload}
         default:
@@ -34,12 +34,14 @@ export const loginThunk = (data: LoginParamsType) => (dispatch: Dispatch<Actions
     api.login(data)
         .then((res) => {
             dispatch(setIsLoggedIn(true))
+            console.log(res.data)
+            dispatch(setProfileAC(res.data))
 
         })
         .catch((err) => {
             dispatch(setError(err.response.data.error))
-                    })
-        .finally(()=>{
+        })
+        .finally(() => {
             dispatch(setStatus(false))
         })
 }
@@ -48,17 +50,15 @@ export const logoutThunk = () => (dispatch: Dispatch<ActionsType>) => {
     api.logout()
         .then((res) => {
             dispatch(setIsLoggedIn(false))
-
-
         })
-        .finally(()=>{
+        .finally(() => {
             dispatch(setStatus(false))
         })
 
 }
 
 // types
-export type ActionsType =  setIsLoggedIn | ReturnType<typeof setError>  | setStatusType
+export type ActionsType = setIsLoggedIn | ReturnType<typeof setError> | setStatusType | setProfileType
 export type  setIsLoggedIn = ReturnType<typeof setIsLoggedIn>
 // function setStatus(arg0: boolean): any {
 //     // throw new Error("Function not implemented.");
