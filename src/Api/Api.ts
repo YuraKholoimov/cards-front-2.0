@@ -29,9 +29,6 @@ type RegistrationResponseType = {
     error?: string
 }
 export const api = {
-    registration(email: string, password: number) {
-        return instance.post('/auth/register', {email, password})
-    },
     login(data: LoginParamsType) {
         return instance.post<ReturnParamsType>('/auth/login', data)
     },
