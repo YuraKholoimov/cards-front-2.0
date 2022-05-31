@@ -5,14 +5,14 @@ import {AuthActionsType, registerReducer} from "./registerReducer";
 import {useDispatch} from "react-redux";
 import {ActionsType, passwordRestoreReducer} from '../Components/Pages/Password_Restore/PasswordRestore-reducer';
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
-import { profilePageReducer } from "../Components/Pages/Profile/profilePageReducer";
+import { editProfileReducer } from "../Components/Pages/Profile/editProfileReducer";
 import { appReducer } from "./AppReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
     register: registerReducer,
-    profilePage: profilePageReducer,
+    profilePage: editProfileReducer,
     restore: passwordRestoreReducer
 })
 

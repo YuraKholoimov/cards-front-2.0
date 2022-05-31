@@ -19,7 +19,7 @@ const initState = {
 }
 
 //---- Reducer
-export const profilePageReducer = (state: initStateProfilePage = initState, action: ActionTypes) => {
+export const editProfileReducer = (state: initStateProfilePage = initState, action: ActionTypes) => {
     switch (action.type) {
         case "SET-PROFILE":
             return state

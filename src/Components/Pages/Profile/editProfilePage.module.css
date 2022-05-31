@@ -1,0 +1,18 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.spanText {
+    color: black;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 20px 0;
+
+}
