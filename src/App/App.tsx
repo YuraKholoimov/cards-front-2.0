@@ -3,18 +3,15 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import Login from "../Components/Pages/Login/Login";
 import NotFound from "../Components/Pages/404/404";
 import Test from '../Components/Pages/Test/Test';
-import Home from "../Components/Pages/Home/Home";
 import {Registration} from "../Components/Pages/Registration/Registration";
 import {useSelector} from "react-redux";
 import {AppRootStateType, useAppDispatch} from "../Store/Store";
 import ProfilePage from "../Components/Pages/Profile/ProfilePage";
 import React, {useEffect} from "react";
-import {ThunkDispatch} from "redux-thunk";
-import {ActionsType} from "../Store/LoginReducer";
 import {PasswordRestore} from '../Components/Pages/Password_Restore/PasswordRestore';
 import {CheckEmail} from '../Components/Pages/Password_Restore/CheckEmail/CheckEmail';
 import {NewPassword} from '../Components/Pages/Password_Restore/NewPassword/NewPassword';
-import {initializeAppThunk, isInitializedAc } from '../Store/AppReducer';
+import {initializeAppThunk } from '../Store/AppReducer';
 import Preloader from '../Components/UI/common/Preloader/Preloader';
 
 export const PATH = {
