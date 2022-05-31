@@ -67,7 +67,7 @@ const Login = () => {
                             {error && <div className={s.error}>{error}</div>}
                             <div className={s.input}>
                                 <label>
-                                    Email
+                                    Email 
                                 </label>
                                 <SuperInputText resetError={resetError}
                                                 type={'text'}
