@@ -1,5 +1,6 @@
 import {Dispatch} from 'react';
-import { authAPI } from '../../../api/authAPI';
+import {api} from '../../../Api/Api';
+import {setStatus, setStatusType} from '../../../Store/AppReducer';
 
 const initialState = {
     isSend: false,
@@ -20,23 +21,35 @@ export const passwordRestoreReducer = (state: InitialStateType = initialState, a
 
 // Types
 type InitialStateType = typeof initialState
-export type ActionsType = ReturnType<typeof passwordRestoreAC> | ReturnType<typeof setIsChangedPassword>
+export type ActionsType = ReturnType<typeof passwordRestoreAC> | ReturnType<typeof setIsChangedPassword> | setStatusType
 
 // Actions && ActionsCreators
 const passwordRestoreAC = (email: string, isSend: boolean) => ({type: 'IS_SEND', payload: {email, isSend}} as const)
-const setIsChangedPassword = (isChangedPassword: boolean) => ({type: 'SET_NEW_PASSWORD', payload: {isChangedPassword}} as const)
+const setIsChangedPassword = (isChangedPassword: boolean) => ({
+    type: 'SET_NEW_PASSWORD',
+    payload: {isChangedPassword}
+} as const)
 
 //Thunks
 export const sendEmailTC = (email: string) => (dispatch: Dispatch<ActionsType>) => {
-     authAPI.sendEmail(email)
+    dispatch(setStatus(true))
+    api.sendEmail(email)
         .then(() => {
-            dispatch(passwordRestoreAC(email,true))
+            dispatch(passwordRestoreAC(email, true))
             // return res
         })
+        .finally(() => {
+        dispatch(setStatus(false))
+    })
 }
 export const setNewPasswordTC = (password: string) => (dispatch: Dispatch<ActionsType>) => {
-    authAPI.setNewPassword(password)
+
+    dispatch(setStatus(true))
+    api.setNewPassword(password)
         .then(() => {
             dispatch(setIsChangedPassword(true))
+        })
+        .finally(() => {
+            dispatch(setStatus(false))
         })
 }

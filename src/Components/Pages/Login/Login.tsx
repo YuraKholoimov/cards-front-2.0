@@ -4,20 +4,21 @@ import SuperCheckbox from "../../UI/SuperCheckbox/SuperCheckbox";
 import SuperButton from "../../UI/SuperButton/SuperButton";
 import * as yup from 'yup'
 import s from './Login.module.css'
+import {Frame} from "../../UI/common/Frame/Frame";
 import {useDispatch, useSelector} from "react-redux";
-import {AppRootReducerType} from "../../../Store/Store";
 import {ThunkDispatch} from 'redux-thunk';
 import {ActionsType, loginThunk, setError} from "../../../Store/LoginReducer";
 import {Navigate, NavLink} from 'react-router-dom';
 import SuperInputPassword from "../../UI/SuperInputPassword/SuperInputPassword";
 import Preloader from "../../Preloader/Preloader";
 import {Formik} from 'formik';
+import {AppRootStateType} from '../../../Store/Store';
 
 const Login = () => {
-    const dispatch: ThunkDispatch<AppRootReducerType, unknown, ActionsType> = useDispatch()
-    const isLogin = useSelector<AppRootReducerType, boolean>(state => state.auth.isInitialize)
-    const error = useSelector<AppRootReducerType, string>(state => state.auth.error)
-    const status = useSelector<AppRootReducerType, boolean>(state => state.app.status)
+    const dispatch: ThunkDispatch<AppRootStateType, unknown, ActionsType> = useDispatch()
+    const isLogin = useSelector<AppRootStateType, boolean>(state => state.auth.isInitialize)
+    const error = useSelector<AppRootStateType, string>(state => state.auth.error)
+    const loading = useSelector<AppRootStateType, boolean>(state => state.app.status)
     const validations = yup.object().shape({
         email: yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
         password: yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
@@ -25,24 +26,13 @@ const Login = () => {
     })
 
     const resetError = () => dispatch(setError(''));
-    // const loginHandler = (values: any) => {
-    //     dispatch(loginThunk(values))
-    // }
-    // const loginPressKeyHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    //     if (e.key === 'Enter') {
-    //         loginHandler()
-    //     }
-    // }
-
-
     if (isLogin) {
         return <Navigate to={'/profile'}/>
     }
-    if (status) {
+    if (loading) {
         return <Preloader/>
     }
     return (
-
         <Formik initialValues={
             {
                 email: '',
@@ -53,7 +43,7 @@ const Login = () => {
         }
                 validateOnBlur
                 onSubmit={(values) => {
-                    debugger
+                    console.log(values)
                     dispatch(loginThunk(values))
                 }}
                 validationSchema={validations}
@@ -69,61 +59,59 @@ const Login = () => {
                   handleSubmit,
               }) => {
                 return (
-                    <div>
-                        <h3>It-incubator</h3>
-                        <h3>Sign in</h3>
-                        <div>
-                            {/*name обязательно и должно совпадать с initialValues*/}
+                    <>
+                        {loading && <Preloader/>}
+                        <Frame>
+                            <span><strong>It-incubator</strong></span>
+                            <h2>Sign in</h2>
+                            {error && <div className={s.error}>{error}</div>}
+                            <div className={s.input}>
+                                <label>
+                                    Email
+                                </label>
+                                <SuperInputText resetError={resetError}
+                                                type={'text'}
+                                                name={'email'}
+                                                onChange={handleChange}
+                                                onBlur={handleBlur}
+                                                value={values.email}/>
+                            </div>
+                            <div className={s.input}>
+                                <label>
+                                    Password
+                                </label>
+                                <SuperInputPassword name={'password'}
+                                                    onChange={handleChange}
+                                                    onBlur={handleBlur}
+                                                    value={values.password}/>
+                            </div>
+                            <div className={s.input}>
 
-                            <SuperInputText
-                                className={s.inp}
-                                resetError={resetError}
-                                type={'text'}
-                                name={'email'}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.email}
-                            />
-                            <span>{touched.email && errors.email &&
-                                <div className={s.error}>{errors.email}</div>}</span>
-                        </div>
+                                <SuperCheckbox name={'rememberMe'}
+                                               onChange={handleChange}
+                                               onBlur={handleBlur}
+                                               checked={values.rememberMe}/>
+                                <label>
+                                    Remember me
+                                </label>
+                                <span className={s.linkItem}><NavLink className={s.link} to={'/password-restore'}>Forgot password?</NavLink></span>
 
-                        <div className={s.inpContainer}>
-                            <SuperInputPassword
-                                className={s.inp}
-                                resetError={resetError}
-                                name={'password'}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                value={values.password}
-                            />
-                            <span>{touched.password && errors.password &&
-                                <div className={s.error}>{errors.password}</div>}</span>
-                        </div>
-                        {error && <div className={s.error}>{error}</div>}
-                        <div className={s.inpContainer}>
-                            <input name={'rememberMe'}
-                                   className={s.inp} onChange={handleChange}
-                                   type="checkbox"/>remember me
-                        </div>
-                        <SuperButton className={s.btn}
-                                     onClick={() => {
-                                         handleSubmit()
-                                     }}
-                        >Login
-                        </SuperButton>
-                        <div>
-                            Don't have an account?
-                        </div>
-                        <NavLink to={'/registration'}>
+                            </div>
 
-                            Sign up
+                            <SuperButton onClick={() => {
+                                handleSubmit()
+                            }} style={{padding: '10px 60px'}}>Login</SuperButton>
+                            <div className={s.text}>
+                                Don't have an account?
+                            </div>
+                            <p>
+                                <NavLink to={'/registration'} className={s.linkLogin}>
+                                    <p className={s.signUpText}>Sign up</p>
+                                </NavLink>
+                            </p>
 
-                        </NavLink>
-
-                    </div>
-
-
+                        </Frame>
+                    </>
                 )
             }}
 

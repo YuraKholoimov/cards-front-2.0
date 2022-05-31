@@ -1,6 +1,7 @@
-import {authAPI, LoginParamsType} from "../Api/LoginApi";
+
 import {Dispatch} from "redux";
-import {isInitializedType, setStatus, setStatusType} from "./AppReducer";
+import { api, LoginParamsType } from "../Api/Api";
+import { setStatus, setStatusType } from "./AppReducer";
 
 const initialState = {
     isInitialize: false,
@@ -30,9 +31,8 @@ export const setError = (error: string) => ({
 //thunk
 export const loginThunk = (data: LoginParamsType) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setStatus(true))
-    authAPI.login(data)
+    api.login(data)
         .then((res) => {
-            console.log(res)
             dispatch(setIsLoggedIn(true))
 
         })
@@ -45,15 +45,22 @@ export const loginThunk = (data: LoginParamsType) => (dispatch: Dispatch<Actions
 }
 export const logoutThunk = () => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setStatus(true))
-    authAPI.logout()
+    api.logout()
         .then((res) => {
             dispatch(setIsLoggedIn(false))
-            dispatch(setStatus(false))
 
+
+        })
+        .finally(()=>{
+            dispatch(setStatus(false))
         })
 
 }
 
 // types
-export type ActionsType = isInitializedType | setStatusType | setIsLoggedIn | ReturnType<typeof setError>
+export type ActionsType =  setIsLoggedIn | ReturnType<typeof setError>  | setStatusType
 export type  setIsLoggedIn = ReturnType<typeof setIsLoggedIn>
+// function setStatus(arg0: boolean): any {
+//     // throw new Error("Function not implemented.");
+// }
+

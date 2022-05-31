@@ -1,11 +1,39 @@
-.btnLogin {
-    margin-top: 50px;
+.input {
+    margin-bottom: 20px;
+    text-align: left;
 }
+
 .error {
-    position: absolute;
     color: red;
-    width: 100%;
+    font-weight: 700;
+    text-align: left;
+    margin-bottom: 20px;
 }
-.inp {
-    margin-top: 40px;
+.text {
+    margin-top: 20px;
+}
+.linkItem {
+    margin-left: 50px;
+}
+.link {
+    text-decoration: none;
+    color: black;
+}
+
+.linkLogin {
+    text-decoration: none;
+}
+
+.signUpText {
+    display: inline;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    color: #8aa88f;
+    border: 2px solid #F9F9FE;
+}
+
+.signUpText:hover {
+    border-bottom: 2px solid #21268F;
 }

@@ -21,7 +21,7 @@ export const initializedAppState = (isInitialized: boolean) => ({type: 'APP/ISIN
 
 //----- Thunk
 export const initializeApp = () => (dispatch: Dispatch) => {
-    api.authMe()
+    api.me()
         .then(data => console.log(data))
 }
 

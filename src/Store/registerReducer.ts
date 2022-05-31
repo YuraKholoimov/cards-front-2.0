@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {authAndProfileApi} from "../Components/DAL/authAndProfileApi";
-import {setErrorAC, setLoadingAC} from "./AppReducer";
+import { api } from "../Api/Api";
+import { setStatus } from "./AppReducer";
 import {AppThunkType} from "./Store";
 
 const initialState = {
@@ -32,18 +32,18 @@ type setRegisterType = ReturnType<typeof setRegister>
 // thunk
 export const registerTC = (email: string, password: string): AppThunkType => {
     return (dispatch: Dispatch) => {
-        dispatch(setLoadingAC(true));
-        authAndProfileApi.register(email, password)
+        dispatch(setStatus(true));
+        api.register(email, password)
             .then(() => {
                 dispatch(setRegister(true))
-                dispatch(setErrorAC(''))
+                // dispatch(setErrorAC(''))
             })
             .catch(e => {
                 const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
-                dispatch(setErrorAC(error))
+                // dispatch(setErrorAC(error))
             })
             .finally(() => {
-                dispatch(setLoadingAC(false));
+                dispatch(setStatus(false));
             })
     }
 };

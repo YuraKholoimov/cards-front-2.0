@@ -1,5 +1,6 @@
 import {Dispatch} from "redux"
 import {api} from "../../../Api/Api";
+import { setStatus, setStatusType } from "../../../Store/AppReducer";
 
 const initState = {
     _id: '',
@@ -33,6 +34,7 @@ const updateProfile = (name: string, avatar: string) => ({type: "UPDATE-PROFILE"
 
 //---- Thunk
 export const editProfile = (name: string, avatar: string) => (dispatch: Dispatch) => {
+    dispatch(setStatus(true));
     api.updateMe(name, avatar)
         .then(res => {
             let {name, avatar} = res.data.updatedUser
@@ -40,9 +42,12 @@ export const editProfile = (name: string, avatar: string) => (dispatch: Dispatch
             dispatch(updateProfile(name, avatar))
         })
         .catch(rej => {console.log(rej)})
+        .finally(()=>{
+            dispatch(setStatus(false));
+        })
 }
 
 //---- Type
 export type initStateProfilePage = typeof initState
-export type ActionTypes = ReturnType<typeof setProfile>
+export type ActionTypes = ReturnType<typeof setProfile> | setStatusType
     | ReturnType<typeof updateProfile>

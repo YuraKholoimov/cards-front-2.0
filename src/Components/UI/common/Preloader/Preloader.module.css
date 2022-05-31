@@ -17,7 +17,7 @@ figure div:after{
     content:"";
     width:20px;
     height:20px;
-    border:1px solid #fff;
+    border:1px solid black;
     box-sizing:border-box;
     position:absolute;
     left:20px;

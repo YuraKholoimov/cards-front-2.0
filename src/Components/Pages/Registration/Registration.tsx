@@ -6,7 +6,6 @@ import SuperInputText from "../../UI/SuperInputText/SuperInputText";
 import Preloader from '../../UI/common/Preloader/Preloader';
 import {Frame} from "../../UI/common/Frame/Frame";
 import SuperInputPassword from "../../UI/SuperInputPassword/SuperInputPassword";
-import {setErrorAC} from "../../../Store/AppReducer";
 import {registerTC, setRegister} from "../../../Store/registerReducer";
 import SuperButton from "../../UI/SuperButton/SuperButton";
 import {AppRootStateType, useAppDispatch} from "../../../Store/Store";
@@ -17,20 +16,20 @@ export const Registration = () => {
     const [confirmPassword, setConfirmPassword] = useState<string>('');
 
     const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
-    const error = useSelector<AppRootStateType, string>(state => state.app.error)
-    const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading);
+    // const error = useSelector<AppRootStateType, string>(state => state.app.error)
+    const loading = useSelector<AppRootStateType, boolean>(state => state.app.status);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         return () => {
             dispatch(setRegister(false));
-            dispatch(setErrorAC(''))
+            // dispatch(setErrorAC(''))
         }
     }, [])
 
     const onClickHandler = () => {
         if (password !== confirmPassword) {
-            dispatch(setErrorAC('Password and confirmation password do not match'))
+            // dispatch(setErrorAC('Password and confirmation password do not match'))
         } else {
 
             dispatch(registerTC(email, password))
@@ -47,7 +46,7 @@ export const Registration = () => {
             <Frame>
                 <span><strong>It-incubator</strong></span>
                 <h2>Sign up</h2>
-                {error && <div className={s.error}>{error}</div>}
+                {/*{error && <div className={s.error}>{error}</div>}*/}
                 <div className={s.input}>
                     <label>
                         Email
