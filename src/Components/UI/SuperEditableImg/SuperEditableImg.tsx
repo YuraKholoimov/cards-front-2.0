@@ -1,5 +1,5 @@
 import React, {DetailedHTMLProps, InputHTMLAttributes, HTMLAttributes, useState} from 'react'
-import s from './superInput.module.css'
+import s from './superEdiableImg.module.css'
 import SuperInputText from "../SuperInputText/SuperInputText";
 
 // тип пропсов обычного инпута
@@ -14,11 +14,12 @@ type SuperEditableSpanType = DefaultInputPropsType & { // и + ещё пропс
     onEnter?: () => void
     error?: string
     spanClassName?: string
+    src: string
 
     spanProps?: DefaultSpanPropsType // пропсы для спана
 }
 
-const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
+const SuperEditableImg: React.FC<SuperEditableSpanType> = (
     {
         autoFocus, // игнорировать изменение этого пропса
         onBlur,
@@ -47,14 +48,13 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
         onDoubleClick && onDoubleClick(e)
     }
 
-    const spanClassName = `${s.spanClassName} ${className}`
-
     return (
         <>
             {
                 editMode
                     ? (
                         <SuperInputText
+                            className={s.input}
                             autoFocus // пропсу с булевым значением не обязательно указывать true
                             onBlur={onBlurCallback}
                             onEnter={onEnterCallback}
@@ -62,23 +62,16 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
                             {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
                         />
                     ) : (
-                        <span
-                            className={` ${!children && s.fillInField }   ${spanClassName} `}
+                        <img
+                            className={s.img}
+                            src={restProps.src}
                             onDoubleClick={onDoubleClickCallBack}
-
-                            {...restSpanProps}
-                        >
-                        {/*если нет захардкодженного текста для спана, то значение инпута*/}
-
-                            {children || restProps.value}
-                            <img style={{height:'30px', padding: "0 0 0 10px"}}
-                                 src="https://cdn.icon-icons.com/icons2/1744/PNG/512/3643749-edit-pen-pencil-write-writing_113397.png"
-                                 alt=""/>
-                    </span>
+                            alt=""
+                        />
                     )
             }
         </>
     )
 }
 
-export default SuperEditableSpan
+export default SuperEditableImg

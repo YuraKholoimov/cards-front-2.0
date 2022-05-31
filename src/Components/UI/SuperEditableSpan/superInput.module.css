@@ -1,4 +1,19 @@
 .spanClassName {
+    display: flex;
+    justify-content: center;
     color: #b2b2b2;
     font-style: italic;
+    height: 30px;
+    padding: 0 0 15px;
+    font-size: 20px;
+    cursor: pointer;
 }
+
+.fillInField {
+    font-size: 22px;
+    color: black;
+    font-style: normal;
+    cursor: pointer;
+}
+
+

@@ -1,4 +1,6 @@
-import {setStatusType} from "../../../Store/AppReducer";
+import {setStatus, setStatusType} from "../../../Store/AppReducer";
+import {Dispatch} from "redux";
+import {api} from "../../../Api/Api";
 
 type InitStateType = {
     _id: string;
@@ -16,12 +18,11 @@ type InitStateType = {
     token: string
     tokenDeathTime: string
 
-    error?: string;
+    // error?: string;
 }
 
 
 const initState: InitStateType = {
-
     avatar: '',
     created: '',
     email: '',
@@ -31,7 +32,7 @@ const initState: InitStateType = {
     rememberMe: false,
     token: '',
     tokenDeathTime: '',
-    updated: "2022-05-31T09:26:58.954Z",
+    updated: "",
     verified: false,
     __v: null,
     _id: '',
@@ -50,21 +51,42 @@ export const profileReducer = (state: initStateProfilePage = initState, action: 
                 avatar: action.data.avatar,
                 email: action.data.email,
                 _id: action.data._id,
-
             }
+        case "UPDATE-PROFILE":
+            return {...state, name: action.name, avatar: action.avatar}
 
     }
     return state
 }
 //---- Actions
-export const setProfileAC = (data: InitStateType) => ({type: "SET-PROFILE", data} as const)
-const updateProfile = (name: string, avatar: string) => ({type: "UPDATE-PROFILE", name, avatar} as const)
+export const setProfileAC = (data: initStateProfilePage) => ({type: "SET-PROFILE", data} as const)
+export const updateProfile = (name: string, avatar: string) => ({type: "UPDATE-PROFILE", name, avatar} as const)
 
 //---- Thunk
+export const editProfile = (name: string, avatar: string) => (dispatch: Dispatch) => {
+    dispatch(setStatus(true));
+    api.updateMe(name, avatar)
+        .then(res => {
+            let {name, avatar} = res.data.updatedUser
+            console.log(res.data.updatedUser)
+            dispatch(updateProfile(name, avatar))
+        })
+        .catch(rej => {
+            console.log(rej)
+        })
+        .finally(() => {
+            dispatch(setStatus(false));
+        })
+}
 
 
 //---- Type
 export type initStateProfilePage = typeof initState
-export type ActionTypes = setProfileType | setStatusType
 
 export type setProfileType = ReturnType<typeof setProfileAC>
+
+export type ActionTypes =
+    | ReturnType<typeof updateProfile>
+    | setStatusType
+    | setProfileType
+

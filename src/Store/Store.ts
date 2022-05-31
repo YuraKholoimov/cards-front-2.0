@@ -5,7 +5,6 @@ import {AuthActionsType, registerReducer} from "./registerReducer";
 import {useDispatch} from "react-redux";
 import {ActionsType, passwordRestoreReducer} from '../Components/Pages/Password_Restore/PasswordRestore-reducer';
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
-import { profilePageReducer } from "../Components/Pages/Profile/profilePageReducer";
 import { appReducer } from "./AppReducer";
 import {profileReducer} from "../Components/Pages/Profile/profileReducer";
 
@@ -13,9 +12,8 @@ const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
     register: registerReducer,
-    profilePage: profilePageReducer,
     restore: passwordRestoreReducer,
-    profile:profileReducer,
+    profile: profileReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));

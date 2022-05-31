@@ -25,7 +25,11 @@ const Profile = () => {
 
             <Frame>
                 <span><strong>It-incubator</strong></span>
-                <h2>Profile info<NavLink className={s.link} to={'/edit-profile'}><img className={s.img} src={editImage} alt=""/></NavLink></h2>
+                <h2>Profile info
+                    <NavLink className={s.link} to={'/edit-profile'}>
+                        <img className={s.img} src={editImage} alt=""/>
+                    </NavLink>
+                </h2>
 
                 <div><img src={avatar} alt=""/></div>
                 <div className={s.text}><strong>NickName: </strong>
