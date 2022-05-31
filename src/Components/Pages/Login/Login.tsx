@@ -1,4 +1,4 @@
-import React, {KeyboardEvent, useState} from 'react';
+import React from 'react';
 import SuperInputText from "../../UI/SuperInputText/SuperInputText";
 import SuperCheckbox from "../../UI/SuperCheckbox/SuperCheckbox";
 import SuperButton from "../../UI/SuperButton/SuperButton";
@@ -48,7 +48,6 @@ const Login = () => {
                 }}
                 validationSchema={validations}
 
-
         >
             {({
                   values,
@@ -75,6 +74,7 @@ const Login = () => {
                                                 onChange={handleChange}
                                                 onBlur={handleBlur}
                                                 value={values.email}/>
+
                             </div>
                             <div className={s.input}>
                                 <label>

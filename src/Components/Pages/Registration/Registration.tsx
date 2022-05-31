@@ -31,7 +31,6 @@ export const Registration = () => {
         if (password !== confirmPassword) {
             // dispatch(setErrorAC('Password and confirmation password do not match'))
         } else {
-
             dispatch(registerTC(email, password))
         }
     }

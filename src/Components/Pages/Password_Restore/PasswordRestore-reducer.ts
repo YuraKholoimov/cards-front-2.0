@@ -34,7 +34,8 @@ const setIsChangedPassword = (isChangedPassword: boolean) => ({
 export const sendEmailTC = (email: string) => (dispatch: Dispatch<ActionsType>) => {
     dispatch(setStatus(true))
     api.sendEmail(email)
-        .then(() => {
+        .then((res) => {
+            console.log(res)
             dispatch(passwordRestoreAC(email, true))
             // return res
         })
@@ -43,7 +44,6 @@ export const sendEmailTC = (email: string) => (dispatch: Dispatch<ActionsType>) 
     })
 }
 export const setNewPasswordTC = (password: string) => (dispatch: Dispatch<ActionsType>) => {
-
     dispatch(setStatus(true))
     api.setNewPassword(password)
         .then(() => {
