@@ -25,7 +25,7 @@ const Login = () => {
 
     const resetError = () => dispatch(setError(''));
     if (isLogin) {
-        return <Navigate to={'/profile'}/>
+        return <Navigate to={'/c1-profile'}/>
     }
     if (loading) {
         return <Preloader/>
