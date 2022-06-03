@@ -5,7 +5,7 @@ export type ReturnParamsType = {
     _id: string;
     email: string;
     name: string;
-    avatar?: string;
+    avatar?: string | undefined;
     publicCardPacksCount: number;
 // количество колод
     __v: number | null,
