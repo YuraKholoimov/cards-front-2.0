@@ -1,6 +1,7 @@
 import {Dispatch} from 'react';
 import {api} from '../b3-dal/api';
-import {setStatus, setStatusType} from './appReducer';
+import {setStatusLoadingApp, setLoadingAppType} from './appReducer';
+import {setCatchErrorType, setError} from "./loginReducer";
 
 const initialState = {
     isSend: false,
@@ -8,48 +9,59 @@ const initialState = {
     isChangedPassword: false
 }
 
-export const passwordRestoreReducer = (state: InitialStateType = initialState, action: ActionsType) => {
+
+export const passwordRestoreReducer = (state = initialState, action: ActionsType): InitialStateType => {
     switch (action.type) {
-        case 'IS_SEND':
+        case 'IS-SEND':
             return {...state, email: action.payload.email, isSend: action.payload.isSend}
         default:
             return state
-        case 'SET_NEW_PASSWORD':
+        case 'SET-NEW-PASSWORD':
             return {...state, isChangedPassword: action.payload.isChangedPassword}
     }
 }
 
-// Types
-type InitialStateType = typeof initialState
-export type ActionsType = ReturnType<typeof passwordRestoreAC> | ReturnType<typeof setIsChangedPassword> | setStatusType
 
-// Actions && ActionsCreators
-const passwordRestoreAC = (email: string, isSend: boolean) => ({type: 'IS_SEND', payload: {email, isSend}} as const)
+//---- Actions
+const passwordRestore = (email: string, isSend: boolean) => ({type: 'IS-SEND', payload: {email, isSend}} as const)
 const setIsChangedPassword = (isChangedPassword: boolean) => ({
-    type: 'SET_NEW_PASSWORD',
+    type: 'SET-NEW-PASSWORD',
     payload: {isChangedPassword}
 } as const)
 
-//Thunks
-export const sendEmailTC = (email: string) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setStatus(true))
+
+//---- Thunks
+export const sendEmailThunk = (email: string) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setStatusLoadingApp(true))
     api.sendEmail(email)
         .then((res) => {
             console.log(res)
-            dispatch(passwordRestoreAC(email, true))
+            dispatch(passwordRestore(email, true))
             // return res
         })
         .finally(() => {
-        dispatch(setStatus(false))
-    })
+            dispatch(setStatusLoadingApp(false))
+        })
 }
-export const setNewPasswordTC = (password: string, token: string | undefined) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setStatus(true))
+export const setNewPasswordThunk = (password: string, token: string | undefined) => (dispatch: Dispatch<ActionsType>) => {
+    dispatch(setStatusLoadingApp(true))
     api.setNewPassword(password, token)
         .then(() => {
             dispatch(setIsChangedPassword(true))
         })
+        .catch((err) => {
+            dispatch(setError(err.response.data.error))
+        })
         .finally(() => {
-            dispatch(setStatus(false))
+            dispatch(setStatusLoadingApp(false))
         })
 }
+
+
+//---- Types
+type InitialStateType = typeof initialState
+export type ActionsType =
+    ReturnType<typeof passwordRestore>
+    | ReturnType<typeof setIsChangedPassword>
+    | setLoadingAppType
+    | setCatchErrorType

@@ -11,7 +11,7 @@ function App() {
 
     const dispatch = useAppDispatch();
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitializedApp)
 
     useEffect(() => {
         dispatch(initializeAppThunk())

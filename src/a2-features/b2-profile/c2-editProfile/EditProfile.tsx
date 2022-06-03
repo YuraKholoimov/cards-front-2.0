@@ -1,26 +1,19 @@
-import React, {useState} from 'react';
-import {useDispatch, useSelector} from "react-redux";
+import React from 'react';
 import {useFormik} from "formik";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import s from './EditProfilePage.module.css'
-import {editProfile, initStateProfilePage } from '../../../a1-main/b2-bll/profileReducer';
-import {AppRootStateType} from '../../../a1-main/b2-bll/store';
-import { logoutThunk } from '../../../a1-main/b2-bll/loginReducer';
+import {editProfileThunk, initStateProfilePage} from '../../../a1-main/b2-bll/profileReducer';
+import {useAppSelector, useTypedDispatch} from '../../../a1-main/b2-bll/store';
 import SuperEditableSpan from '../../../a1-main/b1-ui/common/superEditableSpan/SuperEditableSpan';
 import SuperButton from '../../../a1-main/b1-ui/common/superButton/SuperButton';
-import Preloader from '../../../a1-main/b1-ui/common/preloader/Preloader';
 import SuperEditableImg from '../../../a1-main/b1-ui/common/superEditableImg/SuperEditableImg';
-import { Frame } from '../../../a1-main/b1-ui/common/frame/Frame';
+import {Frame} from '../../../a1-main/b1-ui/common/frame/Frame';
 
 
 const EditProfile = () => {
-    const [value, setValue] = useState<string>('')
-    const profile = useSelector<AppRootStateType, initStateProfilePage>(state => state.profile)
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-    const loading = useSelector<AppRootStateType, boolean>(state => state.app.status)
-    const isLogin = useSelector<AppRootStateType, boolean>(state => state.auth.isLogin)
+    const profile = useAppSelector<initStateProfilePage>(state => state.profile)
     const navigate = useNavigate()
-    const dispatch = useDispatch<any>()
+    const dispatch= useTypedDispatch()
 
     const avatarIni = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReiyHYtDJQ0t5jCs4j_PiD5ESMvPwnvHVa3w&usqp=CAU';
 
@@ -31,20 +24,9 @@ const EditProfile = () => {
             avatar: profile.avatar
         },
         onSubmit: values => {
-            console.log(values)
-
-            dispatch(editProfile(values.nickname, values.avatar || avatarIni))
+            dispatch(editProfileThunk(values.nickname, values.avatar || avatarIni))
         }
     })
-    if (loading) {
-        return <Preloader/>
-    }
-    const logoutHandler = () => {
-        dispatch(logoutThunk())
-    }
-    if (!isLogin) {
-        return <Navigate to={'/login'}/>
-    }
     return (
         <>
             <Frame>
@@ -53,7 +35,6 @@ const EditProfile = () => {
                 <form onSubmit={formik.handleSubmit}>
                     <img
                         className={s.avatar}
-                        // src={profile.avatar  avatar}
                         src={profile.avatar || avatarIni}
                         alt="avatar"/>
                     <SuperEditableImg

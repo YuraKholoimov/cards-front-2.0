@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {useSelector} from "react-redux";
 import {Navigate, NavLink} from "react-router-dom";
 import s from './Registration.module.css';
 import {Frame} from "../../../a1-main/b1-ui/common/frame/Frame";
 import SuperInputPassword from "../../../a1-main/b1-ui/common/superInputPassword/SuperInputPassword";
 import {registerTC, setRegister} from "../../../a1-main/b2-bll/registerReducer";
 import SuperButton from "../../../a1-main/b1-ui/common/superButton/SuperButton";
-import {AppRootStateType, useAppDispatch} from "../../../a1-main/b2-bll/store";
+import {useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
 import Preloader from '../../../a1-main/b1-ui/common/preloader/Preloader';
 import SuperInputText from '../../../a1-main/b1-ui/common/superInputText/SuperInputText';
 
@@ -14,16 +13,14 @@ export const Registration = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
     const [confirmPassword, setConfirmPassword] = useState<string>('');
-
-    const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
-    // const error = useSelector<AppRootStateType, string>(state => state.app.error)
-    const loading = useSelector<AppRootStateType, boolean>(state => state.app.status);
+    const error = useAppSelector<string>(state => state.auth.error)
+    const isRegistered = useAppSelector<boolean>(state => state.register.isRegistered)
+    const loading = useAppSelector<boolean>(state => state.app.loadingApp);
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         return () => {
             dispatch(setRegister(false));
-            // dispatch(setErrorAC(''))
         }
     }, [])
 
@@ -38,14 +35,16 @@ export const Registration = () => {
     if (isRegistered) {
         return <Navigate to={'/login'}/>
     }
+    if (loading) {
+        return <Preloader/>
+    }
 
     return (
         <>
-            {loading && <Preloader/>}
             <Frame>
                 <span><strong>It-incubator</strong></span>
                 <h2>Sign up</h2>
-                {/*{error && <div className={s.error}>{error}</div>}*/}
+                {error && <div className={s.error}>{error}</div>}
                 <div className={s.input}>
                     <label>
                         Email

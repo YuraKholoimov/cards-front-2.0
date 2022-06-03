@@ -1,8 +1,8 @@
 import React from 'react';
 import s from './NewPassword.module.css'
 import SuperButton from '../../../../a1-main/b1-ui/common/superButton/SuperButton';
-import {setNewPasswordTC} from '../../../../a1-main/b2-bll/passwordRestoreReducer';
-import {useAppSelector, useTypedDispatch} from '../../../../a1-main/b2-bll/store';
+import {setNewPasswordThunk} from '../../../../a1-main/b2-bll/passwordRestoreReducer';
+import {AppRootStateType, useAppSelector, useTypedDispatch} from '../../../../a1-main/b2-bll/store';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Frame} from '../../../../a1-main/b1-ui/common/frame/Frame';
 import SuperInputPassword from '../../../../a1-main/b1-ui/common/superInputPassword/SuperInputPassword';
@@ -11,7 +11,7 @@ import * as yup from 'yup';
 import {PATH} from '../../../../a1-main/b1-ui/routes/RoutesComponent';
 
 export const NewPassword = () => {
-
+    const error = useAppSelector<string>(state => state.auth.error)
     const isChangedPassword = useAppSelector((state) => state.restore.isChangedPassword)
     const navigate = useNavigate()
     const dispatch = useTypedDispatch()
@@ -26,7 +26,7 @@ export const NewPassword = () => {
     })
 
     if (isChangedPassword) {
-        navigate(PATH.CHECK_EMAIL)
+        navigate(PATH.LOGIN)
     }
 
     return (
@@ -38,7 +38,7 @@ export const NewPassword = () => {
             validateOnBlur
             onSubmit={(values) => {
                 console.log(values)
-                dispatch(setNewPasswordTC(values.password, token))
+                dispatch(setNewPasswordThunk(values.password, token))
             }}
             validationSchema={validations}
         >
@@ -58,6 +58,7 @@ export const NewPassword = () => {
                         <Frame>
                             <span><strong>It-incubator</strong></span>
                             <h2>Create New Password</h2>
+                            {error && <div className={s.errors}>{error}</div>}
                             <div className={s.input}>
                                 <SuperInputPassword value={values.password} onChange={handleChange} name={'password'}
                                                     onBlur={handleBlur} placeholder={'New password'} className={s.input}/>

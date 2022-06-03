@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavLink, useNavigate} from 'react-router-dom';
 import {useAppSelector, useTypedDispatch} from '../../../../a1-main/b2-bll/store';
-import {sendEmailTC} from '../../../../a1-main/b2-bll/passwordRestoreReducer';
+import {sendEmailThunk} from '../../../../a1-main/b2-bll/passwordRestoreReducer';
 import s from './PasswordRestore.module.css'
 import {Frame} from '../../../../a1-main/b1-ui/common/frame/Frame';
 import {Formik} from 'formik';
@@ -12,7 +12,7 @@ import SuperInputText from '../../../../a1-main/b1-ui/common/superInputText/Supe
 import SuperButton from '../../../../a1-main/b1-ui/common/superButton/SuperButton';
 
 export const PasswordRestore = () => {
-    const loading = useAppSelector<boolean>(state => state.app.status)
+    const loading = useAppSelector<boolean>(state => state.app.loadingApp)
     const isSend = useAppSelector(state => state.restore.isSend)
     const dispatch = useTypedDispatch()
     const navigate = useNavigate()
@@ -34,7 +34,7 @@ export const PasswordRestore = () => {
             validateOnBlur
             onSubmit={(values) => {
                 console.log(values)
-                dispatch(sendEmailTC(values.email))
+                dispatch(sendEmailThunk(values.email))
             }}
             validationSchema={validations}
         >
