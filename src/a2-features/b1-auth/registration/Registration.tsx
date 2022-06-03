@@ -103,7 +103,7 @@ export const Registration = () => {
                             }} style={{padding: '10px 60px'}}>Register</SuperButton>
 
                             <p>
-                                <NavLink to={'/registration'} className={s.linkLogin}>
+                                <NavLink to={'/login'} className={s.linkLogin}>
                                     <p className={s.signUpText}>To login</p>
                                 </NavLink>
                             </p>
