@@ -28,8 +28,9 @@ export const registerThunk = (email: string, password: string): AppThunkType => 
     return (dispatch: Dispatch) => {
         dispatch(setStatusLoadingApp(true));
         api.register(email, password)
-            .then(() => {
+            .then((res) => {
                 dispatch(setRegister(true))
+                console.log(res)
             })
             .catch((err) => {
                 dispatch(setError(err.response.data.error))

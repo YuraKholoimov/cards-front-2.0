@@ -52,7 +52,6 @@ export const NewPassword = () => {
                   handleSubmit,
                   dirty
               }) => {
-                debugger
                 return (
                     <>
                         <Frame>
