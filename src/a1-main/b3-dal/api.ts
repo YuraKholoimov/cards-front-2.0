@@ -52,7 +52,7 @@ export const api = {
             from: 'test-front-developer <memories@bk.ru>',
             message: `<div style="background-color: lime; padding: 15px">
             password recovery link: 
-            <a href='https://yurakholoimov.github.io/${PATH.NEW_PASSWORD}/$token$'>link</a>
+            <a href='https://yurakholoimov.github.io/cards-front-2.0/#${PATH.NEW_PASSWORD}/$token$'>link</a>
             </div>`
         })
     },
