@@ -26,7 +26,7 @@ export const NewPassword = () => {
     })
 
     if (isChangedPassword) {
-        navigate(PATH.CHECK_EMAIL)
+        navigate(PATH.LOGIN)
     }
 
     return (

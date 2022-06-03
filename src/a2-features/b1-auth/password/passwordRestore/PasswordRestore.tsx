@@ -21,7 +21,7 @@ export const PasswordRestore = () => {
     })
 
     if (isSend) {
-        navigate(PATH.LOGIN)
+        navigate(PATH.CHECK_EMAIL)
     }
     if (loading) {
         return <Preloader/>
