@@ -9,7 +9,7 @@ const initialState = {
     isInitializedApp: false
 }
 
-export const appReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const appReducer = (state = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case "APP/IS-INITIALIZED":
             return {...state, isInitializedApp: action.payload.isInitialized}
@@ -27,7 +27,7 @@ export const setStatusLoadingApp = (status: boolean) => ({type: 'APP/SET-LOADING
 
 
 //---- Thunks
-export const initializeAppThunk = () => (dispatch: Dispatch<ActionsType>) => {
+export const initializeAppThunk = () => (dispatch: Dispatch<AppActionsType>) => {
     api.me()
         .then((res) => {
             dispatch(setIsLoggedIn(true))
@@ -41,6 +41,6 @@ export const initializeAppThunk = () => (dispatch: Dispatch<ActionsType>) => {
 
 //---- Types
 export type InitialStateType = typeof initialState
-export type ActionsType = isInitializedAppType | setLoadingAppType | setIsLoggedIn | setProfileType
+export type AppActionsType = isInitializedAppType | setLoadingAppType | setIsLoggedIn | setProfileType
 export type setLoadingAppType = ReturnType<typeof setStatusLoadingApp>
 export type isInitializedAppType = ReturnType<typeof isInitializedApp>

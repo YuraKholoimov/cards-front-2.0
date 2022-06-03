@@ -9,7 +9,7 @@ const initialState = {
 }
 
 
-export const registerReducer = (state = initialState, action: AuthActionsType): InitialStateType => {
+export const registerReducer = (state = initialState, action: RegisterActionsType): InitialStateType => {
     switch (action.type) {
         case "REGISTER/SET-REGISTER":
             return {...state, isRegistered: action.isRegistered}
@@ -24,7 +24,7 @@ export const setRegister = (isRegistered: boolean) => ({type: 'REGISTER/SET-REGI
 
 
 //---- Thunks
-export const registerTC = (email: string, password: string): AppThunkType => {
+export const registerThunk = (email: string, password: string): AppThunkType => {
     return (dispatch: Dispatch) => {
         dispatch(setStatusLoadingApp(true));
         api.register(email, password)
@@ -43,5 +43,5 @@ export const registerTC = (email: string, password: string): AppThunkType => {
 
 //---- Types
 type InitialStateType = typeof initialState
-export type AuthActionsType = setRegisterType
+export type RegisterActionsType = setRegisterType
 type setRegisterType = ReturnType<typeof setRegister>

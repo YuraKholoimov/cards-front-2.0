@@ -3,7 +3,7 @@ import * as yup from 'yup'
 import s from './Login.module.css'
 import {Navigate, NavLink} from 'react-router-dom';
 import {Formik} from 'formik';
-import {useAppSelector, useTypedDispatch} from '../../../a1-main/b2-bll/store';
+import {useAppDispatch, useAppSelector} from '../../../a1-main/b2-bll/store';
 import {loginThunk, setError} from '../../../a1-main/b2-bll/loginReducer';
 import SuperInputPassword from '../../../a1-main/b1-ui/common/superInputPassword/SuperInputPassword';
 import {Frame} from '../../../a1-main/b1-ui/common/frame/Frame';
@@ -13,7 +13,7 @@ import SuperCheckbox from '../../../a1-main/b1-ui/common/superCheckbox/SuperChec
 import SuperInputText from '../../../a1-main/b1-ui/common/superInputText/SuperInputText';
 
 const Login = () => {
-    const dispatch = useTypedDispatch()
+    const dispatch = useAppDispatch()
     const isLogin = useAppSelector<boolean>(state => state.auth.isLogin)
     const error = useAppSelector<string>(state => state.auth.error)
     const loading = useAppSelector<boolean>(state => state.app.loadingApp)

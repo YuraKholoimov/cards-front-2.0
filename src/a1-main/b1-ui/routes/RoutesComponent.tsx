@@ -31,7 +31,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
                 <Route path={PATH.PROFILE} element={<LoadingHOC><Profile/></LoadingHOC>}/>
-                <Route path={PATH.EDIT_PROFILE} element={<EditProfile/>}/>
+                <Route path={PATH.EDIT_PROFILE} element={<LoadingHOC><EditProfile/></LoadingHOC>}/>
                 <Route path={'/*'} element={<Navigate to={PATH.NOT_FOUND}/>}/>
                 <Route path={PATH.NOT_FOUND} element={<NotFound/>}/>
                 <Route path={PATH.PASSWORD_RESTORE} element={<PasswordRestore/>}/>

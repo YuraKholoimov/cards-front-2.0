@@ -21,7 +21,7 @@ const initState = {
 }
 
 
-export const profileReducer = (state = initState, action: ActionTypes):initStateProfilePage  => {
+export const profileReducer = (state = initState, action: ProfileActionType):initStateProfilePage  => {
     switch (action.type) {
         case "SET-PROFILE":
             return {
@@ -63,5 +63,5 @@ export const editProfileThunk = (name: string, avatar: string) => (dispatch: Dis
 
 //---- Types
 export type initStateProfilePage = typeof initState
-export type ActionTypes =ReturnType<typeof updateProfile> | setLoadingAppType | setProfileType
+export type ProfileActionType =ReturnType<typeof updateProfile> | setLoadingAppType | setProfileType
 export type setProfileType = ReturnType<typeof setProfile>

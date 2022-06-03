@@ -1,12 +1,12 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AuthActionsType, registerReducer} from "./registerReducer";
+import {RegisterActionsType, registerReducer} from "./registerReducer";
 import {useDispatch} from "react-redux";
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
 import {authReducer, LoginActionsType} from './loginReducer';
-import {ActionsType, appReducer} from './appReducer';
-import {passwordRestoreReducer} from "./passwordRestoreReducer";
-import {profileReducer} from "./profileReducer";
+import {AppActionsType, appReducer} from './appReducer';
+import {PasswordRestoreActionsType, passwordRestoreReducer} from "./passwordRestoreReducer";
+import {ProfileActionType, profileReducer} from "./profileReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -20,15 +20,11 @@ export const store = createStore(rootReducer, applyMiddleware(thunk));
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 // все типы экшенов для App
-export type AppActionsType = AuthActionsType | LoginActionsType
-export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>
+export type AppRootActionsType = RegisterActionsType | LoginActionsType | PasswordRestoreActionsType | ProfileActionType | AppActionsType
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 
-export const useAppDispatch = () => useDispatch<ThunkDispatch<AppRootStateType, unknown, AppActionsType>>()//require in new redux version
-
+export const useAppDispatch = () => useDispatch<ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>>()//require in new redux version
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
-
-export type TypedDispatch = ThunkDispatch<AppRootStateType, unknown, ActionsType>
-export const useTypedDispatch = () => useDispatch<TypedDispatch>()
 
 // @ts-ignore
 window.store = store;
