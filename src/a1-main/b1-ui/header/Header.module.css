@@ -1,0 +1,11 @@
+.header{
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.link{
+    text-decoration: none;
+    font-weight: bold;
+    color: black;
+}
