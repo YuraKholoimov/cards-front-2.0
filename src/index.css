@@ -7,7 +7,9 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to top, #fad0c4 20%, #ffd1ff 100%);
+  background-image: url("./a3-assets/images/pexels-aleksandar-pasaric-1415734.jpg");
+  background-size: cover;
+  background-position: center;
   min-height: 100vh;
 }
 
