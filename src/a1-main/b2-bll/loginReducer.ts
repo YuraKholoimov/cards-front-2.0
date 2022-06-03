@@ -58,8 +58,9 @@ export const logoutThunk = () => (dispatch: Dispatch<ActionsType>) => {
 }
 
 // types
-export type ActionsType = setIsLoggedIn | ReturnType<typeof setError> | setStatusType | setProfileType
+export type ActionsType = setIsLoggedIn | setCatchErrorType | setStatusType | setProfileType
 export type  setIsLoggedIn = ReturnType<typeof setIsLoggedIn>
+export type setCatchErrorType = ReturnType<typeof setError>
 // function setStatus(arg0: boolean): any {
 //     // throw new Error("Function not implemented.");
 // }

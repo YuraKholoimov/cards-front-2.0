@@ -1,7 +1,7 @@
 import {Dispatch} from 'react';
 import {api} from '../b3-dal/api';
 import {setStatus, setStatusType} from './appReducer';
-import {setError} from "./loginReducer";
+import {setCatchErrorType, setError} from "./loginReducer";
 
 const initialState = {
     isSend: false,
@@ -22,7 +22,7 @@ export const passwordRestoreReducer = (state: InitialStateType = initialState, a
 
 // Types
 type InitialStateType = typeof initialState
-export type ActionsType = ReturnType<typeof passwordRestoreAC> | ReturnType<typeof setIsChangedPassword> | setStatusType
+export type ActionsType = ReturnType<typeof passwordRestoreAC> | ReturnType<typeof setIsChangedPassword> | setStatusType | setCatchErrorType
 
 // Actions && ActionsCreators
 const passwordRestoreAC = (email: string, isSend: boolean) => ({type: 'IS_SEND', payload: {email, isSend}} as const)
@@ -51,9 +51,7 @@ export const setNewPasswordTC = (password: string, token: string | undefined) =>
             dispatch(setIsChangedPassword(true))
         })
         .catch((err) => {
-
-            console.log(err.response.data.error)
-            // dispatch(setError(err.response.data.error))
+            dispatch(setError(err.response.data.error))
         })
         .finally(() => {
             dispatch(setStatus(false))
