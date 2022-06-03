@@ -1,0 +1,31 @@
+.input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.avatar {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+
+}
+
+.changeAvatarBtn img{
+
+    height: 300px;
+    width: 300px;
+}
+
+.spanText {
+    color: black;
+}
+
+.buttons {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 20px 0;
+
+}
