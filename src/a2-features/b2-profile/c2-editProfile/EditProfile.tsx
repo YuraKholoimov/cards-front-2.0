@@ -1,24 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useFormik} from "formik";
-import {Navigate, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import s from './EditProfilePage.module.css'
-import {editProfile, initStateProfilePage } from '../../../a1-main/b2-bll/profileReducer';
+import {editProfile, initStateProfilePage} from '../../../a1-main/b2-bll/profileReducer';
 import {AppRootStateType} from '../../../a1-main/b2-bll/store';
-import { logoutThunk } from '../../../a1-main/b2-bll/loginReducer';
 import SuperEditableSpan from '../../../a1-main/b1-ui/common/superEditableSpan/SuperEditableSpan';
 import SuperButton from '../../../a1-main/b1-ui/common/superButton/SuperButton';
-import Preloader from '../../../a1-main/b1-ui/common/preloader/Preloader';
 import SuperEditableImg from '../../../a1-main/b1-ui/common/superEditableImg/SuperEditableImg';
-import { Frame } from '../../../a1-main/b1-ui/common/frame/Frame';
+import {Frame} from '../../../a1-main/b1-ui/common/frame/Frame';
 
 
 const EditProfile = () => {
-    const [value, setValue] = useState<string>('')
     const profile = useSelector<AppRootStateType, initStateProfilePage>(state => state.profile)
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-    const loading = useSelector<AppRootStateType, boolean>(state => state.app.status)
-    const isLogin = useSelector<AppRootStateType, boolean>(state => state.auth.isLogin)
     const navigate = useNavigate()
     const dispatch = useDispatch<any>()
 
@@ -31,20 +25,9 @@ const EditProfile = () => {
             avatar: profile.avatar
         },
         onSubmit: values => {
-            console.log(values)
-
             dispatch(editProfile(values.nickname, values.avatar || avatarIni))
         }
     })
-    if (loading) {
-        return <Preloader/>
-    }
-    const logoutHandler = () => {
-        dispatch(logoutThunk())
-    }
-    if (!isLogin) {
-        return <Navigate to={'/login'}/>
-    }
     return (
         <>
             <Frame>

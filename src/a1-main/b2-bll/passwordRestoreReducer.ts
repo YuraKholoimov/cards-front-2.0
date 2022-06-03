@@ -1,6 +1,7 @@
 import {Dispatch} from 'react';
 import {api} from '../b3-dal/api';
 import {setStatus, setStatusType} from './appReducer';
+import {setError} from "./loginReducer";
 
 const initialState = {
     isSend: false,
@@ -48,6 +49,11 @@ export const setNewPasswordTC = (password: string, token: string | undefined) =>
     api.setNewPassword(password, token)
         .then(() => {
             dispatch(setIsChangedPassword(true))
+        })
+        .catch((err) => {
+
+            console.log(err.response.data.error)
+            // dispatch(setError(err.response.data.error))
         })
         .finally(() => {
             dispatch(setStatus(false))
