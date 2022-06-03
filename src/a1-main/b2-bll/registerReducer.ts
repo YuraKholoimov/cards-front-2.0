@@ -1,13 +1,15 @@
 import {Dispatch} from "redux";
-import { api } from "../b3-dal/api";
-import { setStatus } from "./appReducer";
+import {api} from "../b3-dal/api";
+import {setStatusLoadingApp} from "./appReducer";
 import {AppThunkType} from "./store";
+import {setError} from "./loginReducer";
 
 const initialState = {
     isRegistered: false,
 }
 
-export const registerReducer = (state: InitialStateType = initialState, action: AuthActionsType): InitialStateType => {
+
+export const registerReducer = (state = initialState, action: RegisterActionsType): InitialStateType => {
     switch (action.type) {
         case "REGISTER/SET-REGISTER":
             return {...state, isRegistered: action.isRegistered}
@@ -16,34 +18,30 @@ export const registerReducer = (state: InitialStateType = initialState, action: 
     }
 };
 
-// type
-type InitialStateType = {
-    isRegistered: boolean
-}
 
-export type AuthActionsType = setRegisterType
+//---- Actions
+export const setRegister = (isRegistered: boolean) => ({type: 'REGISTER/SET-REGISTER', isRegistered} as const)
 
-// actions
-export const setRegister = (isRegistered: boolean) =>
-    ({type: 'REGISTER/SET-REGISTER', isRegistered} as const)
 
-type setRegisterType = ReturnType<typeof setRegister>
-
-// thunk
-export const registerTC = (email: string, password: string): AppThunkType => {
+//---- Thunks
+export const registerThunk = (email: string, password: string): AppThunkType => {
     return (dispatch: Dispatch) => {
-        dispatch(setStatus(true));
+        dispatch(setStatusLoadingApp(true));
         api.register(email, password)
             .then(() => {
                 dispatch(setRegister(true))
-                // dispatch(setErrorAC(''))
             })
-            .catch(e => {
-                const error = e.response ? e.response.data.error : (e.message + ', more details in the console');
-                // dispatch(setErrorAC(error))
+            .catch((err) => {
+                dispatch(setError(err.response.data.error))
             })
             .finally(() => {
-                dispatch(setStatus(false));
+                dispatch(setStatusLoadingApp(false));
             })
     }
 };
+
+
+//---- Types
+type InitialStateType = typeof initialState
+export type RegisterActionsType = setRegisterType
+type setRegisterType = ReturnType<typeof setRegister>

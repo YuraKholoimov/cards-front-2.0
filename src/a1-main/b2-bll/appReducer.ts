@@ -1,57 +1,46 @@
 import {Dispatch} from "redux";
 import {api} from "../b3-dal/api";
-
 import {setIsLoggedIn} from "./loginReducer";
-import {setProfileAC, setProfileType} from "./profileReducer";
+import {setProfile, setProfileType} from "./profileReducer";
 
-export type InitialStateType = {
-    status: boolean
-    isInitialized: boolean
+
+const initialState = {
+    loadingApp: false,
+    isInitializedApp: false
 }
 
-
-const initialState: InitialStateType = {
-    status: false,
-    isInitialized: false
-}
-
-export const appReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
+export const appReducer = (state = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case "APP/IS-INITIALIZED":
-            return {...state, isInitialized: action.isInitialized}
-        case "APP/SET-STATUS":
-            return {...state, status: action.status}
+            return {...state, isInitializedApp: action.payload.isInitialized}
+        case "APP/SET-LOADING-APP":
+            return {...state, loadingApp: action.payload.status}
         default:
             return state
     }
-
-
-}
-export const isInitializedAc = (isInitialized: boolean) => {
-    return {
-        type: 'APP/IS-INITIALIZED',
-        isInitialized
-
-    } as const
-}
-export const setStatus = (status: boolean) => {
-    return {
-        type: 'APP/SET-STATUS',
-        status
-    } as const
 }
 
-export const initializeAppThunk = () => (dispatch: Dispatch<ActionsType>) => {
+
+//---- Actions
+export const isInitializedApp = (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED',payload: {isInitialized}} as const)
+export const setStatusLoadingApp = (status: boolean) => ({type: 'APP/SET-LOADING-APP', payload: {status}} as const)
+
+
+//---- Thunks
+export const initializeAppThunk = () => (dispatch: Dispatch<AppActionsType>) => {
     api.me()
         .then((res) => {
             dispatch(setIsLoggedIn(true))
-            dispatch(setProfileAC(res.data))
+            dispatch(setProfile(res.data))
         })
         .finally(() => {
-            dispatch(isInitializedAc(true))
+            dispatch(isInitializedApp(true))
         })
 }
 
-export type ActionsType = isInitializedType | setStatusType | setIsLoggedIn | setProfileType
-export type setStatusType = ReturnType<typeof setStatus>
-export type isInitializedType = ReturnType<typeof isInitializedAc>
+
+//---- Types
+export type InitialStateType = typeof initialState
+export type AppActionsType = isInitializedAppType | setLoadingAppType | setIsLoggedIn | setProfileType
+export type setLoadingAppType = ReturnType<typeof setStatusLoadingApp>
+export type isInitializedAppType = ReturnType<typeof isInitializedApp>

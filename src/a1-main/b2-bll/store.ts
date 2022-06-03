@@ -1,36 +1,30 @@
-import {applyMiddleware, combineReducers, createStore } from "redux";
-import {authReducer} from "./LoginReducer";
+import {applyMiddleware, combineReducers, createStore} from "redux";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {AuthActionsType, registerReducer} from "./registerReducer";
+import {RegisterActionsType, registerReducer} from "./registerReducer";
 import {useDispatch} from "react-redux";
-import {ActionsType, passwordRestoreReducer} from '../Components/Pages/Password_Restore/PasswordRestore-reducer';
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
-import { profilePageReducer } from "../Components/Pages/Profile/profilePageReducer";
-import { appReducer } from "./AppReducer";
-import {profileReducer} from "../Components/Pages/Profile/profileReducer";
+import {authReducer, LoginActionsType} from './loginReducer';
+import {AppActionsType, appReducer} from './appReducer';
+import {PasswordRestoreActionsType, passwordRestoreReducer} from "./passwordRestoreReducer";
+import {ProfileActionType, profileReducer} from "./profileReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
     app: appReducer,
     register: registerReducer,
-    profilePage: profilePageReducer,
     restore: passwordRestoreReducer,
-    profile:profileReducer,
+    profile: profileReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 // все типы экшенов для App
-export type AppActionsType =  AuthActionsType
-export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppActionsType>
+export type AppRootActionsType = RegisterActionsType | LoginActionsType | PasswordRestoreActionsType | ProfileActionType | AppActionsType
+export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 
-export const useAppDispatch = () => useDispatch<ThunkDispatch<AppRootStateType, unknown, AppActionsType>>()//require in new redux version
-
+export const useAppDispatch = () => useDispatch<ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>>()//require in new redux version
 export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
-
-export type TypedDispatch = ThunkDispatch<AppRootStateType, any, ActionsType>
-export const useTypedDispatch = () => useDispatch<TypedDispatch>()
 
 // @ts-ignore
 window.store = store;

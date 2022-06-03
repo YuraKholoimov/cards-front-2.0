@@ -10,7 +10,7 @@ type LoginWrapperPropsType = {
 }
 export const LoadingHOC = (props: LoginWrapperPropsType) => {
     const isLogin = useSelector<AppRootStateType, boolean>(state => state.auth.isLogin)
-    const loading = useSelector<AppRootStateType, boolean>(state => state.app.status)
+    const loading = useSelector<AppRootStateType, boolean>(state => state.app.loadingApp)
     if (!isLogin) {
         return <Navigate to={'/login'}/>
     }

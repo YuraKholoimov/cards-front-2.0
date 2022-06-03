@@ -1,12 +1,10 @@
 import React from 'react';
 import * as yup from 'yup'
 import s from './Login.module.css'
-import {useDispatch, useSelector} from 'react-redux';
-import {ThunkDispatch} from 'redux-thunk';
 import {Navigate, NavLink} from 'react-router-dom';
 import {Formik} from 'formik';
-import { AppRootStateType } from '../../../a1-main/b2-bll/store';
-import {ActionsType, loginThunk, setError} from '../../../a1-main/b2-bll/loginReducer';
+import {useAppDispatch, useAppSelector} from '../../../a1-main/b2-bll/store';
+import {loginThunk, setError} from '../../../a1-main/b2-bll/loginReducer';
 import SuperInputPassword from '../../../a1-main/b1-ui/common/superInputPassword/SuperInputPassword';
 import {Frame} from '../../../a1-main/b1-ui/common/frame/Frame';
 import Preloader from '../../../a1-main/b1-ui/common/preloader/Preloader';
@@ -15,17 +13,17 @@ import SuperCheckbox from '../../../a1-main/b1-ui/common/superCheckbox/SuperChec
 import SuperInputText from '../../../a1-main/b1-ui/common/superInputText/SuperInputText';
 
 const Login = () => {
-    const dispatch: ThunkDispatch<AppRootStateType, unknown, ActionsType> = useDispatch()
-    const isLogin = useSelector<AppRootStateType, boolean>(state => state.auth.isLogin)
-    const error = useSelector<AppRootStateType, string>(state => state.auth.error)
-    const loading = useSelector<AppRootStateType, boolean>(state => state.app.status)
+    const dispatch = useAppDispatch()
+    const isLogin = useAppSelector<boolean>(state => state.auth.isLogin)
+    const error = useAppSelector<string>(state => state.auth.error)
+    const loading = useAppSelector<boolean>(state => state.app.loadingApp)
     const validations = yup.object().shape({
         email: yup.string().email('Invalid email address'),
     })
 
     const resetError = () => dispatch(setError(''));
     if (isLogin) {
-        return <Navigate to={'/profile'}/>
+        return <Navigate to={'/c1-profile'}/>
     }
     if (loading) {
         return <Preloader/>
