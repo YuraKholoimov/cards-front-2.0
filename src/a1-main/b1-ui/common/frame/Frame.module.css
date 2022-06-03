@@ -7,9 +7,12 @@
 
 .frame {
     max-width: 300px;
-    background: #f5e3d1;
+    background-color: #fffcf9;
+    background-image: linear-gradient(315deg, #fffcf9 0%, #ffd166 74%);
     border-radius: 8px;
     padding: 25px 33px;
     width: 96%;
     border: #484848 3px solid;
+    position: relative;
 }
+
