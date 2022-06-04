@@ -10,28 +10,28 @@ const initialState = {
 }
 
 
-export const passwordRestoreReducer = (state = initialState, action: ActionsType): InitialStateType => {
+export const passwordRestoreReducer = (state = initialState, action: PasswordRestoreActionsType): InitialStateType => {
     switch (action.type) {
-        case 'IS-SEND':
+        case 'PASSWORD/IS-SEND':
             return {...state, email: action.payload.email, isSend: action.payload.isSend}
         default:
             return state
-        case 'SET-NEW-PASSWORD':
+        case 'PASSWORD/SET-NEW-PASSWORD':
             return {...state, isChangedPassword: action.payload.isChangedPassword}
     }
 }
 
 
 //---- Actions
-const passwordRestore = (email: string, isSend: boolean) => ({type: 'IS-SEND', payload: {email, isSend}} as const)
+const passwordRestore = (email: string, isSend: boolean) => ({type: 'PASSWORD/IS-SEND', payload: {email, isSend}} as const)
 const setIsChangedPassword = (isChangedPassword: boolean) => ({
-    type: 'SET-NEW-PASSWORD',
+    type: 'PASSWORD/SET-NEW-PASSWORD',
     payload: {isChangedPassword}
 } as const)
 
 
 //---- Thunks
-export const sendEmailThunk = (email: string) => (dispatch: Dispatch<ActionsType>) => {
+export const sendEmailThunk = (email: string) => (dispatch: Dispatch<PasswordRestoreActionsType>) => {
     dispatch(setStatusLoadingApp(true))
     api.sendEmail(email)
         .then((res) => {
@@ -43,7 +43,7 @@ export const sendEmailThunk = (email: string) => (dispatch: Dispatch<ActionsType
             dispatch(setStatusLoadingApp(false))
         })
 }
-export const setNewPasswordThunk = (password: string, token: string | undefined) => (dispatch: Dispatch<ActionsType>) => {
+export const setNewPasswordThunk = (password: string, token: string | undefined) => (dispatch: Dispatch<PasswordRestoreActionsType>) => {
     dispatch(setStatusLoadingApp(true))
     api.setNewPassword(password, token)
         .then(() => {
@@ -60,7 +60,7 @@ export const setNewPasswordThunk = (password: string, token: string | undefined)
 
 //---- Types
 type InitialStateType = typeof initialState
-export type ActionsType =
+export type PasswordRestoreActionsType =
     ReturnType<typeof passwordRestore>
     | ReturnType<typeof setIsChangedPassword>
     | setLoadingAppType

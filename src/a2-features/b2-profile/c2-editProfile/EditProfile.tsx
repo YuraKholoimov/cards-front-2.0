@@ -3,7 +3,7 @@ import {useFormik} from "formik";
 import {useNavigate} from "react-router-dom";
 import s from './EditProfilePage.module.css'
 import {editProfileThunk, initStateProfilePage} from '../../../a1-main/b2-bll/profileReducer';
-import {useAppSelector, useTypedDispatch} from '../../../a1-main/b2-bll/store';
+import {useAppDispatch, useAppSelector} from '../../../a1-main/b2-bll/store';
 import SuperEditableSpan from '../../../a1-main/b1-ui/common/superEditableSpan/SuperEditableSpan';
 import SuperButton from '../../../a1-main/b1-ui/common/superButton/SuperButton';
 import SuperEditableImg from '../../../a1-main/b1-ui/common/superEditableImg/SuperEditableImg';
@@ -11,9 +11,9 @@ import {Frame} from '../../../a1-main/b1-ui/common/frame/Frame';
 
 
 const EditProfile = () => {
+    const dispatch = useAppDispatch()
     const profile = useAppSelector<initStateProfilePage>(state => state.profile)
     const navigate = useNavigate()
-    const dispatch= useTypedDispatch()
 
     const avatarIni = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcReiyHYtDJQ0t5jCs4j_PiD5ESMvPwnvHVa3w&usqp=CAU';
 

@@ -2,7 +2,7 @@ import React from 'react';
 import s from './NewPassword.module.css'
 import SuperButton from '../../../../a1-main/b1-ui/common/superButton/SuperButton';
 import {setNewPasswordThunk} from '../../../../a1-main/b2-bll/passwordRestoreReducer';
-import {AppRootStateType, useAppSelector, useTypedDispatch} from '../../../../a1-main/b2-bll/store';
+import {useAppDispatch, useAppSelector} from '../../../../a1-main/b2-bll/store';
 import {useNavigate, useParams} from 'react-router-dom';
 import {Frame} from '../../../../a1-main/b1-ui/common/frame/Frame';
 import SuperInputPassword from '../../../../a1-main/b1-ui/common/superInputPassword/SuperInputPassword';
@@ -11,10 +11,10 @@ import * as yup from 'yup';
 import {PATH} from '../../../../a1-main/b1-ui/routes/RoutesComponent';
 
 export const NewPassword = () => {
+    const dispatch = useAppDispatch()
     const error = useAppSelector<string>(state => state.auth.error)
     const isChangedPassword = useAppSelector((state) => state.restore.isChangedPassword)
     const navigate = useNavigate()
-    const dispatch = useTypedDispatch()
     const params = useParams<'*'>()
     const token = params['*']
     console.log(token)
@@ -52,7 +52,6 @@ export const NewPassword = () => {
                   handleSubmit,
                   dirty
               }) => {
-                debugger
                 return (
                     <>
                         <Frame>
