@@ -60,7 +60,7 @@ export const NewPassword = () => {
                             {error && <div className={s.errors}>{error}</div>}
                             <div className={s.input}>
                                 <SuperInputPassword value={values.password} onChange={handleChange} name={'password'}
-                                                    onBlur={handleBlur} placeholder={'New password'} className={s.input}/>
+                                                    onBlur={handleBlur} placeholder={'New password'}/>
                                 <div className={s.errors}>{touched.password && errors.password ? errors.password : null}</div>
 
                                 <SuperInputPassword value={values.confirmPassword} onChange={handleChange} name={'confirmPassword'}
