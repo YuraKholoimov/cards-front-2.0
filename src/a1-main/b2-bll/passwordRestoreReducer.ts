@@ -12,20 +12,20 @@ const initialState = {
 
 export const passwordRestoreReducer = (state = initialState, action: PasswordRestoreActionsType): InitialStateType => {
     switch (action.type) {
-        case 'IS-SEND':
+        case 'PASSWORD/IS-SEND':
             return {...state, email: action.payload.email, isSend: action.payload.isSend}
         default:
             return state
-        case 'SET-NEW-PASSWORD':
+        case 'PASSWORD/SET-NEW-PASSWORD':
             return {...state, isChangedPassword: action.payload.isChangedPassword}
     }
 }
 
 
 //---- Actions
-const passwordRestore = (email: string, isSend: boolean) => ({type: 'IS-SEND', payload: {email, isSend}} as const)
+const passwordRestore = (email: string, isSend: boolean) => ({type: 'PASSWORD/IS-SEND', payload: {email, isSend}} as const)
 const setIsChangedPassword = (isChangedPassword: boolean) => ({
-    type: 'SET-NEW-PASSWORD',
+    type: 'PASSWORD/SET-NEW-PASSWORD',
     payload: {isChangedPassword}
 } as const)
 

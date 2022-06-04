@@ -22,7 +22,7 @@ const initState = {
 
 export const profileReducer = (state = initState, action: ProfileActionType): initStateProfilePage => {
     switch (action.type) {
-        case "SET-PROFILE":
+        case "PROFILE/SET-PROFILE":
             return {
                 ...state,
                 name: action.data.name,
@@ -30,7 +30,7 @@ export const profileReducer = (state = initState, action: ProfileActionType): in
                 email: action.data.email,
                 _id: action.data._id,
             }
-        case "UPDATE-PROFILE":
+        case "PROFILE/UPDATE-PROFILE":
             return {...state, name: action.name, avatar: action.avatar}
 
     }
@@ -39,8 +39,8 @@ export const profileReducer = (state = initState, action: ProfileActionType): in
 
 
 //---- Actions
-export const setProfile = (data: ReturnParamsType) => ({type: "SET-PROFILE", data} as const)
-export const updateProfile = (name: string, avatar: string) => ({type: "UPDATE-PROFILE", name, avatar} as const)
+export const setProfile = (data: ReturnParamsType) => ({type: "PROFILE/SET-PROFILE", data} as const)
+export const updateProfile = (name: string, avatar: string) => ({type: "PROFILE/UPDATE-PROFILE", name, avatar} as const)
 
 
 //---- Thunks
