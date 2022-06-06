@@ -57,7 +57,7 @@ export const logoutThunk = () => (dispatch: Dispatch<LoginActionsType>) => {
 //---- Types
 type InitialStateType = typeof initialState
 export type LoginActionsType = setIsLoggedIn | setCatchErrorType | setLoadingAppType | setProfileType
-export type  setIsLoggedIn = ReturnType<typeof setIsLoggedIn>
+export type setIsLoggedIn = ReturnType<typeof setIsLoggedIn>
 export type setCatchErrorType = ReturnType<typeof setError>
 
 

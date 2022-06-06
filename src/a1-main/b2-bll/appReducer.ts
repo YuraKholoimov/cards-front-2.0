@@ -12,6 +12,7 @@ const initialState = {
 export const appReducer = (state = initialState, action: AppActionsType): InitialStateType => {
     switch (action.type) {
         case "APP/IS-INITIALIZED":
+
             return {...state, isInitializedApp: action.payload.isInitialized}
         case "APP/SET-LOADING-APP":
             return {...state, loadingApp: action.payload.status}

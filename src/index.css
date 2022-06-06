@@ -12,7 +12,9 @@ body {
   background-image: url('./a3-assets/images/photo_2022-06-03_12-05-02.jpg');
   min-height: 100vh;
 }
-
+ul {
+  padding: 0;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;

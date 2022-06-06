@@ -1,4 +1,4 @@
-import { PATH } from "../b1-ui/routes/RoutesComponent";
+import {PATH} from "../b1-ui/routes/RoutesComponent";
 import {instance} from './settings';
 
 export type ReturnParamsType = {
@@ -7,7 +7,6 @@ export type ReturnParamsType = {
     name: string;
     avatar?: string | undefined;
     publicCardPacksCount: number;
-// количество колод
     __v: number | null,
     created: string;
     updated: string;

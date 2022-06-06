@@ -15,8 +15,9 @@ import SuperInputText from '../../../a1-main/b1-ui/common/superInputText/SuperIn
 const Login = () => {
     const dispatch = useAppDispatch()
     const isLogin = useAppSelector<boolean>(state => state.auth.isLogin)
-    const error = useAppSelector<string>(state => state.auth.error)
     const loading = useAppSelector<boolean>(state => state.app.loadingApp)
+    const error = useAppSelector<string>(state => state.auth.error)
+
     const validations = yup.object().shape({
         email: yup.string().email('Invalid email address'),
     })
@@ -29,6 +30,7 @@ const Login = () => {
         return <Preloader/>
     }
     return (
+
         <Formik initialValues={
             {
                 email: '',
