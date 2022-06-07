@@ -7,6 +7,8 @@ import {authReducer, LoginActionsType} from './loginReducer';
 import {AppActionsType, appReducer} from './appReducer';
 import {PasswordRestoreActionsType, passwordRestoreReducer} from "./passwordRestoreReducer";
 import {ProfileActionType, profileReducer} from "./profileReducer";
+import {PacksActionsType, packsReducer} from "./packsReducer";
+import {CardsActionsType, cardsReducer} from "./cardsReducer";
 
 const rootReducer = combineReducers({
     auth: authReducer,
@@ -14,13 +16,21 @@ const rootReducer = combineReducers({
     register: registerReducer,
     restore: passwordRestoreReducer,
     profile: profileReducer,
+    packs: packsReducer,
+    cards: cardsReducer,
 })
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 // все типы экшенов для App
-export type AppRootActionsType = RegisterActionsType | LoginActionsType | PasswordRestoreActionsType | ProfileActionType | AppActionsType
+export type AppRootActionsType = RegisterActionsType
+    | LoginActionsType
+    | PasswordRestoreActionsType
+    | ProfileActionType
+    | AppActionsType
+    | PacksActionsType
+    | CardsActionsType
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 
 export const useAppDispatch = () => useDispatch<ThunkDispatch<AppRootStateType, unknown, AppRootActionsType>>()//require in new redux version
