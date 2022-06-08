@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
 import SuperButton from "../../../a1-main/b1-ui/common/superButton/SuperButton";
 import {logoutThunk} from "../../../a1-main/b2-bll/loginReducer";
@@ -6,6 +6,7 @@ import {Frame} from "../../../a1-main/b1-ui/common/frame/Frame";
 import s from "./Profile.module.css";
 import {NavLink} from "react-router-dom";
 import editImage from "../../../a3-assets/images/edit.png"
+import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -39,6 +40,7 @@ const Profile = () => {
                 </div>
 
                 <SuperButton className={s.btn} onClick={logoutHandler}>Logout</SuperButton>
+                <Pagination />
             </Frame>
         </>
     );

@@ -1,0 +1,14 @@
+.btn {
+    margin: 1px;
+    padding: 10px;
+    border: 5px solid rgba(255, 221, 126, 0.49);
+}
+
+.active {
+    border: 5px solid #be2655;
+}
+
+.pagination ul {
+    display: flex;
+    list-style-type: none;
+}
