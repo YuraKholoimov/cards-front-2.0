@@ -17,40 +17,45 @@ const Packs = () => {
 
     useEffect(() => {
         dispatch(setPacksThunk())
-    }, [packsPerPage, sortPacks, id, packName])
+        dispatch(setPacksCount(20))
 
-    const showMorePacks = () => {
-        dispatch(setPacksCount(100))
-    }
-    const showMyPacksHandler = () => {
-        dispatch(showMyOrAllPacks(userId))
-    }
-    const showAllPacksHandler = () => {
-        dispatch(showMyOrAllPacks(''))
-    }
+    }, [packsPerPage, sortPacks, id, packName, dispatch])
+
+    // const showMorePacks = () => {
+    //     dispatch(setPacksCount(20))
+    // }
+    // const showMyPacksHandler = () => {
+    //     dispatch(showMyOrAllPacks(userId))
+    // }
+    // const showAllPacksHandler = () => {
+    //     dispatch(showMyOrAllPacks(''))
+    // }
 
     return (
         <div className={s.table}>
-            <div>
-                <button>user</button>
-                <button onClick={showMorePacks}>выводить на страницу по 10</button>
-                <button onClick={showMyPacksHandler}>Показать мои паки</button>
-                <button onClick={showAllPacksHandler}>Показать все паки</button>
-            </div>
-            <HeaderPacks/>
-            <ul>
-                {packs.map(pack => {
-                    return (
-                        <Pack key={pack._id}
-                              packId={pack._id}
-                              name={pack.name}
-                              cardsCount={pack.cardsCount}
-                              updated={pack.updated}
-                              userName={pack.user_name}/>
+            {/*<div className={s.buttons}>*/}
+            {/*    <button>user</button>*/}
+            {/*    <button onClick={showMorePacks}>выводить на страницу по 10</button>*/}
+            {/*    <button onClick={showMyPacksHandler}>Показать мои паки</button>*/}
+            {/*    <button onClick={showAllPacksHandler}>Показать все паки</button>*/}
+            {/*</div>*/}
+            <div className={s.packs}>
+                <HeaderPacks/>
+                <ul>
+                    {packs.map(pack => {
+                        return (
+                            <Pack key={pack._id}
+                                  packId={pack._id}
+                                  name={pack.name}
+                                  cardsCount={pack.cardsCount}
+                                  updated={pack.updated}
+                                  userName={pack.user_name}/>
 
-                    )
-                })}
-            </ul>
+                        )
+                    })}
+                </ul>
+            </div>
+
 
         </div>
     );

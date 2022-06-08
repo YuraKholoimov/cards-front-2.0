@@ -60,6 +60,7 @@ export const setMinCards = (min: number) => ({type: 'PACKS/SET-MIN-CARDS', paylo
 export const setMaxCards = (max: number) => ({type: 'PACKS/SET-MAX-CARDS', payload: {max}} as const)
 
 
+
 //---- Thunks
 export const setPacksThunk = () => (dispatch: Dispatch<PacksActionsType>, getState: () => AppRootStateType) => {
     dispatch(setStatusLoadingApp(true))

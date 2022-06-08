@@ -10,6 +10,7 @@ import Packs from "../../b3-cards/c1-packs/Packs";
 import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField";
 import {SliderInput} from "../../../a1-main/b1-ui/common/sliderInput/SliderInput";
 
+
 const Profile = () => {
     const dispatch = useAppDispatch()
     const name = useAppSelector<string>(state => state.profile.name)

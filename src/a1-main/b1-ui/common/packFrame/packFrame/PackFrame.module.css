@@ -1,0 +1,17 @@
+.packFrame {
+    max-width: 1200px;
+    background-image: linear-gradient(315deg, #fffcf9 0%, #ffd166 74%);
+    border-radius: 8px;
+    width: 96%;
+    margin: 24px auto;
+    display: flex;
+    overflow: hidden;
+    height: 86vh;
+    text-align: left;
+}
+
+@media (max-width: 1150px) {
+    .packFrame {
+        flex-direction: column;
+    }
+}
