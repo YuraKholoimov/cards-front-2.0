@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import s from './SearchField.module.css'
 import {useDebounce} from "../utilsFunc/useDebounceHOOK/useDebounce";
-import {setFilteredPackName} from "../../../b2-bll/packsReducer";
 import {useAppDispatch} from "../../../b2-bll/store";
+import {setFilteredPackName} from "../../../b2-bll/packsReducer";
 
 export const SearchField = () => {
     const dispatch = useAppDispatch();

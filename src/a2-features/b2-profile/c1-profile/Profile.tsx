@@ -11,6 +11,7 @@ import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField
 import {SliderInput} from "../../../a1-main/b1-ui/common/sliderInput/SliderInput";
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 
+
 const Profile = () => {
     const dispatch = useAppDispatch()
     const name = useAppSelector<string>(state => state.profile.name)
