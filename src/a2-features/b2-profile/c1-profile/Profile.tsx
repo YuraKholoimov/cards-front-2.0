@@ -9,6 +9,7 @@ import editImage from "../../../a3-assets/images/edit.png"
 import Packs from "../../b3-cards/c1-packs/Packs";
 import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField";
 import {SliderInput} from "../../../a1-main/b1-ui/common/sliderInput/SliderInput";
+import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 
 const Profile = () => {
     const dispatch = useAppDispatch()
@@ -50,6 +51,7 @@ const Profile = () => {
                 </Frame>
                 <div className={s.packsContainer}>
                     <Packs/>
+                    <Pagination/>
                 </div>
 
             </div>
