@@ -2,17 +2,18 @@ import {PATH} from "../b1-ui/routes/RoutesComponent";
 import {instance} from './settings';
 
 export type ReturnParamsType = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string | undefined;
-    publicCardPacksCount: number;
-    __v: number | null,
-    created: string;
-    updated: string;
-    isAdmin: boolean;
-    verified: boolean;
-    rememberMe: boolean;
+    _id: string
+    email: string
+    name: string
+    avatar?: string | undefined
+    publicCardPacksCount: number
+    user_id: string
+    __v: number | null
+    created: string
+    updated: string
+    isAdmin: boolean
+    verified: boolean
+    rememberMe: boolean
     token: string
     tokenDeathTime: string
 

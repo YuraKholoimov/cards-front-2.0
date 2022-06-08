@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import s from "../../c2-headerPacks/HeaderPacks.module.css";
+import s from "../../c1-packs/c2-headerPacks/HeaderPacks.module.css";
 import {useAppDispatch} from "../../../../a1-main/b2-bll/store";
 import {setFilterCards} from "../../../../a1-main/b2-bll/cardsReducer";
 
@@ -16,7 +16,6 @@ const CardsHeader = () => {
             setFilter(false)
         }
         dispatch(setFilterCards(+filter, name))
-        console.log(+filter, name)
     }
 
 

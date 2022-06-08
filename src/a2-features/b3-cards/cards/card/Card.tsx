@@ -1,6 +1,7 @@
 import React from 'react';
 import SuperEditableSpan from "../../../../a1-main/b1-ui/common/superEditableSpan/SuperEditableSpan";
 import {useFormik} from "formik";
+import {useAppSelector} from "../../../../a1-main/b2-bll/store";
 
 type CardType = {
     question: string
@@ -8,10 +9,12 @@ type CardType = {
     lastUpdated: string
     grade: number
     cardId: string
-    deleteCard:(cardId: string)=>void
-    editCard:(_id: string, question: string)=>void
+    deleteCard: (cardId: string) => void
+    editCard: (_id: string, question: string) => void
+    userId: string
 }
-const Card: React.FC<CardType> = ({lastUpdated,grade,question,editCard,answer,cardId,deleteCard}) => {
+const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answer, cardId, deleteCard, userId}) => {
+    const myUserId = useAppSelector(state => state.auth.userId)
     const deleteCardHandler = () => {
         deleteCard(cardId)
     }
@@ -29,7 +32,9 @@ const Card: React.FC<CardType> = ({lastUpdated,grade,question,editCard,answer,ca
             <SuperEditableSpan
                 id={'question'}
                 type={'text'}
-                onEnter={()=>{formik.handleSubmit()}}
+                onEnter={() => {
+                    formik.handleSubmit()
+                }}
                 // spanProps={{
                 //     children: formik.values.question
                 //         ? undefined
@@ -41,7 +46,14 @@ const Card: React.FC<CardType> = ({lastUpdated,grade,question,editCard,answer,ca
             <div>{answer}</div>
             <div>{lastUpdated}</div>
             <div>{grade}</div>
-            <button onClick={deleteCardHandler}>delete</button>
+            <div>{myUserId === userId &&
+                <div>
+                    <button onClick={deleteCardHandler}>delete</button>
+                    <button onClick={deleteCardHandler}>edit</button>
+                </div>
+            }
+
+            </div>
 
 
         </div>

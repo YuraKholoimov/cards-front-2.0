@@ -40,7 +40,6 @@ const EditProfile = () => {
                     <SuperEditableImg
                         id={'avatar'}
                         type={'text'}
-                        src={'https://www.svgrepo.com/show/46213/camera-front-view.svg'}
 
                         {...formik.getFieldProps('avatar')}
                     />

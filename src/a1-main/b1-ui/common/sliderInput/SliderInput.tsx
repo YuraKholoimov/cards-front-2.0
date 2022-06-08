@@ -3,7 +3,7 @@ import s from "./SliderInput.module.css"
 import {SuperDoubleRange} from "./superDoubleRange/SuperDoubleRange";
 import {useAppDispatch, useAppSelector} from "../../../b2-bll/store";
 import {setMaxCards, setMinCards} from "../../../b2-bll/packsReducer";
-import {useDebounce} from "../utilsFunc/useDebounce/useDebounce";
+import {useDebounce} from "../utilsFunc/useDebounceHOOK/useDebounce";
 
 
 export function SliderInput() {
@@ -31,6 +31,7 @@ export function SliderInput() {
     }, [delayedMinValue, delayedMaxValue])
 
     useEffect(() => {
+
         setValue2(maxCards)
     }, [maxCards])
 

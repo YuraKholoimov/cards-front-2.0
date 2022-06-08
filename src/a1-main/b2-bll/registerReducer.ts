@@ -30,7 +30,7 @@ export const registerThunk = (email: string, password: string): AppThunkType => 
         api.register(email, password)
             .then((res) => {
                 dispatch(setRegister(true))
-                console.log(res)
+
             })
             .catch((err) => {
                 dispatch(setError(err.response.data.error))

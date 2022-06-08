@@ -37,7 +37,7 @@ export const NewPassword = () => {
             }}
             validateOnBlur
             onSubmit={(values) => {
-                console.log(values)
+
                 dispatch(setNewPasswordThunk(values.password, token))
             }}
             validationSchema={validations}

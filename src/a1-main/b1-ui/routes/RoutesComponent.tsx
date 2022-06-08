@@ -13,6 +13,8 @@ import Test from '../../../a2-features/b4-test/Test';
 import Packs from "../../../a2-features/b3-cards/c1-packs/Packs";
 import Cards from "../../../a2-features/b3-cards/cards/Cards";
 import {SliderInput} from "../common/sliderInput/SliderInput";
+import MyProfile from '../common/packFrame/myProfile/myProfile';
+import Pagination from "../common/pagination/Pagination";
 
 export const PATH = {
     LOGIN: '/login',
@@ -35,7 +37,11 @@ export const RoutesComponent = () => {
                 <Route path={'/'} element={<Login/>}/>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
+
                 <Route path={PATH.PROFILE} element={<Profile/>}/>
+                {/*<Route path={PATH.PROFILE} element={<MyProfile/>}/>*/}
+
+
                 <Route path={PATH.EDIT_PROFILE} element={<LoadingHOC><EditProfile/></LoadingHOC>}/>
                 <Route path={PATH.NOT_FOUND} element={<NotFound/>}/>
                 <Route path={PATH.PASSWORD_RESTORE} element={<PasswordRestore/>}/>
