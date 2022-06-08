@@ -18,7 +18,8 @@ export function SliderInput() {
     const delayedMinValue = useDebounce(value1, 1500);
     const delayedMaxValue = useDebounce(value2, 1500);
 
-    // const minGap = 5;
+    // const minGap = 5;us
+
     const onChangeRangeHandler = (value: [number, number]) => {
         setValue1(value[0])
         setValue2(value[1])
