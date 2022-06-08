@@ -17,11 +17,10 @@ const Packs = () => {
     const min = useAppSelector((state) => state.packs.min)
     const max = useAppSelector((state) => state.packs.max)
     const page = useAppSelector(state => state.packs.page)
-    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
 
     useEffect(() => {
         dispatch(setPacksThunk())
-    }, [packsPerPage, sortPacks, id, packName, min, max, maxCardsCount, page])
+    }, [packsPerPage, sortPacks, id, packName, min, max, page])
 
 
 

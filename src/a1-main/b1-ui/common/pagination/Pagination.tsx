@@ -21,7 +21,7 @@ const Pagination: React.FC = () => {
 
     const portionSize = 5;
 
-
+debugger
 
     const pagesTotalCount = Math.ceil(packsTotalCount / packsPerPage);
     const pageNumbers: any[] = [];

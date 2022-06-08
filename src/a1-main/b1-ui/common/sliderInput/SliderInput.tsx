@@ -2,15 +2,16 @@ import React, {useEffect, useState} from 'react'
 import s from "./SliderInput.module.css"
 import {SuperDoubleRange} from "./superDoubleRange/SuperDoubleRange";
 import {useAppDispatch, useAppSelector} from "../../../b2-bll/store";
-import {setMaxCards, setMinCards} from "../../../b2-bll/packsReducer";
+import {setMaxDotInput, setMinDotInput} from "../../../b2-bll/packsReducer";
 import {useDebounce} from "../utilsFunc/useDebounceHOOK/useDebounce";
 
 
 export function SliderInput() {
 
-    const maxCards = useAppSelector((state) => state.packs.maxCardsCount)
+    const maxCards = useAppSelector((state) => state.packs.max)
 
     const dispatch = useAppDispatch();
+
 
     const [value1, setValue1] = useState<number>(0)
     const [value2, setValue2] = useState<number>(maxCards)
@@ -25,16 +26,18 @@ export function SliderInput() {
     }
 
     useEffect(() => {
-        dispatch(setMinCards(delayedMinValue))
-        dispatch(setMaxCards(delayedMaxValue))
+        dispatch(setMinDotInput(delayedMinValue))
+        dispatch(setMaxDotInput(delayedMaxValue))
     }, [delayedMinValue, delayedMaxValue])
 
-    useEffect(() => {
+    // useEffect(() => {
+    //
+    //     setValue2(maxCards)
+    // }, [maxCards])
 
-        setValue2(maxCards)
-    }, [maxCards])
-
-
+setTimeout(()=>{
+    console.log(maxCards)
+    },3000)
     return (
         <div>
             <hr/>
