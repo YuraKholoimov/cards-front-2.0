@@ -33,7 +33,7 @@ export const PasswordRestore = () => {
             }}
             validateOnBlur
             onSubmit={(values) => {
-                console.log(values)
+
                 dispatch(sendEmailThunk(values.email))
             }}
             validationSchema={validations}

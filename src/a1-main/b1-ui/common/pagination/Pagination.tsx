@@ -1,43 +1,38 @@
-import React, {useEffect, useState} from 'react';
-import SuperButton from "../superButton/SuperButton";
-
+import React, {useState} from 'react';
 import s from "./pagination.module.css"
-import {packsApi} from "../../../b3-dal/packsApi";
-import Preloader from "../preloader/Preloader";
+import {useAppDispatch, useAppSelector} from "../../../b2-bll/store";
+import SuperButton from "../superButton/SuperButton";
+import {setCurrentPage} from "../../../b2-bll/packsReducer";
 
-type PropsType = {
-    // totalCount: number
-    // pageSize: number
-    // currentPage: number
-    // onPageChange: (n: number) => void
-}
+// type PropsType = {
+//     totalCount: number
+//     pageSize: number
+//     currentPage: number
+//     onPageChange: (n: number) => void
+// }
 
-const Pagination: React.FC<PropsType> = (props) => {
-    const [currentPage, setCurrentPage] = useState<number>(1)
-    const [packsPerPage, setPacksPerPage] = useState<number>(10)
-    const [packsTotalCount, setPacksTotalCount] = useState<number>(0)
-    const [packs, setPacks] = useState<[] | null>([])
+const Pagination: React.FC = () => {
+    const dispatch = useAppDispatch()
+    const packsTotalCount = useAppSelector(state => state.packs.totalCount)
+    const packsPerPage = useAppSelector(state => state.packs.pageCount)
+    const currentPage = useAppSelector(state=>state.packs.page)
+
+
+
     const portionSize = 5;
 
-    useEffect(() => {
-        setPacks(null)
-        packsApi.getPacks(currentPage, packsPerPage)
-            .then(res => {
-                // console.log(res.data)
-                setPacksTotalCount(res.data.cardPacksTotalCount)
-                setPacks(res.data.cardPacks)
-            })
-            .catch(rej => console.error(rej))
-    }, [currentPage]);
+
 
     const pagesTotalCount = Math.ceil(packsTotalCount / packsPerPage);
-
     const pageNumbers: any[] = [];
     for (let i = 1; i < pagesTotalCount; i++) {
         pageNumbers.push(i == currentPage ? {page: i, isActive: true} : {page: i, isActive: false})
     }
 
-    const paginate = (num: number) => setCurrentPage(num)
+    const paginate = (num: number) => {
+        dispatch(setCurrentPage(num))
+    }
+
 
     const portionPagesCount = Math.ceil(pagesTotalCount / portionSize);
     const [portionNumber, setPortionNumber] = useState(1);
@@ -46,7 +41,7 @@ const Pagination: React.FC<PropsType> = (props) => {
 
     return (
         <div>
-            {packs ? packs.map((p: any) => <li>{p.user_name}</li>) : <Preloader/>}
+            {/*{packs ? packs.map((p: any) => <li>{p.user_name}</li>) : <Preloader/>}*/}
 
             <nav className={s.pagination}>
                 <ul>

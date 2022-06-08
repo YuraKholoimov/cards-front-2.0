@@ -18,9 +18,13 @@ const Cards = () => {
     const token = params['*'] as string
     const filterValue = useAppSelector<string>(state => state.cards.sortCards)
     const cards = useAppSelector<Array<CardsType>>(state => state.cards.cards)
+    const userPackId = useAppSelector(state => state.packs.cardsPack.filter(f => f._id === token)[0].user_id)
+    const myUserId = useAppSelector(state => state.auth.userId)
+
+
 
     useEffect(() => {
-            dispatch(setCardsThunk(token))
+        dispatch(setCardsThunk(token))
     }, [filterValue])
     const addCardHandler = () => {
         const question = prompt('Введите вопрос')
@@ -32,18 +36,17 @@ const Cards = () => {
 
     const deleteCardHandler = (cardId: string) => {
 
-            dispatch(deleteCardThunk(token, cardId))
+        dispatch(deleteCardThunk(token, cardId))
     }
     const editCardHandler = (_id: string, question: string) => {
 
-            dispatch(editCardThunk(token, _id, question))
+        dispatch(editCardThunk(token, _id, question))
 
     }
-
     return (
         <div>
             <CardsHeader/>
-            <button onClick={addCardHandler}>add card</button>
+            {myUserId === userPackId && <button onClick={addCardHandler}>add card</button>}
             <button onClick={() => navigate(-1)}>назад к пакам</button>
             {cards.map(m => {
 
@@ -52,6 +55,7 @@ const Cards = () => {
                           deleteCard={deleteCardHandler}
                           editCard={editCardHandler}
                           cardId={m._id}
+                          userId={userPackId}
                           question={m.question}
                           answer={m.answer}
                           lastUpdated={m.updated}

@@ -34,8 +34,7 @@ const setIsChangedPassword = (isChangedPassword: boolean) => ({
 export const sendEmailThunk = (email: string) => (dispatch: Dispatch<PasswordRestoreActionsType>) => {
     dispatch(setStatusLoadingApp(true))
     api.sendEmail(email)
-        .then((res) => {
-            console.log(res)
+        .then(() => {
             dispatch(passwordRestore(email, true))
             // return res
         })

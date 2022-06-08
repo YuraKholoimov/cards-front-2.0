@@ -33,7 +33,7 @@ export type PacksResponseType = {
 
 
 export const packsApi = {
-    getPacks(params: GetPacksParamsType) {
+    getPacks(params: Partial<GetPacksParamsType>) {
         return instance.get<PacksResponseType>('/cards/pack', {params: {...params}})
     },
     addNewPack(cardsPack: { name: string }) {
@@ -57,4 +57,5 @@ export type GetPacksParamsType = {
     user_id: string
     minCardsCount: number
     maxCardsCount: number
+    totalCount: number
 }
