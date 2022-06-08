@@ -46,7 +46,7 @@ const Cards = () => {
             <button onClick={addCardHandler}>add card</button>
             <button onClick={() => navigate(-1)}>назад к пакам</button>
             {cards.map(m => {
-                debugger
+
                 return (
                     <Card key={m._id}
                           deleteCard={deleteCardHandler}

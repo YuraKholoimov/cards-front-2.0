@@ -3,6 +3,7 @@ import s from './HeaderPacks.module.css'
 import {useAppDispatch} from "../../../a1-main/b2-bll/store";
 import {addPackThunk, setFilterNamePacks} from "../../../a1-main/b2-bll/packsReducer";
 import SuperInputText from "../../../a1-main/b1-ui/common/superInputText/SuperInputText";
+import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField";
 
 const HeaderPacks = () => {
     const [name, setName] = useState('')
@@ -23,16 +24,19 @@ const HeaderPacks = () => {
 
     return (
         <div>
+            <div className={s.search}>
+                <SearchField/>
+            </div>
             <ul className={s.headerContainer}>
-                <li onClick={() => changeFilterValue('name')}>Name</li>
-                <li onClick={() => changeFilterValue('cardsCount')}>cards</li>
-                <li onClick={() => changeFilterValue('updated')}>Last Updated</li>
-                <li>Created by</li>
-                <li>Actions</li>
-                <li><SuperInputText value={name} onChangeText={setName}/></li>
-                <li>
-                    <button onClick={addPackHandler}>add pack</button>
-                </li>
+                <div onClick={() => changeFilterValue('name')}>Name</div>
+                <div onClick={() => changeFilterValue('cardsCount')}>cards</div>
+                <div onClick={() => changeFilterValue('updated')}>Last Updated</div>
+                <div>Created by</div>
+                <div>Actions</div>
+                {/*<div><SuperInputText value={name} onChangeText={setName}/></div>*/}
+                {/*<div>*/}
+                {/*    <button onClick={addPackHandler}>add pack</button>*/}
+                {/*</div>*/}
 
             </ul>
 

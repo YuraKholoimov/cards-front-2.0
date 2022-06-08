@@ -1,6 +1,19 @@
+/*.item {*/
+/*    display: grid;*/
+/*    grid-template-columns: 2fr 1fr 2fr 2fr 2fr;*/
+/*    margin-left: 30%;*/
+/*    background-color: antiquewhite;*/
+/*}*/
+
 .item {
-    display: grid;
-    grid-template-columns: 2fr 1fr 2fr 2fr 2fr;
-    margin-left: 30%;
-    background-color: antiquewhite;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    height: 50px;
+    font-weight: 600;
+    font-size: 25px;
+
+    width: 100%;
 }
