@@ -17,7 +17,7 @@ export const NewPassword = () => {
     const navigate = useNavigate()
     const params = useParams<'*'>()
     const token = params['*']
-    console.log(token)
+
 
 
     const validations = yup.object().shape({
@@ -60,11 +60,11 @@ export const NewPassword = () => {
                             {error && <div className={s.errors}>{error}</div>}
                             <div className={s.input}>
                                 <SuperInputPassword value={values.password} onChange={handleChange} name={'password'}
-                                                    onBlur={handleBlur} placeholder={'New password'}/>
+                                                    onBlur={handleBlur} placeholder={'New password'} className={s.input}/>
                                 <div className={s.errors}>{touched.password && errors.password ? errors.password : null}</div>
 
                                 <SuperInputPassword value={values.confirmPassword} onChange={handleChange} name={'confirmPassword'}
-                                                    onBlur={handleBlur} placeholder={'Confirm new password'}/>
+                                                    onBlur={handleBlur} placeholder={'Confirm new password'} className={s.input}/>
                                 <div className={s.errors}>{touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : null}</div>
                             </div>
                             <SuperButton

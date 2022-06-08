@@ -20,6 +20,7 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
     }
 ) => {
 
+    console.log(commonValue)
 
     // сделать самому, можно подключать библиотеки
     const onChangeCallback = (e: ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +46,8 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
                                 id={`${i}`}
                                 type={'range'}
                                 onChange={onChangeCallback}
+
+
                                 // className={finalRangeClassName}
                                 {...restProps} // отдаём инпуту остальные пропсы если они есть (value например там внутри)
                             />

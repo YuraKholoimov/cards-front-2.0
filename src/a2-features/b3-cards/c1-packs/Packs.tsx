@@ -14,10 +14,15 @@ const Packs = () => {
     const userId = useAppSelector<string>(state => state.profile._id)
     const id = useAppSelector<string>(state => state.packs.user_id)
     const packName = useAppSelector<string>(state => state.packs.packName)
+    const min = useAppSelector((state) => state.packs.min)
+    const max = useAppSelector((state) => state.packs.max)
 
     useEffect(() => {
         dispatch(setPacksThunk())
-    }, [packsPerPage, sortPacks, id, packName])
+    }, [packsPerPage, sortPacks, id, packName, min, max])
+
+
+
 
     const showMorePacks = () => {
         dispatch(setPacksCount(100))
