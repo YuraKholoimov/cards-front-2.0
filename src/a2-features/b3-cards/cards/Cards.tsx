@@ -6,13 +6,14 @@ import {
     CardsType,
     deleteCardThunk,
     editCardThunk,
-    setCardsThunk
+    setCardsThunk, setPackId
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
 import {useNavigate, useParams} from "react-router-dom";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
 import {useSelector} from "react-redux";
 import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
+import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 
 const Cards = () => {
     const navigate = useNavigate()
@@ -21,35 +22,34 @@ const Cards = () => {
     const token = params['*'] as string
     const filterValue = useAppSelector<string>(state => state.cards.sortCards)
     const cards = useAppSelector<Array<CardsType>>(state => state.cards.cards)
-    const cardPacks = useAppSelector<Array<PacksType> >(state => state.packs.cardsPack)
+    const cardPacks = useAppSelector<Array<PacksType>>(state => state.packs.cardsPack)
     const myUserId = useAppSelector(state => state.auth.userId)
-    const loading = useSelector<AppRootStateType, boolean>(state => state.app.loadingApp)
+    const loading = useAppSelector<boolean>(state => state.app.loadingApp)
 
-
-    const userPackId = cardPacks.find(p => p._id === token)?.user_id
 
     useEffect(() => {
         dispatch(setCardsThunk(token))
     }, [filterValue])
     if (loading) {
         return <Preloader/>
+
     }
+
+
+    const userPackId = cardPacks.find(p => p._id === token)?.user_id
+
     const addCardHandler = () => {
         const question = prompt('Введите вопрос')
         const answer = prompt('Введите Ответ')
-
         if (token && question && answer)
             dispatch(addCardThunk(token, question, answer))
     }
 
     const deleteCardHandler = (cardId: string) => {
-
         dispatch(deleteCardThunk(token, cardId))
     }
     const editCardHandler = (_id: string, question: string) => {
-
         dispatch(editCardThunk(token, _id, question))
-
     }
     return (
         <div>

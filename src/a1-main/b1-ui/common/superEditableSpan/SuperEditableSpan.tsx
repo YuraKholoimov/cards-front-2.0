@@ -16,6 +16,7 @@ type SuperEditableSpanType = DefaultInputPropsType & { // и + ещё пропс
     error?: string
     spanClassName?: string
 
+
     spanProps?: DefaultSpanPropsType // пропсы для спана
 }
 

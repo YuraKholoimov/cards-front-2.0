@@ -48,6 +48,7 @@ export const packsReducer = (state = initialState, action: PacksActionsType): In
             return {...state, totalCount: action.payload.totalCount}
         case "PACKS/SET-CURRENT-PAGE":
             return {...state, page: action.payload.page}
+
         default:
             return state
     }
@@ -96,7 +97,6 @@ export const setPacksThunk = () => (dispatch: Dispatch<PacksActionsType>, getSta
     packsApi.getPacks(payload)
         .then((res) => {
             dispatch(setPacks(res.data))
-            console.log(res.data)
 
         })
 

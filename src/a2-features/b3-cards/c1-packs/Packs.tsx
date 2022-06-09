@@ -19,17 +19,15 @@ const Packs = () => {
     const min = useAppSelector((state) => state.packs.min)
     const max = useAppSelector((state) => state.packs.max)
     const page = useAppSelector(state => state.packs.page)
-    const cardName = useAppSelector(state => state.cards.question)
-    console.log(cardName)
 
     useEffect(() => {
         dispatch(setPacksThunk())
-    }, [packsPerPage, sortPacks, id, packName, min, max, page,cardName])
+    }, [packsPerPage, sortPacks, id, packName, min, max, page])
+
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.loadingApp)
     if (loading) {
         return <Preloader/>
     }
-
 
 
     const showMorePacks = () => {
