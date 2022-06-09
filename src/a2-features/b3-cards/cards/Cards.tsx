@@ -1,19 +1,17 @@
 import React, {useEffect} from 'react';
 import CardsHeader from "./card/CardsHeader";
-import {AppRootStateType, useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
+import {useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
 import {
     addCardThunk,
     CardsType,
     deleteCardThunk,
     editCardThunk,
-    setCardsThunk, setPackId
+    setCardsThunk
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
 import {useNavigate, useParams} from "react-router-dom";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
-import {useSelector} from "react-redux";
 import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
-import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 
 const Cards = () => {
     const navigate = useNavigate()
@@ -48,8 +46,9 @@ const Cards = () => {
     const deleteCardHandler = (cardId: string) => {
         dispatch(deleteCardThunk(token, cardId))
     }
-    const editCardHandler = (_id: string, question: string) => {
-        dispatch(editCardThunk(token, _id, question))
+    const editCardHandler = (_id: string) => {
+        const newQuestion = prompt('Введите новый вопрос')
+       newQuestion && dispatch(editCardThunk(token, _id, newQuestion))
     }
     return (
         <div>

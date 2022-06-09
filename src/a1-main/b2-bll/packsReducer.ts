@@ -18,7 +18,8 @@ const initialState: InitialStateType = {
     page: 0,
     pageCount: 5,
     user_id: '',
-    totalCount: 0
+    totalCount: 0,
+    maxCardsCount: 0
 }
 
 
@@ -27,7 +28,7 @@ export const packsReducer = (state = initialState, action: PacksActionsType): In
         case "PACKS/SET-PACKS":
             return {...state,
                 cardsPack: action.payload.data.cardPacks,
-                max: action.payload.data.maxCardsCount,
+                maxCardsCount: action.payload.data.maxCardsCount,
                 totalCount: action.payload.data.cardPacksTotalCount
             }
         case "PACKS/SET-FILTER-PACKS":

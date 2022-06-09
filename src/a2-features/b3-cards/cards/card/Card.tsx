@@ -18,7 +18,9 @@ const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answe
     const deleteCardHandler = () => {
         deleteCard(cardId)
     }
-
+    const editCardHandler = () => {
+        formik.handleSubmit()
+    }
     const formik = useFormik({
         initialValues: {
             question: question
@@ -32,16 +34,15 @@ const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answe
         formik.setValues({question})
     }, [question])
 
-
     return (
         <div>
-
             <SuperEditableSpan
                 id={'question'}
                 type={'text'}
                 onEnter={() => {
                     formik.handleSubmit()
                 }}
+
                 {...formik.getFieldProps('question')}
             />
             <div>{answer}</div>
@@ -50,7 +51,7 @@ const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answe
             <div>{myUserId === userId &&
                 <div>
                     <button onClick={deleteCardHandler}>delete</button>
-                    <button>edit</button>
+                    <button onClick={editCardHandler}>edit</button>
                 </div>
             }
 

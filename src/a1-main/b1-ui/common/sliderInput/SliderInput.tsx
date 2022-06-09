@@ -1,43 +1,47 @@
-import React, {useEffect, useState} from 'react'
-import s from "./SliderInput.module.css"
-import {SuperDoubleRange} from "./superDoubleRange/SuperDoubleRange";
 import {useAppDispatch, useAppSelector} from "../../../b2-bll/store";
-import {setMaxDotInput, setMinDotInput} from "../../../b2-bll/packsReducer";
-import {useDebounce} from "../utilsFunc/useDebounceHOOK/useDebounce";
-
+import {setMaxDotInput, setMinDotInput} from '../../../b2-bll/packsReducer';
+import { useDebounce } from '../utilsFunc/useDebounceHOOK/useDebounce';
+import React, {useEffect, useState} from "react";
+import { SuperDoubleRange } from "./superDoubleRange/SuperDoubleRange";
 
 export function SliderInput() {
-
-    const maxCards = useAppSelector((state) => state.packs.max)
-
+    const maxCardsCount = useAppSelector((state) => state.packs.maxCardsCount)
     const dispatch = useAppDispatch();
 
-
     const [value1, setValue1] = useState<number>(0)
-    const [value2, setValue2] = useState<number>(maxCards)
+    const [value2, setValue2] = useState<number>(maxCardsCount)
 
-    const delayedMinValue = useDebounce(value1, 1500);
-    const delayedMaxValue = useDebounce(value2, 1500);
-
-    // const minGap = 5;
     const onChangeRangeHandler = (value: [number, number]) => {
         setValue1(value[0])
         setValue2(value[1])
     }
 
+    // const [value, setValue] = React.useState<number[]>([0, 103]);
+
+    const delayedMinValue = useDebounce(value1, 1500);
+    const delayedMaxValue = useDebounce(value2, 1500);
+
     useEffect(() => {
+        debugger
         dispatch(setMinDotInput(delayedMinValue))
-        dispatch(setMaxDotInput(delayedMaxValue))
+        // dispatch(setMaxCards(delayedMaxValue))
+        if(value2 !== maxCardsCount) {
+            dispatch(setMaxDotInput(delayedMaxValue))
+        }
     }, [delayedMinValue, delayedMaxValue])
 
-    // useEffect(() => {
-    //
-    //     setValue2(maxCards)
-    // }, [maxCards])
+    useEffect(() => {
+        setValue2(maxCardsCount)
+    },[maxCardsCount])
 
-setTimeout(()=>{
-    console.log(maxCards)
-    },3000)
+    // const handleChange = (event: Event, newValue: number | number[]) => {
+    //     setValue(newValue as number[]);
+    // };
+    //
+    // function valuetext(value: number) {
+    //     return `${value}°C`;
+    // }
+
     return (
         <div>
             <hr/>
@@ -45,13 +49,12 @@ setTimeout(()=>{
 
             {/*should work (должно работать)*/}
 
-            <div className={s.wrapper}>
+            <div>
                 <span>{value1}</span>-
                 <SuperDoubleRange
                     commonValue={[value1, value2]}
                     onChangeRange={onChangeRangeHandler}
-
-
+                    max={maxCardsCount}
                     // сделать так чтоб value1 и value2 изменялось
                 />
                 <span>{value2}</span>
@@ -63,6 +66,16 @@ setTimeout(()=>{
             {/*<AlternativeSuperDoubleRange/>*/}
             <hr/>
         </div>
+        // <Box sx={{ width: 300 }}>
+        //     <Slider
+        //         getAriaLabel={() => 'Temperature range'}
+        //         value={value}
+        //         onChange={handleChange}
+        //         valueLabelDisplay="auto"
+        //         getAriaValueText={valuetext}
+        //         max={maxCardsCount}
+        //     />
+        // </Box>
     )
 }
 
