@@ -39,6 +39,14 @@
     margin-right: 20px;
 }
 .packs{
+    display: flex;
+    flex-direction: column;
     padding-top: 20px;
+    padding-left: 20px;
 }
-
+.pagination{
+    display: flex;
+    flex-direction: row;
+    padding-top: 20px;
+    padding-left: 20px;
+}
