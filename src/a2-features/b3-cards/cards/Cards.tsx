@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import CardsHeader from "./card/CardsHeader";
-import {useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
+import {AppRootStateType, useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
 import {
     addCardThunk,
     CardsType,
@@ -10,6 +10,9 @@ import {
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
 import {useNavigate, useParams} from "react-router-dom";
+import {PacksType} from "../../../a1-main/b3-dal/packsApi";
+import {useSelector} from "react-redux";
+import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 
 const Cards = () => {
     const navigate = useNavigate()
@@ -18,14 +21,19 @@ const Cards = () => {
     const token = params['*'] as string
     const filterValue = useAppSelector<string>(state => state.cards.sortCards)
     const cards = useAppSelector<Array<CardsType>>(state => state.cards.cards)
-    const userPackId = useAppSelector(state => state.packs.cardsPack.filter(f => f._id === token)[0].user_id)
+    const cardPacks = useAppSelector<Array<PacksType> >(state => state.packs.cardsPack)
     const myUserId = useAppSelector(state => state.auth.userId)
+    const loading = useSelector<AppRootStateType, boolean>(state => state.app.loadingApp)
 
 
+    const userPackId = cardPacks.find(p => p._id === token)?.user_id
 
     useEffect(() => {
         dispatch(setCardsThunk(token))
     }, [filterValue])
+    if (loading) {
+        return <Preloader/>
+    }
     const addCardHandler = () => {
         const question = prompt('Введите вопрос')
         const answer = prompt('Введите Ответ')
@@ -55,7 +63,7 @@ const Cards = () => {
                           deleteCard={deleteCardHandler}
                           editCard={editCardHandler}
                           cardId={m._id}
-                          userId={userPackId}
+                          userId={userPackId ?? ''}
                           question={m.question}
                           answer={m.answer}
                           lastUpdated={m.updated}

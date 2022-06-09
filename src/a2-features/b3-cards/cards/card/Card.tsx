@@ -18,6 +18,7 @@ const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answe
     const deleteCardHandler = () => {
         deleteCard(cardId)
     }
+
     const formik = useFormik({
         initialValues: {
             question: question
@@ -49,7 +50,7 @@ const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answe
             <div>{myUserId === userId &&
                 <div>
                     <button onClick={deleteCardHandler}>delete</button>
-                    <button onClick={deleteCardHandler}>edit</button>
+                    <button>edit</button>
                 </div>
             }
 
