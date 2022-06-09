@@ -1,10 +1,12 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
+import {AppRootStateType, useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
 import {setPacksCount, setPacksThunk, showMyOrAllPacks} from "../../../a1-main/b2-bll/packsReducer";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
 import HeaderPacks from "./c2-headerPacks/HeaderPacks";
 import Pack from "./pack/pack";
 import s from './Packs.module.css'
+import {useSelector} from "react-redux";
+import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 
 const Packs = () => {
     const dispatch = useAppDispatch()
@@ -17,13 +19,15 @@ const Packs = () => {
     const min = useAppSelector((state) => state.packs.min)
     const max = useAppSelector((state) => state.packs.max)
     const page = useAppSelector(state => state.packs.page)
-    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
 
     useEffect(() => {
         dispatch(setPacksThunk())
-    }, [packsPerPage, sortPacks, id, packName, min, max, maxCardsCount, page])
+    }, [packsPerPage, sortPacks, id, packName, min, max, page])
 
-
+    const loading = useSelector<AppRootStateType, boolean>(state => state.app.loadingApp)
+    if (loading) {
+        return <Preloader/>
+    }
 
 
     const showMorePacks = () => {

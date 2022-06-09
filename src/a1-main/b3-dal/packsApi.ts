@@ -55,7 +55,6 @@ export type GetPacksParamsType = {
     page: number
     pageCount: number
     user_id: string
-    minCardsCount: number
-    maxCardsCount: number
     totalCount: number
+    maxCardsCount: number
 }

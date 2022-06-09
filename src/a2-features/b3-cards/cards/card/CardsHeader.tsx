@@ -8,14 +8,10 @@ const CardsHeader = () => {
     const [filter, setFilter] = useState(false)
     const dispatch = useAppDispatch()
 
-    const changeFilterHandler = (name: string) => {
-        if (!filter) {
-            setFilter(true)
-        }
-        if (filter) {
-            setFilter(false)
-        }
-        dispatch(setFilterCards(+filter, name))
+    const changeFilterValue = (nameValue: string) => {
+        setFilter(!filter)
+        console.log(filter)
+        dispatch(setFilterCards(+filter, nameValue))
     }
 
 
@@ -24,10 +20,10 @@ const CardsHeader = () => {
     return (
         <div>
             <ul className={s.headerContainer}>
-                <li onClick={()=>{changeFilterHandler('question')}}>Question</li>
-                <li onClick={()=>{changeFilterHandler('answer')}}>Answer</li>
-                <li onClick={()=>{changeFilterHandler('updated')}}>Last Updated</li>
-                <li onClick={()=>{changeFilterHandler('grade')}}>Grade</li>
+                <li onClick={()=>{changeFilterValue('question')}}>Question</li>
+                <li onClick={()=>{changeFilterValue('answer')}}>Answer</li>
+                <li onClick={()=>{changeFilterValue('updated')}}>Last Updated</li>
+                <li onClick={()=>{changeFilterValue('grade')}}>Grade</li>
             </ul>
 
         </div>

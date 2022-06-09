@@ -1,12 +1,12 @@
 import {Dispatch} from "redux";
 import {api} from "../b3-dal/api";
-import {setIsLoggedIn} from "./loginReducer";
+import {setIsLoggedIn, setUserId} from "./loginReducer";
 import {setProfile, setProfileType} from "./profileReducer";
 
 
 const initialState = {
     loadingApp: false,
-    isInitializedApp: false
+    isInitializedApp: false,
 }
 
 export const appReducer = (state = initialState, action: AppActionsType): InitialStateType => {
@@ -33,6 +33,7 @@ export const initializeAppThunk = () => (dispatch: Dispatch<AppActionsType>) => 
         .then((res) => {
             dispatch(setIsLoggedIn(true))
             dispatch(setProfile(res.data))
+            dispatch(setUserId(res.data._id))
         })
         .finally(() => {
             dispatch(isInitializedApp(true))
@@ -42,6 +43,7 @@ export const initializeAppThunk = () => (dispatch: Dispatch<AppActionsType>) => 
 
 //---- Types
 export type InitialStateType = typeof initialState
-export type AppActionsType = isInitializedAppType | setLoadingAppType | setIsLoggedIn | setProfileType
+export type AppActionsType = isInitializedAppType | setLoadingAppType | setIsLoggedIn | setProfileType | setUserIdType
 export type setLoadingAppType = ReturnType<typeof setStatusLoadingApp>
 export type isInitializedAppType = ReturnType<typeof isInitializedApp>
+export type setUserIdType = ReturnType<typeof setUserId>

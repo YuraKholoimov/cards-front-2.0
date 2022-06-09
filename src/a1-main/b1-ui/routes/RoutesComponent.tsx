@@ -48,8 +48,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.CHECK_EMAIL} element={<CheckEmail/>}/>
                 <Route path={PATH.NEW_PASSWORD + `/*`} element={<NewPassword/>}/>
                 <Route path={PATH.TEST} element={<Test/>}/>
-                <Route path={PATH.PACKS} element={<Packs/>}/>
-                <Route path={PATH.CARDS} element={<Cards/>}/>
+                <Route path={PATH.PACKS} element={<LoadingHOC><Packs/></LoadingHOC>}/>
                 <Route path={PATH.CARDS + '/*'} element={<Cards/>}/>
                 {/*<Route path={'/*'} element={<Navigate to={PATH.NOT_FOUND}/>}/>*/}
                 <Route path={'/slider'} element={<SliderInput/>}/>

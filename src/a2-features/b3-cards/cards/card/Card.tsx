@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import SuperEditableSpan from "../../../../a1-main/b1-ui/common/superEditableSpan/SuperEditableSpan";
 import {useFormik} from "formik";
 import {useAppSelector} from "../../../../a1-main/b2-bll/store";
@@ -18,6 +18,9 @@ const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answe
     const deleteCardHandler = () => {
         deleteCard(cardId)
     }
+    const editCardHandler = () => {
+        formik.handleSubmit()
+    }
     const formik = useFormik({
         initialValues: {
             question: question
@@ -26,20 +29,19 @@ const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answe
             editCard(cardId, values.question)
         }
     })
+    //    формик кеширует, перезапрашиваем
+    useEffect(() => {
+        formik.setValues({question})
+    }, [question])
+
     return (
         <div>
-
             <SuperEditableSpan
                 id={'question'}
                 type={'text'}
                 onEnter={() => {
                     formik.handleSubmit()
                 }}
-                // spanProps={{
-                //     children: formik.values.question
-                //         ? undefined
-                //         : 'Change question name'
-                // }}
 
                 {...formik.getFieldProps('question')}
             />
@@ -49,7 +51,7 @@ const Card: React.FC<CardType> = ({lastUpdated, grade, question, editCard, answe
             <div>{myUserId === userId &&
                 <div>
                     <button onClick={deleteCardHandler}>delete</button>
-                    <button onClick={deleteCardHandler}>edit</button>
+                    <button onClick={editCardHandler}>edit</button>
                 </div>
             }
 

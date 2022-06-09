@@ -16,6 +16,7 @@ type SuperEditableSpanType = DefaultInputPropsType & { // и + ещё пропс
     error?: string
     spanClassName?: string
 
+
     spanProps?: DefaultSpanPropsType // пропсы для спана
 }
 
@@ -39,7 +40,6 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
     }
     const onBlurCallback = (e: React.FocusEvent<HTMLInputElement>) => {
         setEditMode(false) // выключить editMode при нажатии за пределами инпута
-
         onBlur && onBlur(e)
     }
     const onDoubleClickCallBack = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {

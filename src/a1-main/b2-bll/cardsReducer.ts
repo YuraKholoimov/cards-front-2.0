@@ -30,11 +30,11 @@ type InitialStateType = {
     searchCard: string
     sortCards: string
     packUserId: string
-    token: string
     tokenDeathTime: number
     answer: string
     question: string
     grade: number
+    packId: string
 }
 
 const initialState: InitialStateType = {
@@ -47,11 +47,11 @@ const initialState: InitialStateType = {
     searchCard: '',
     sortCards: '0updated',
     packUserId: '',
-    token: '',
     tokenDeathTime: 0,
     answer: "",
     question: '',
     grade: 0,
+    packId: ''
 }
 
 
@@ -75,6 +75,8 @@ export const cardsReducer = (state = initialState, action: CardsActionsType): In
             }
         case "CARDS/SET-FILTER":
             return {...state, sortCards: `${action.payload.value}${action.payload.name}`}
+        case "CARDS/SET-PACK-ID":
+            return {...state, packId: action.payload.packId}
         default:
             return state
     }
@@ -95,7 +97,10 @@ export const setFilterCards = (value: number, name: string) => ({
     type: 'CARDS/SET-FILTER',
     payload: {value, name}
 } as const)
-
+export const setPackId = (packId: string) => ({
+    type: 'CARDS/SET-PACK-ID',
+    payload: {packId}
+} as const)
 
 //---- Thunks
 export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsActionsType>, getState: () => AppRootStateType) => {
@@ -115,6 +120,9 @@ export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsAction
     cardsApi.getCards(payload)
         .then((res) => {
             dispatch(setCards(res.data))
+
+            // dispatch(setCardsThunk(packId))
+
         })
         .catch((err) => {
             dispatch(setError(err.response.data.error))
@@ -167,9 +175,11 @@ export type CardsActionsType =
     ReturnType<typeof setCards> |
     ReturnType<typeof addCard> |
     ReturnType<typeof editCard> |
-    ReturnType<typeof setFilterCards>
+    ReturnType<typeof setFilterCards> |
+    ReturnType<typeof setPackId>
     | setCatchErrorType
     | setLoadingAppType
+
 
 
 

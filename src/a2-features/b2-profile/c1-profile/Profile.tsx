@@ -54,6 +54,7 @@ const Profile = () => {
                 <div className={s.packsContainer}>
                     <Packs/>
                     <Pagination/>
+
                     <SuperSelect value={value} options={arrValue} onChangeOption={setValue}/>
                 </div>
 

@@ -18,9 +18,8 @@ const initialState: InitialStateType = {
     page: 0,
     pageCount: 5,
     user_id: '',
-    minCardsCount: 0,
-    maxCardsCount: 0,
-    totalCount: 0
+    totalCount: 0,
+    maxCardsCount: 0
 }
 
 
@@ -29,8 +28,8 @@ export const packsReducer = (state = initialState, action: PacksActionsType): In
         case "PACKS/SET-PACKS":
             return {...state,
                 cardsPack: action.payload.data.cardPacks,
-                maxCardsCount: action.payload.data.maxCardsCount
-
+                maxCardsCount: action.payload.data.maxCardsCount,
+                totalCount: action.payload.data.cardPacksTotalCount
             }
         case "PACKS/SET-FILTER-PACKS":
             return {...state, sortPacks: `${action.payload.value}${action.payload.nameValue}`}
@@ -50,6 +49,7 @@ export const packsReducer = (state = initialState, action: PacksActionsType): In
             return {...state, totalCount: action.payload.totalCount}
         case "PACKS/SET-CURRENT-PAGE":
             return {...state, page: action.payload.page}
+
         default:
             return state
     }
@@ -69,12 +69,8 @@ export const setFilteredPackName = (packName: string) => ({
     type: 'PACKS/SET-FILTERED-PACK-NAME',
     payload: {packName}
 } as const)
-export const setMinCards = (min: number) => ({type: 'PACKS/SET-MIN-CARDS', payload: {min}} as const)
-export const setMaxCards = (max: number) => ({type: 'PACKS/SET-MAX-CARDS', payload: {max}} as const)
-export const setMaxCardsCount = (maxCardsCount: number) => ({
-    type: 'PACKS/SET-MAX-CARDS-COUNT',
-    payload: {maxCardsCount}
-} as const)
+export const setMinDotInput = (min: number) => ({type: 'PACKS/SET-MIN-CARDS', payload: {min}} as const)
+export const setMaxDotInput = (max: number) => ({type: 'PACKS/SET-MAX-CARDS', payload: {max}} as const)
 export const setTotalCardsCount = (totalCount: number) => ({
     type: 'PACKS/SET-TOTAL-CARDS-COUNT',
     payload: {totalCount}
@@ -96,16 +92,13 @@ export const setPacksThunk = () => (dispatch: Dispatch<PacksActionsType>, getSta
         page,
         pageCount,
         user_id,
-        minCardsCount,
-        maxCardsCount,
         totalCount
     } = getState().packs
-    const payload = {packName, min, max, sortPacks, page, pageCount, user_id, minCardsCount, maxCardsCount, totalCount}
-
+    const payload = {packName, min, max, sortPacks, page, pageCount, user_id, totalCount}
     packsApi.getPacks(payload)
         .then((res) => {
             dispatch(setPacks(res.data))
-            dispatch(setMaxCards(res.data.maxCardsCount))
+
         })
 
         .catch((err) => {
@@ -171,9 +164,8 @@ export type PacksActionsType =
     | ReturnType<typeof showMyOrAllPacks>
     | ReturnType<typeof updatePack>
     | ReturnType<typeof setFilteredPackName>
-    | ReturnType<typeof setMinCards>
-    | ReturnType<typeof setMaxCards>
-    | ReturnType<typeof setMaxCardsCount>
+    | ReturnType<typeof setMinDotInput>
+    | ReturnType<typeof setMaxDotInput>
     | ReturnType<typeof setTotalCardsCount>
     | ReturnType<typeof setCurrentPage>
 

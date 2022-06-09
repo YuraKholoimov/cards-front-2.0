@@ -58,4 +58,3 @@ export const SuperDoubleRange: React.FC<SuperDoubleRangePropsType> = (
         </>
     )
 }
-

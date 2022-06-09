@@ -4,23 +4,13 @@ import {useAppDispatch, useAppSelector} from "../../../b2-bll/store";
 import SuperButton from "../superButton/SuperButton";
 import {setCurrentPage} from "../../../b2-bll/packsReducer";
 
-// type PropsType = {
-//     totalCount: number
-//     pageSize: number
-//     currentPage: number
-//     onPageChange: (n: number) => void
-// }
-
 const Pagination: React.FC = () => {
     const dispatch = useAppDispatch()
     const packsTotalCount = useAppSelector(state => state.packs.totalCount)
     const packsPerPage = useAppSelector(state => state.packs.pageCount)
-    const currentPage = useAppSelector(state=>state.packs.page)
-
-
+    const currentPage = useAppSelector(state => state.packs.page)
 
     const portionSize = 5;
-
 
 
     const pagesTotalCount = Math.ceil(packsTotalCount / packsPerPage);

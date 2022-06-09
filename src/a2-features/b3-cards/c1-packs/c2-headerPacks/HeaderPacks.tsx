@@ -7,7 +7,6 @@ import {SearchField} from "../../../../a1-main/b1-ui/common/searchField/SearchFi
 import SuperButton from "../../../../a1-main/b1-ui/common/superButton/SuperButton";
 
 const HeaderPacks = () => {
-    const [name, setName] = useState('')
     const [filter, setFilter] = useState(false)
     const dispatch = useAppDispatch()
 
@@ -18,8 +17,9 @@ const HeaderPacks = () => {
 
 
     const addPackHandler = () => {
-        dispatch(addPackThunk(name))
-        setName('')
+        const newPack = prompt('Введите имя пака')
+        newPack && dispatch(addPackThunk(newPack))
+
     }
 
 
@@ -27,7 +27,6 @@ const HeaderPacks = () => {
         <div>
             <div className={s.search}>
                 <SearchField/>
-                <SuperInputText value={name} onChangeText={setName}/>
                 <SuperButton onClick={addPackHandler}>add pack</SuperButton>
             </div>
             <ul className={s.headerContainer}>
@@ -36,13 +35,7 @@ const HeaderPacks = () => {
                 <div onClick={() => changeFilterValue('updated')}>Last Updated</div>
                 <div>Created by</div>
                 <div>Actions</div>
-                {/*<div><SuperInputText value={name} onChangeText={setName}/></div>*/}
-                {/*<div>*/}
-                {/*    <button onClick={addPackHandler}>add pack</button>*/}
-                {/*</div>*/}
-
             </ul>
-
         </div>
     );
 };

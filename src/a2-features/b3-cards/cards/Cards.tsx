@@ -10,6 +10,8 @@ import {
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
 import {useNavigate, useParams} from "react-router-dom";
+import {PacksType} from "../../../a1-main/b3-dal/packsApi";
+import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 
 const Cards = () => {
     const navigate = useNavigate()
@@ -18,30 +20,35 @@ const Cards = () => {
     const token = params['*'] as string
     const filterValue = useAppSelector<string>(state => state.cards.sortCards)
     const cards = useAppSelector<Array<CardsType>>(state => state.cards.cards)
-    const userPackId = useAppSelector(state => state.packs.cardsPack.filter(f => f._id === token)[0].user_id)
+    const cardPacks = useAppSelector<Array<PacksType>>(state => state.packs.cardsPack)
     const myUserId = useAppSelector(state => state.auth.userId)
-
+    const loading = useAppSelector<boolean>(state => state.app.loadingApp)
 
 
     useEffect(() => {
         dispatch(setCardsThunk(token))
     }, [filterValue])
+    if (loading) {
+        return <Preloader/>
+
+    }
+
+
+    const userPackId = cardPacks.find(p => p._id === token)?.user_id
+
     const addCardHandler = () => {
         const question = prompt('Введите вопрос')
         const answer = prompt('Введите Ответ')
-
         if (token && question && answer)
             dispatch(addCardThunk(token, question, answer))
     }
 
     const deleteCardHandler = (cardId: string) => {
-
         dispatch(deleteCardThunk(token, cardId))
     }
-    const editCardHandler = (_id: string, question: string) => {
-
-        dispatch(editCardThunk(token, _id, question))
-
+    const editCardHandler = (_id: string) => {
+        const newQuestion = prompt('Введите новый вопрос')
+       newQuestion && dispatch(editCardThunk(token, _id, newQuestion))
     }
     return (
         <div>
@@ -55,7 +62,7 @@ const Cards = () => {
                           deleteCard={deleteCardHandler}
                           editCard={editCardHandler}
                           cardId={m._id}
-                          userId={userPackId}
+                          userId={userPackId ?? ''}
                           question={m.question}
                           answer={m.answer}
                           lastUpdated={m.updated}
