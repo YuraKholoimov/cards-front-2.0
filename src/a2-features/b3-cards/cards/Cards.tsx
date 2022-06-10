@@ -6,10 +6,11 @@ import {
     CardsType,
     deleteCardThunk,
     editCardThunk,
-    setCardsThunk
+    setAnswerName,
+    setCardsThunk, setQuestionName
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
 import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 import backPage from '../../../a3-assets/images/backPage.svg';
@@ -19,6 +20,7 @@ import SuperButton from "../../../a1-main/b1-ui/common/superButton/SuperButton";
 import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField";
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
+
 
 const Cards = () => {
     const navigate = useNavigate()
@@ -30,13 +32,15 @@ const Cards = () => {
     const cardPacks = useAppSelector<Array<PacksType>>(state => state.packs.cardsPack)
     const myUserId = useAppSelector(state => state.auth.userId)
     const loading = useAppSelector<boolean>(state => state.app.loadingApp)
+    const cardsQuestion = useAppSelector((state) => state.cards.question)
+    const cardsAnswer = useAppSelector((state) => state.cards.answer)
 
     const arrValue = ['5', '10', '15', '20']
     const [value, setValue] = useState(arrValue[0])
 
     useEffect(() => {
         dispatch(setCardsThunk(token))
-    }, [filterValue])
+    }, [filterValue, cardsQuestion, cardsAnswer])
     if (loading) {
         return <Preloader/>
 
@@ -66,7 +70,10 @@ const Cards = () => {
                     <div className={s.search}>
                         <SuperButton onClick={() => navigate(-1)}><img src={backPage} alt={"backPage"}/></SuperButton>
                         <div className={s.field}>
-                            <SearchField/>
+                            <SearchField searchItemName={cardsQuestion} setSearchItemName={setQuestionName}
+                                         fieldName={'Search cards by question...'}/>
+                            <SearchField searchItemName={cardsAnswer} setSearchItemName={setAnswerName}
+                                        fieldName={'Search cards by answer...'}/>
                         </div>
 
                     </div>

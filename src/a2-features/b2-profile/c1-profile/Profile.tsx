@@ -29,7 +29,7 @@ const Profile = () => {
         <>
             <div className={s.profileContainers}>
                 <Frame>
-                    <SearchField/>
+                    {/*<SearchField/>*/}
                     <SliderInput/>
                     <span><strong>It-incubator <NavLink to={'/packs'}>УДАЛИТЬ</NavLink></strong></span>
                     <h2>Profile info<NavLink className={s.link} to={'/edit-c1-profile'}><img className={s.img}

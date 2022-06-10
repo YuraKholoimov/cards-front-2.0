@@ -68,6 +68,7 @@ export const setFilteredPackName = (packName: string) => ({
     type: 'PACKS/SET-FILTERED-PACK-NAME',
     payload: {packName}
 } as const)
+
 export const setMinDotInput = (min: number) => ({type: 'PACKS/SET-MIN-CARDS', payload: {min}} as const)
 export const setMaxDotInput = (max: number) => ({type: 'PACKS/SET-MAX-CARDS', payload: {max}} as const)
 export const setTotalCardsCount = (totalCount: number) => ({
@@ -112,6 +113,7 @@ export const addPackThunk = (name: string) => (dispatch: Dispatch<any>) => {
     packsApi.addNewPack({name})
         .then(() => {
             dispatch(setPacksThunk())
+
         })
         .catch((err) => {
             dispatch(setError(err.response.data.error))
@@ -167,6 +169,8 @@ export type PacksActionsType =
     | ReturnType<typeof setMaxDotInput>
     | ReturnType<typeof setTotalCardsCount>
     | ReturnType<typeof setCurrentPage>
+
+
 
 
 

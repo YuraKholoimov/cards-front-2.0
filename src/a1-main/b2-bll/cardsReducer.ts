@@ -77,6 +77,10 @@ export const cardsReducer = (state = initialState, action: CardsActionsType): In
             return {...state, sortCards: `${action.payload.value}${action.payload.name}`}
         case "CARDS/SET-PACK-ID":
             return {...state, packId: action.payload.packId}
+        case "CARDS/SET-QUESTION-NAME":
+            return {...state, question: action.payload.question}
+        case "CARDS/SET-ANSWER-NAME":
+            return {...state, answer: action.payload.question}
         default:
             return state
     }
@@ -100,6 +104,14 @@ export const setFilterCards = (value: number, name: string) => ({
 export const setPackId = (packId: string) => ({
     type: 'CARDS/SET-PACK-ID',
     payload: {packId}
+} as const)
+export const setQuestionName = (question: string) => ({
+    type: 'CARDS/SET-QUESTION-NAME',
+    payload: {question}
+} as const)
+export const setAnswerName = (question: string) => ({
+    type: 'CARDS/SET-ANSWER-NAME',
+    payload: {question}
 } as const)
 
 //---- Thunks
@@ -176,9 +188,12 @@ export type CardsActionsType =
     ReturnType<typeof addCard> |
     ReturnType<typeof editCard> |
     ReturnType<typeof setFilterCards> |
-    ReturnType<typeof setPackId>
+    ReturnType<typeof setPackId> |
+    ReturnType<typeof setQuestionName> |
+    ReturnType<typeof setAnswerName>
     | setCatchErrorType
     | setLoadingAppType
+
 
 
 
