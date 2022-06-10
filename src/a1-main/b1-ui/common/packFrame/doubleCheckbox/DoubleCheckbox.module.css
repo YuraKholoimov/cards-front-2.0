@@ -3,7 +3,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
 }
 
 .tab {
@@ -11,11 +10,12 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
     cursor: pointer;
     width: 100px;
     height: 40px;
     background-color: white;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
 }
 
 .selected {
@@ -23,15 +23,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-
     cursor: pointer;
     color: white;
     width: 100px;
     height: 40px;
-    background-color: red;
+    background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
 }
-
-
 
 @media (max-width: 500px) {
     .tab {
@@ -41,5 +40,7 @@
     .selected{
         width: 90px;
         height: 30px;
+        border-bottom-right-radius: 10px;
+        border-top-right-radius: 10px;
     }
 }

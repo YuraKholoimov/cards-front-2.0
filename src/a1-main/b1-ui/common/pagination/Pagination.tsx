@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from "./pagination.module.css"
 import {useAppDispatch, useAppSelector} from "../../../b2-bll/store";
 import SuperButton from "../superButton/SuperButton";
@@ -28,6 +28,10 @@ const Pagination: React.FC = () => {
     const [portionNumber, setPortionNumber] = useState(1);
     const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
     const rightPortionPageNumber = portionNumber * portionSize;
+
+    useEffect(() => {
+
+    },[portionNumber])
 
     return (
         <div>

@@ -1,4 +1,4 @@
-.wrapper {
+.range {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -6,16 +6,26 @@
     margin: 20px 0px;
     width: 200px;
     position: relative;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 5px;
+    text-align: center;
+    padding-left: 0px;
 }
 
 .values {
-    background-color: #ffffff;
-    color: #00192e;
-    font-weight: bold;
-    font-size: 18px;
-    width: 42%;
-    position: relative;
-    padding: 10px 0;
-    border-radius: 5px;
-    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding-left: 5px;
+}
+.values2{
+    padding-left: 150px;
+}
+.values1{
+    padding-left: 200px;
+}
+.range{
+    width: 40px;
 }

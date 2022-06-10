@@ -12,17 +12,18 @@ import {NavLink} from "react-router-dom";
 import Pagination from "../../pagination/Pagination";
 import SuperSelect from "../../seperSelect/SuperSelect";
 import SuperButton from "../../superButton/SuperButton";
+import {SuperRange} from "../../sliderInput/superRange/SuperRange";
 
 
 const MyProfile = () => {
     const avatar = useAppSelector<string | undefined>(state => state.profile.avatar)
     const name = useAppSelector<string>(state => state.profile.name)
-    const arrValue = ['5','10','15','20']
-    const [value, setValue] = useState(arrValue[0])
+
 
     return <div>
 
         <PackFrame>
+
             <div className={s.myProf}>
                 <DoubleCheckbox/>
                 <div className={s.items}>
@@ -31,29 +32,23 @@ const MyProfile = () => {
                         <img src={avatar ? avatar : noAvatar}
                              alt="avatar"/>
                     </div>
-                    <div>Front-end developer</div>
-                    <div className={s.text}><strong>NickName: {name} </strong>
+                    <div className={s.text}>
+                        <h2>{name}</h2>
+                        <div>Front-end developer</div>
                     </div>
-                    <NavLink to={'/edit-c1-profile'}>
+                    <NavLink className={s.edit} to={'/edit-c1-profile'}>
                         <button className={s.button}>Edit profile</button>
                     </NavLink>
-                    <div>
-                        <SliderInput/>
-                    </div>
 
                 </div>
+                <SliderInput/>
             </div>
 
             <div className={s.packs}>
                 <Packs/>
-                <div className={s.pagination}>
-                    <Pagination/>
-                   <SuperSelect value={value} options={arrValue} onChangeOption={setValue}/>
-                </div>
             </div>
 
         </PackFrame>
-
     </div>
 }
 export default MyProfile

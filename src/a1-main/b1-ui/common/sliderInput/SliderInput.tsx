@@ -3,6 +3,7 @@ import {setMaxDotInput, setMinDotInput} from '../../../b2-bll/packsReducer';
 import { useDebounce } from '../utilsFunc/useDebounceHOOK/useDebounce';
 import React, {useEffect, useState} from "react";
 import { SuperDoubleRange } from "./superDoubleRange/SuperDoubleRange";
+import s from "./SliderInput.module.css";
 
 export function SliderInput() {
     const maxCardsCount = useAppSelector((state) => state.packs.maxCardsCount)
@@ -44,27 +45,20 @@ export function SliderInput() {
 
     return (
         <div>
-            <hr/>
-            homeworks 11
+            <div className={s.range}>
+                <div className={s.values}>
+                    <span className={s.values1}>{value1}</span>
+                    <span className={s.values2}>{value2}</span>
+                </div>
 
-            {/*should work (должно работать)*/}
-
-            <div>
-                <span>{value1}</span>-
                 <SuperDoubleRange
                     commonValue={[value1, value2]}
                     onChangeRange={onChangeRangeHandler}
                     max={maxCardsCount}
                     // сделать так чтоб value1 и value2 изменялось
                 />
-                <span>{value2}</span>
-            </div>
 
-            <hr/>
-            {/*для личного творчества, могу проверить*/}
-            {/*<AlternativeSuperRange/>*/}
-            {/*<AlternativeSuperDoubleRange/>*/}
-            <hr/>
+            </div>
         </div>
         // <Box sx={{ width: 300 }}>
         //     <Slider

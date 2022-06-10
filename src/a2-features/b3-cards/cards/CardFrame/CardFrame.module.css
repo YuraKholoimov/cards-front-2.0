@@ -1,4 +1,4 @@
-.packFrame {
+.cardFrame {
     max-width: 1200px;
     background-image: linear-gradient(315deg, #fffcf9 0%, #ffd166 74%);
     border-radius: 8px;
@@ -11,8 +11,8 @@
     border: #484848 3px solid;
 }
 
-@media (max-width: 1150px) {
-    .packFrame {
+@media (max-width: 2000px) {
+    .cardFrame {
         flex-direction: column;
     }
 }
