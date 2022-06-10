@@ -25,7 +25,7 @@ const MyProfile = () => {
         <PackFrame>
 
             <div className={s.myProf}>
-                <DoubleCheckbox/>
+                <DoubleCheckbox firstName={'My'} secondName={'All'}/>
                 <div className={s.items}>
 
                     <div className={s.avatar}>
@@ -36,12 +36,15 @@ const MyProfile = () => {
                         <h2>{name}</h2>
                         <div>Front-end developer</div>
                     </div>
-                    <NavLink className={s.edit} to={'/edit-c1-profile'}>
-                        <button className={s.button}>Edit profile</button>
-                    </NavLink>
+
+                    <div className={s.edit}>
+                        <DoubleCheckbox firstName={'Edit profile'} secondName={'Log out'}/>
+                    </div>
 
                 </div>
                 <SliderInput/>
+
+
             </div>
 
             <div className={s.packs}>
