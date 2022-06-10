@@ -8,7 +8,6 @@ type InitialStateType = GetPacksParamsType & {
     cardsPack: Array<PacksType>
 }
 
-
 const initialState: InitialStateType = {
     cardsPack: [],
     packName: '',
