@@ -40,6 +40,8 @@ export const packsReducer = (state = initialState, action: PacksActionsType): In
             return {...state, packName: action.payload.data.name}
         case "PACKS/SET-FILTERED-PACK-NAME":
             return {...state, ...action.payload}
+        case "PACKS/CLEAR-FILTERED-PACK-NAME":
+            return {...state, packName: ''}
         case "PACKS/SET-MAX-CARDS":
             return {...state, max: action.payload.max}
         case "PACKS/SET-MIN-CARDS":
@@ -48,7 +50,6 @@ export const packsReducer = (state = initialState, action: PacksActionsType): In
             return {...state, totalCount: action.payload.totalCount}
         case "PACKS/SET-CURRENT-PAGE":
             return {...state, page: action.payload.page}
-
         default:
             return state
     }
@@ -67,6 +68,10 @@ export const updatePack = (data: UpdateDataType) => ({type: 'PACKS/UPDATE-PACK',
 export const setFilteredPackName = (packName: string) => ({
     type: 'PACKS/SET-FILTERED-PACK-NAME',
     payload: {packName}
+} as const)
+export const clearFilterPackName = () => ({
+    type: 'PACKS/CLEAR-FILTERED-PACK-NAME',
+
 } as const)
 
 export const setMinDotInput = (min: number) => ({type: 'PACKS/SET-MIN-CARDS', payload: {min}} as const)
@@ -169,6 +174,7 @@ export type PacksActionsType =
     | ReturnType<typeof setMaxDotInput>
     | ReturnType<typeof setTotalCardsCount>
     | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof clearFilterPackName>
 
 
 

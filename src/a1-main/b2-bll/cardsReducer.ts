@@ -81,6 +81,8 @@ export const cardsReducer = (state = initialState, action: CardsActionsType): In
             return {...state, question: action.payload.question}
         case "CARDS/SET-ANSWER-NAME":
             return {...state, answer: action.payload.question}
+        case "CARDS/CLEAR-QUESTION-ANSWER-NAME":
+            return {...state, answer: '', question: ''}
         default:
             return state
     }
@@ -112,6 +114,9 @@ export const setQuestionName = (question: string) => ({
 export const setAnswerName = (question: string) => ({
     type: 'CARDS/SET-ANSWER-NAME',
     payload: {question}
+} as const)
+export const clearQuestionAnswerName = () => ({
+    type: 'CARDS/CLEAR-QUESTION-ANSWER-NAME',
 } as const)
 
 //---- Thunks
@@ -190,7 +195,8 @@ export type CardsActionsType =
     ReturnType<typeof setFilterCards> |
     ReturnType<typeof setPackId> |
     ReturnType<typeof setQuestionName> |
-    ReturnType<typeof setAnswerName>
+    ReturnType<typeof setAnswerName> |
+    ReturnType<typeof clearQuestionAnswerName>
     | setCatchErrorType
     | setLoadingAppType
 

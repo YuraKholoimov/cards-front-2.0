@@ -3,7 +3,7 @@ import CardsHeader from "./card/CardsHeader";
 import {useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
 import {
     addCardThunk,
-    CardsType,
+    CardsType, clearQuestionAnswerName,
     deleteCardThunk,
     editCardThunk,
     setAnswerName,
@@ -41,10 +41,18 @@ const Cards = () => {
     useEffect(() => {
         dispatch(setCardsThunk(token))
     }, [filterValue, cardsQuestion, cardsAnswer])
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearQuestionAnswerName())
+        }
+    }, [])
+
+
     if (loading) {
         return <Preloader/>
-
     }
+
 
 
     const userPackId = cardPacks.find(p => p._id === token)?.user_id

@@ -23,7 +23,7 @@ export function SliderInput() {
     const delayedMaxValue = useDebounce(value2, 1500);
 
     useEffect(() => {
-        debugger
+
         dispatch(setMinDotInput(delayedMinValue))
         // dispatch(setMaxCards(delayedMaxValue))
         if(value2 !== maxCardsCount) {

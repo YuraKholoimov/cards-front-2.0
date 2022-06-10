@@ -3,7 +3,6 @@ import s from './SearchField.module.css'
 import {AppRootActionsType, useAppDispatch} from "../../../b2-bll/store";
 import {useDebounce} from "../utilsFunc/useDebounceHOOK/useDebounce";
 
-
 type SearchFieldPropsType = {
     searchItemName: string
     setSearchItemName: (searchItemName: string) => AppRootActionsType
@@ -17,12 +16,10 @@ export const SearchField = ({
                             }: SearchFieldPropsType) => {
 
     const dispatch = useAppDispatch();
-
     const [searchItem, setSearchItem] = useState<string>(searchItemName);
     const delayedSearchItem = useDebounce(searchItem, 1500);
 
-    useEffect(() => {
-            delayedSearchItem && dispatch(setSearchItemName(delayedSearchItem))},
+    useEffect(() => {dispatch(setSearchItemName(delayedSearchItem))},
         [delayedSearchItem]
     );
 
