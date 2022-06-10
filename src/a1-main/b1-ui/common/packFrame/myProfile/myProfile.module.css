@@ -26,12 +26,51 @@
 
 .text {
     display: flex;
-    flex-direction: row;
-    padding-top: 10px;
+    flex-direction: column;
+    align-items: center;
+
 }
-.button{
-    background-color: white;
-    border: 3px solid red;
+/*.button{*/
+/*    background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);*/
+/*    border: none;*/
+/*    font-size: 20px;*/
+/*    color: white;*/
+/*    border-radius: 5px;*/
+/*}*/
+.button {
+    margin: 10px;
+    padding: 15px 30px;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: white;
+    border-radius: 10px;
+    border: 0px;
+    font-weight: 700;
+    box-shadow: 0px 0px 14px -7px #f09819;
+    background-image: linear-gradient(45deg, #FF512F 0%, #F09819  51%, #FF512F  100%);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.button:hover {
+    background-position: right center;
+    /* change the direction of the change here */
+    color: #fff;
+    text-decoration: none;
+}
+
+.button:active {
+    outline: 0;
+    background-color: #FF4500;
+}
+
+.button:disabled {
+    border: 1px solid #999999;
+    cursor: not-allowed;
 }
 
 .search {
@@ -39,6 +78,11 @@
     margin-right: 20px;
 }
 .packs{
+    display: flex;
+    flex-direction: column;
     padding-top: 20px;
+    padding-left: 20px;
 }
-
+.edit{
+    padding-top: 10px;
+}

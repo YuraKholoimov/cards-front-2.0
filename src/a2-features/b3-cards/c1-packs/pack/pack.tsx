@@ -35,7 +35,7 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
 
     return (
         <div>
-            <div className={s.item}>
+            <div className={s.cards}>
                 <div onClick={redirectToPackCards}>{name}</div>
                 <div>{cardsCount}</div>
                 <div>{updated}</div>
@@ -45,7 +45,7 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
                         <button onClick={deletePackHandler}>delete</button>
                         <button onClick={editPackNameHandler}>edit</button>
                     </div>}
-                    <button>learn</button>
+                    <button className={s.learn}>learn</button>
                 </div>
             </div>
         </div>

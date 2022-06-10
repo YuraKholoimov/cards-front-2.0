@@ -38,8 +38,8 @@ export const RoutesComponent = () => {
                 <Route path={PATH.LOGIN} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
 
-                <Route path={PATH.PROFILE} element={<Profile/>}/>
-                {/*<Route path={PATH.PROFILE} element={<MyProfile/>}/>*/}
+                {/*<Route path={PATH.PROFILE} element={<Profile/>}/>*/}
+                <Route path={PATH.PROFILE} element={<MyProfile/>}/>
 
 
                 <Route path={PATH.EDIT_PROFILE} element={<LoadingHOC><EditProfile/></LoadingHOC>}/>

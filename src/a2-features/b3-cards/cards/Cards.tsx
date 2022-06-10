@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import CardsHeader from "./card/CardsHeader";
 import {useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
 import {
@@ -9,9 +9,16 @@ import {
     setCardsThunk
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
-import {useNavigate, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
 import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
+import backPage from '../../../a3-assets/images/backPage.svg';
+import s from './Cards.module.css';
+import {CardFrame} from "./CardFrame/CardFrame";
+import SuperButton from "../../../a1-main/b1-ui/common/superButton/SuperButton";
+import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField";
+import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
+import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
 
 const Cards = () => {
     const navigate = useNavigate()
@@ -24,6 +31,8 @@ const Cards = () => {
     const myUserId = useAppSelector(state => state.auth.userId)
     const loading = useAppSelector<boolean>(state => state.app.loadingApp)
 
+    const arrValue = ['5', '10', '15', '20']
+    const [value, setValue] = useState(arrValue[0])
 
     useEffect(() => {
         dispatch(setCardsThunk(token))
@@ -48,27 +57,48 @@ const Cards = () => {
     }
     const editCardHandler = (_id: string) => {
         const newQuestion = prompt('Введите новый вопрос')
-       newQuestion && dispatch(editCardThunk(token, _id, newQuestion))
+        newQuestion && dispatch(editCardThunk(token, _id, newQuestion))
     }
     return (
-        <div>
-            <CardsHeader/>
-            {myUserId === userPackId && <button onClick={addCardHandler}>add card</button>}
-            <button onClick={() => navigate(-1)}>назад к пакам</button>
-            {cards.map(m => {
+        <div >
+            <CardFrame>
+                <div className={s.main}>
+                    <div className={s.search}>
+                        <SuperButton onClick={() => navigate(-1)}><img src={backPage} alt={"backPage"}/></SuperButton>
+                        <div className={s.field}>
+                            <SearchField/>
+                        </div>
 
-                return (
-                    <Card key={m._id}
-                          deleteCard={deleteCardHandler}
-                          editCard={editCardHandler}
-                          cardId={m._id}
-                          userId={userPackId ?? ''}
-                          question={m.question}
-                          answer={m.answer}
-                          lastUpdated={m.updated}
-                          grade={m.grade}/>
-                )
-            })}
+                    </div>
+
+
+                    <CardsHeader/>
+
+                    {myUserId === userPackId && <button onClick={addCardHandler}>add card</button>}
+
+                    {cards.map(m => {
+                        return (
+                            <div className={s.cards}>
+                                <Card key={m._id}
+                                      deleteCard={deleteCardHandler}
+                                      editCard={editCardHandler}
+                                      cardId={m._id}
+                                      userId={userPackId ?? ''}
+                                      question={m.question}
+                                      answer={m.answer}
+                                      lastUpdated={m.updated}
+                                />
+
+                            </div>
+
+                        )
+                    })}
+                </div>
+                <div className={s.pagination}>
+                    <Pagination/>
+                    <SuperSelect value={value} options={arrValue} onChangeOption={setValue}/>
+                </div>
+            </CardFrame>
         </div>
     );
 };

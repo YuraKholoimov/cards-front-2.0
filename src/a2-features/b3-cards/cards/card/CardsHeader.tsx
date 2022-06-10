@@ -19,12 +19,12 @@ const CardsHeader = () => {
 
     return (
         <div>
-            <ul className={s.headerContainer}>
-                <li onClick={()=>{changeFilterValue('question')}}>Question</li>
-                <li onClick={()=>{changeFilterValue('answer')}}>Answer</li>
-                <li onClick={()=>{changeFilterValue('updated')}}>Last Updated</li>
-                <li onClick={()=>{changeFilterValue('grade')}}>Grade</li>
-            </ul>
+            <div className={s.headerContainer}>
+                <div onClick={()=>{changeFilterValue('question')}}>Question</div>
+                <div onClick={()=>{changeFilterValue('answer')}}>Answer</div>
+                <div onClick={()=>{changeFilterValue('updated')}}>Last Updated</div>
+                <div onClick={()=>{changeFilterValue('grade')}}>Grade</div>
+            </div>
 
         </div>
     );
