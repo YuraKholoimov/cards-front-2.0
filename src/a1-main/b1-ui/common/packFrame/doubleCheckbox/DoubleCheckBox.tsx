@@ -47,7 +47,6 @@ export const DoubleCheckbox = (props: DoubleCheckboxPropsType) => {
     }
     const logOut = () => {
           dispatch(logoutThunk())
-
         return   navigate('/login')
     }
 
