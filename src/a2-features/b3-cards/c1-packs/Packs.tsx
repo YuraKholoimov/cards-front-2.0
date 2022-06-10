@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
-import {setPacksCount, setPacksThunk, showMyOrAllPacks} from "../../../a1-main/b2-bll/packsReducer";
+import {
+    clearFilterPackName,
+    setPacksCount,
+    setPacksThunk,
+    showMyOrAllPacks
+} from "../../../a1-main/b2-bll/packsReducer";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
 import HeaderPacks from "./c2-headerPacks/HeaderPacks";
 import Pack from "./pack/pack";
@@ -9,6 +14,7 @@ import {useSelector} from "react-redux";
 import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
+
 
 const Packs = () => {
     const dispatch = useAppDispatch()
@@ -26,6 +32,13 @@ const Packs = () => {
     useEffect(() => {
         dispatch(setPacksThunk())
     }, [packsPerPage, sortPacks, id, packName, min, max, page])
+
+    useEffect(() => {
+        return () => {
+            dispatch(clearFilterPackName())
+        }
+    }, [])
+
 
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.loadingApp)
     if (loading) {
