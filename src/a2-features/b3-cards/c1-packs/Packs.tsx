@@ -14,6 +14,7 @@ import {useSelector} from "react-redux";
 import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
+import SuperButton from "../../../a1-main/b1-ui/common/superButton/SuperButton";
 
 
 const Packs = () => {
@@ -79,6 +80,7 @@ const Packs = () => {
                 }): <div style={{padding: '16px 24px'}}>Ничего не найдено</div>}
             </ul>
             <div className={s.pagination}>
+
                 <Pagination/>
                 <SuperSelect value={value} options={arrValue} onChangeOption={setValue}/>
             </div>
