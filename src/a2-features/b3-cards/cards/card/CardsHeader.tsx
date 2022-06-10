@@ -6,6 +6,7 @@ import {setFilterCards} from "../../../../a1-main/b2-bll/cardsReducer";
 const CardsHeader = () => {
 
     const [filter, setFilter] = useState(false)
+
     const dispatch = useAppDispatch()
 
     const changeFilterValue = (nameValue: string) => {
