@@ -66,3 +66,7 @@
 .cards::-webkit-scrollbar-thumb {
     background-color: rgb(253, 222, 171);
 }
+
+.name {
+    cursor: pointer;
+}
