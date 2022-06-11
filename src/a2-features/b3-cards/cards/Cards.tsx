@@ -8,7 +8,7 @@ import {
     deleteCardThunk,
     editCardThunk,
     setAnswerName,
-    setCardsThunk,
+    setCardsThunk, setCurrentCardsPage,
     setQuestionName
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
@@ -22,6 +22,7 @@ import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
 import Loading from "../../../a1-main/b1-ui/common/loading/Loading";
+import {setCurrentPage} from "../../../a1-main/b2-bll/packsReducer";
 
 
 const Cards = () => {
@@ -36,13 +37,18 @@ const Cards = () => {
     const loading = useAppSelector<boolean>(state => state.app.isLoading)
     const cardsQuestion = useAppSelector((state) => state.cards.question)
     const cardsAnswer = useAppSelector((state) => state.cards.answer)
-
+    const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
+    const cardsPerPage = useAppSelector(state => state.cards.pageCount)
+    const currentPage = useAppSelector(state => state.cards.page)
+    console.log('cardsTotalCount', cardsTotalCount)
+    console.log('cardsPerPage', cardsPerPage)
+    console.log('currentPage', currentPage)
     const arrValue = ['5', '10', '15', '20']
     const [value, setValue] = useState(arrValue[0])
 
     useEffect(() => {
         dispatch(setCardsThunk(token))
-    }, [filterValue, cardsQuestion, cardsAnswer])
+    }, [filterValue, cardsQuestion, cardsAnswer, currentPage])
 
     useEffect(() => {
         return () => {
@@ -50,10 +56,9 @@ const Cards = () => {
         }
     }, [])
 
-
-
-
-
+    const paginate = (num: number) => {
+        dispatch(setCurrentCardsPage(num))
+    }
     const userPackId = cardPacks.find(p => p._id === token)?.user_id
 
     const addCardHandler = () => {
@@ -71,7 +76,7 @@ const Cards = () => {
         newQuestion && dispatch(editCardThunk(token, _id, newQuestion))
     }
     return (
-        <div >
+        <div>
             <CardFrame>
 
                 <div className={s.main}>
@@ -84,7 +89,7 @@ const Cards = () => {
                             <SearchField searchItemName={cardsQuestion} setSearchItemName={setQuestionName}
                                          fieldName={'Search cards by question...'}/>
                             <SearchField searchItemName={cardsAnswer} setSearchItemName={setAnswerName}
-                                        fieldName={'Search cards by answer...'}/>
+                                         fieldName={'Search cards by answer...'}/>
 
                         </div>
 
@@ -118,7 +123,7 @@ const Cards = () => {
                     })}
                 </div>
                 <div className={s.pagination}>
-                    <Pagination/>
+                    <Pagination TotalCount={cardsTotalCount} countPerPage={cardsPerPage} currentPage={currentPage} selectCardsPage={paginate}/>
                     <SuperSelect value={value} options={arrValue} onChangeOption={setValue}/>
                 </div>
             </CardFrame>

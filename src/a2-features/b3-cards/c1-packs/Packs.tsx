@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
-import {clearFilterPackName, setPacksThunk} from "../../../a1-main/b2-bll/packsReducer";
+import {clearFilterPackName, setCurrentPage, setPacksThunk} from "../../../a1-main/b2-bll/packsReducer";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
 import HeaderPacks from "./c2-headerPacks/HeaderPacks";
 import Pack from "./pack/pack";
@@ -21,6 +21,7 @@ const Packs = () => {
     const min = useAppSelector((state) => state.packs.min)
     const max = useAppSelector((state) => state.packs.max)
     const page = useAppSelector(state => state.packs.page)
+    const packsTotalCount = useAppSelector(state => state.packs.totalCount)
     const arrValue = ['5', '10', '15', '20']
     const [value, setValue] = useState(arrValue[0])
     useEffect(() => {
@@ -32,7 +33,9 @@ const Packs = () => {
             dispatch(clearFilterPackName())
         }
     }, [])
-
+    const paginate = (num: number) => {
+        dispatch(setCurrentPage(num))
+    }
 
     const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     return (
@@ -55,7 +58,7 @@ const Packs = () => {
             </ul>
             <div className={s.pagination}>
 
-                <Pagination/>
+                <Pagination TotalCount={packsTotalCount} countPerPage={packsPerPage} currentPage={page} selectPacksPage={paginate}/>
                 <SuperSelect value={value} options={arrValue} onChangeOption={setValue}/>
             </div>
         </div>
