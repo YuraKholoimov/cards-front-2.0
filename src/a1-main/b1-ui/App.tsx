@@ -8,7 +8,6 @@ import {RoutesComponent} from './routes/RoutesComponent';
 function App() {
 
     const dispatch = useAppDispatch();
-
     const isInitialized = useAppSelector<boolean>(state => state.app.isInitializedApp)
 
     useEffect(() => {

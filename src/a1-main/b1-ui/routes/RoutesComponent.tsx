@@ -10,7 +10,6 @@ import {CheckEmail} from '../../../a2-features/b1-auth/password/checkEmail/Check
 import {NewPassword} from '../../../a2-features/b1-auth/password/newPassword/NewPassword';
 import Packs from "../../../a2-features/b3-cards/c1-packs/Packs";
 import Cards from "../../../a2-features/b3-cards/cards/Cards";
-import {SliderInput} from "../common/sliderInput/SliderInput";
 import MyProfile from '../common/packFrame/myProfile/myProfile';
 
 export const PATH = {
@@ -31,6 +30,7 @@ export const RoutesComponent = () => {
         <>
             <Routes>
                 <Route path={PATH.LOGIN} element={<Login/>}/>
+                <Route path={'/'} element={<Login/>}/>
                 <Route path={PATH.REGISTRATION} element={<Registration/>}/>
                 <Route path={PATH.PROFILE} element={<MyProfile/>}/>
                 <Route path={PATH.EDIT_PROFILE} element={<LoadingHOC><EditProfile/></LoadingHOC>}/>
@@ -40,8 +40,6 @@ export const RoutesComponent = () => {
                 <Route path={PATH.NEW_PASSWORD + `/*`} element={<NewPassword/>}/>
                 <Route path={PATH.PACKS} element={<LoadingHOC><Packs/></LoadingHOC>}/>
                 <Route path={PATH.CARDS + '/*'} element={<Cards/>}/>
-                <Route path={'/slider'} element={<SliderInput/>}/>
-
             </Routes>
         </>
     );
