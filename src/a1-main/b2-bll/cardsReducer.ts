@@ -91,6 +91,8 @@ export const cardsReducer = (state = initialState, action: CardsActionsType): In
             return {...state, answer: '', question: ''}
         case "SET-CURRENT-CARDS-PAGE":
             return {...state, page: action.payload.page}
+        case "SET-CARDS-COUNT":
+            return {...state, pageCount: action.payload.value}
         default:
             return state
     }
@@ -130,8 +132,11 @@ export const setCurrentCardsPage = (page: number) => ({
     type: 'SET-CURRENT-CARDS-PAGE',
     payload: {page}
 }as const)
-
-//---- Thunks
+export const setCardsCount = (value: number) => ({
+    type: 'SET-CARDS-COUNT',
+    payload:{value}
+} as const )
+ //---- Thunks
 export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsActionsType>, getState: () => AppRootStateType) => {
     dispatch(setLoading(true))
     const {sortCards, answer, question, page, pageCount} = getState().cards
@@ -209,7 +214,8 @@ export type CardsActionsType =
     ReturnType<typeof setQuestionName> |
     ReturnType<typeof setAnswerName> |
     ReturnType<typeof clearQuestionAnswerName> |
-    ReturnType<typeof setCurrentCardsPage>
+    ReturnType<typeof setCurrentCardsPage> |
+    ReturnType<typeof setCardsCount>
     | setCatchErrorType
     | setLoadingType
 

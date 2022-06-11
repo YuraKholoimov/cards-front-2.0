@@ -40,15 +40,12 @@ const Cards = () => {
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const cardsPerPage = useAppSelector(state => state.cards.pageCount)
     const currentPage = useAppSelector(state => state.cards.page)
-    console.log('cardsTotalCount', cardsTotalCount)
-    console.log('cardsPerPage', cardsPerPage)
-    console.log('currentPage', currentPage)
+
     const arrValue = ['5', '10', '15', '20']
     const [value, setValue] = useState(arrValue[0])
-
     useEffect(() => {
         dispatch(setCardsThunk(token))
-    }, [filterValue, cardsQuestion, cardsAnswer, currentPage])
+    }, [filterValue, cardsQuestion, cardsAnswer, currentPage,cardsPerPage])
 
     useEffect(() => {
         return () => {
