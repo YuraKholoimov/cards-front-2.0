@@ -11,8 +11,7 @@ const CardsHeader = () => {
 
     const changeFilterValue = (nameValue: string) => {
         setFilter(!filter)
-        console.log(filter)
-        dispatch(setFilterCards(+filter, nameValue))
+        dispatch(setFilterCards(+!filter, nameValue))
     }
 
 

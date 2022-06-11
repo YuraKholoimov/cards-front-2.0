@@ -19,7 +19,7 @@ const HeaderPacks = () => {
         setFilter(!filter)
         dispatch(setFilterNamePacks(+!filter, nameValue))
     }
-    console.log('filter',filter)
+
 
     const addPackHandler = () => {
         const newPack = prompt('Введите имя пака')

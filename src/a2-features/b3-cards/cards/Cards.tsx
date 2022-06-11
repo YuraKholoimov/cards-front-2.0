@@ -85,7 +85,7 @@ const Cards = () => {
                                          fieldName={'Search cards by question...'}/>
                             <SearchField searchItemName={cardsAnswer} setSearchItemName={setAnswerName}
                                         fieldName={'Search cards by answer...'}/>
-                        <Loading/>
+
                         </div>
 
                     </div>
@@ -96,8 +96,7 @@ const Cards = () => {
 
                     </div>
                     {myUserId === userPackId && <button onClick={addCardHandler}>add card</button>}
-                    {/*{loading && <Loading/>}*/}
-
+                    {loading && <Loading/>}
                     {cards.map(m => {
 
                         return (

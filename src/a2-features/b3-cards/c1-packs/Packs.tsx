@@ -40,7 +40,6 @@ const Packs = () => {
             <HeaderPacks/>
             <ul className={s.packs}>
                 {loading && <Loading/>}
-                <Loading/>
                 {packs.length > 0 ? packs.map(pack => {
                     return (
                         <Pack key={pack._id}
