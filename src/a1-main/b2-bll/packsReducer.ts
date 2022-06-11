@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {setLoadingAppType, setStatusLoadingApp} from "./appReducer";
+import {setLoading, setLoadingAppType, setLoadingType, setStatusLoadingApp} from "./appReducer";
 import {GetPacksParamsType, packsApi, PacksResponseType, PacksType} from "../b3-dal/packsApi";
 import {setCatchErrorType, setError} from "./loginReducer";
 import {AppRootStateType} from "./store";
@@ -25,7 +25,8 @@ const initialState: InitialStateType = {
 export const packsReducer = (state = initialState, action: PacksActionsType): InitialStateType => {
     switch (action.type) {
         case "PACKS/SET-PACKS":
-            return {...state,
+            return {
+                ...state,
                 cardsPack: action.payload.data.cardPacks,
                 maxCardsCount: action.payload.data.maxCardsCount,
                 totalCount: action.payload.data.cardPacksTotalCount
@@ -88,7 +89,7 @@ export const setCurrentPage = (page: number) => ({
 
 //---- Thunks
 export const setPacksThunk = () => (dispatch: Dispatch<PacksActionsType>, getState: () => AppRootStateType) => {
-    dispatch(setStatusLoadingApp(true))
+    dispatch(setLoading(true))
     const {
         packName,
         min,
@@ -110,11 +111,11 @@ export const setPacksThunk = () => (dispatch: Dispatch<PacksActionsType>, getSta
             dispatch(setError(err.response.data.error))
         })
         .finally(() => {
-            dispatch(setStatusLoadingApp(false))
+            dispatch(setLoading(false))
         })
 }
 export const addPackThunk = (name: string) => (dispatch: Dispatch<any>) => {
-    dispatch(setStatusLoadingApp(true))
+    dispatch(setLoading(true))
     packsApi.addNewPack({name})
         .then(() => {
             dispatch(setPacksThunk())
@@ -124,11 +125,11 @@ export const addPackThunk = (name: string) => (dispatch: Dispatch<any>) => {
             dispatch(setError(err.response.data.error))
         })
         .finally(() => {
-            dispatch(setStatusLoadingApp(false))
+            dispatch(setLoading(false))
         })
 }
 export const deletePackThunk = (id: string) => (dispatch: Dispatch<any>) => {
-    dispatch(setStatusLoadingApp(true))
+    dispatch(setLoading(true))
     debugger
     packsApi.deletePack(id)
         .then(() => {
@@ -138,11 +139,11 @@ export const deletePackThunk = (id: string) => (dispatch: Dispatch<any>) => {
             dispatch(setError(err.response.data.error))
         })
         .finally(() => {
-            dispatch(setStatusLoadingApp(false))
+            dispatch(setLoading(false))
         })
 }
 export const updatePackThunk = (data: UpdateDataType) => (dispatch: Dispatch<any>) => {
-    dispatch(setStatusLoadingApp(true))
+    dispatch(setLoading(true))
     packsApi.updatePack(data)
         .then(() => {
             dispatch(setPacksThunk())
@@ -151,7 +152,7 @@ export const updatePackThunk = (data: UpdateDataType) => (dispatch: Dispatch<any
             dispatch(setError(err.response.data.error))
         })
         .finally(() => {
-            dispatch(setStatusLoadingApp(false))
+            dispatch(setLoading(false))
         })
 }
 type UpdateDataType = {
@@ -175,7 +176,7 @@ export type PacksActionsType =
     | ReturnType<typeof setTotalCardsCount>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof clearFilterPackName>
-
+    | setLoadingType
 
 
 

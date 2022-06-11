@@ -7,6 +7,7 @@ import {setProfile, setProfileType} from "./profileReducer";
 const initialState = {
     loadingApp: false,
     isInitializedApp: false,
+    isLoading: false
 }
 
 export const appReducer = (state = initialState, action: AppActionsType): InitialStateType => {
@@ -25,6 +26,7 @@ export const appReducer = (state = initialState, action: AppActionsType): Initia
 //---- Actions
 export const isInitializedApp = (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED',payload: {isInitialized}} as const)
 export const setStatusLoadingApp = (status: boolean) => ({type: 'APP/SET-LOADING-APP', payload: {status}} as const)
+export const setLoading = (value: boolean) => ({type:'APP/SET-LOADING', payload:{value}} as const)
 
 
 //---- Thunks
@@ -47,3 +49,4 @@ export type AppActionsType = isInitializedAppType | setLoadingAppType | setIsLog
 export type setLoadingAppType = ReturnType<typeof setStatusLoadingApp>
 export type isInitializedAppType = ReturnType<typeof isInitializedApp>
 export type setUserIdType = ReturnType<typeof setUserId>
+export type setLoadingType = ReturnType<typeof setLoading>
