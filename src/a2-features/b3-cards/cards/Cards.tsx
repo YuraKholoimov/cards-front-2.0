@@ -8,7 +8,8 @@ import {
     deleteCardThunk,
     editCardThunk,
     setAnswerName,
-    setCardsThunk, setCurrentCardsPage,
+    setCardsThunk,
+    setCurrentCardsPage,
     setQuestionName
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
@@ -22,7 +23,6 @@ import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
 import Loading from "../../../a1-main/b1-ui/common/loading/Loading";
-import {setCurrentPage} from "../../../a1-main/b2-bll/packsReducer";
 
 
 const Cards = () => {

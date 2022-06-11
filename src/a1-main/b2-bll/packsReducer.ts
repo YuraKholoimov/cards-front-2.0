@@ -32,7 +32,6 @@ export const packsReducer = (state = initialState, action: PacksActionsType): In
                 totalCount: action.payload.data.cardPacksTotalCount
             }
         case "PACKS/SET-FILTER-PACKS":
-            console.log('action',action)
             return {...state, sortPacks: `${action.payload.value}${action.payload.nameValue}`}
         case "PACKS/SET-PACKS-COUNT" :
             return {...state, pageCount: action.payload.value}
@@ -75,7 +74,6 @@ export const clearFilterPackName = () => ({
     type: 'PACKS/CLEAR-FILTERED-PACK-NAME',
 
 } as const)
-
 export const setMinDotInput = (min: number) => ({type: 'PACKS/SET-MIN-CARDS', payload: {min}} as const)
 export const setMaxDotInput = (max: number) => ({type: 'PACKS/SET-MAX-CARDS', payload: {max}} as const)
 export const setTotalCardsCount = (totalCount: number) => ({

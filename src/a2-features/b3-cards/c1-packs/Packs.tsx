@@ -41,7 +41,7 @@ const Packs = () => {
     return (
         <div className={s.table}>
             <HeaderPacks/>
-            <ul className={s.packs}>
+            <table className={s.packs}>
                 {loading && <Loading/>}
                 {packs.length > 0 ? packs.map(pack => {
                     return (
@@ -55,7 +55,7 @@ const Packs = () => {
                         />
                     )
                 }): <div style={{padding: '16px 24px'}}>Ничего не найдено</div>}
-            </ul>
+            </table>
             <div className={s.pagination}>
 
                 <Pagination TotalCount={packsTotalCount} countPerPage={packsPerPage} currentPage={page} selectPacksPage={paginate}/>

@@ -34,30 +34,31 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId, 
 
 
     return (
-        <div>
-            <div className={s.cards}>
-                <div className={s.cardsName}>
-                    <div className={s.name} onClick={redirectToPackCards}>{name}</div>
-                </div>
-                <div className={s.cardsCount}>
-                    <div>{cardsCount}</div>
-                </div>
-                <div className={s.cardsUpdated}>
-                    <div>{updated}</div>
-                </div>
-                <div className={s.cardsUserName}>
-                    <div>{userName}</div>
-                </div>
+        <tr className={s.tr}>
+            <td className={s.cardsName}>
+                <div className={s.name} onClick={redirectToPackCards}>{name}</div>
+            </td>
+            <td className={s.cardsCount}>
+                <div>{cardsCount}</div>
+            </td>
+            <td className={s.cardsUpdated}>
+                <div>{updated}</div>
+            </td>
+            <td className={s.cardsUserName}>
+                <div>{userName}</div>
+            </td>
 
-                <div className={s.cardsBtn}>
-                    {myUserID === userId && <div>
-                        <button className={s.delete} onClick={deletePackHandler}>delete</button>
-                        <button className={s.learn} onClick={editPackNameHandler}>edit</button>
-                    </div>}
-                    <button className={s.learn}>learn</button>
-                </div>
-            </div>
-        </div>
+            <td className={s.cardsBtn}>
+                {myUserID === userId && <>
+                    <button className={s.delete} onClick={deletePackHandler}>delete</button>
+                    <button className={s.learn} onClick={editPackNameHandler}>edit</button>
+                </>}
+                <span>
+                        <button className={s.learn}>learn</button>
+                    </span>
+            </td>
+        </tr>
+
     );
 };
 
