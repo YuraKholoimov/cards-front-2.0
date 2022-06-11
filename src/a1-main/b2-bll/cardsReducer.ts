@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {setLoadingAppType, setStatusLoadingApp} from "./appReducer";
+import {setLoading, setLoadingAppType, setLoadingType, setStatusLoadingApp} from "./appReducer";
 import {setCatchErrorType, setError} from "./loginReducer";
 import {AppRootStateType} from "./store";
 import {cardsApi, GetCardsParamsType} from "../b3-dal/cardsApi";
@@ -43,7 +43,7 @@ const initialState: InitialStateType = {
     maxGrade: 0,
     minGrade: 0,
     page: 1,
-    pageCount: 8,
+    pageCount: 2,
     searchCard: '',
     sortCards: '0updated',
     packUserId: '',
@@ -58,7 +58,12 @@ const initialState: InitialStateType = {
 export const cardsReducer = (state = initialState, action: CardsActionsType): InitialStateType => {
     switch (action.type) {
         case "CARDS/SET-CARDS":
-            return {...state, packUserId: action.payload.data.packUserId, cards: action.payload.data.cards}
+            return {...state,
+                packUserId: action.payload.data.packUserId,
+                cards: action.payload.data.cards,
+                cardsTotalCount: action.payload.data.cardsTotalCount
+
+            }
         case "CARDS/ADD-CARDS":
             return {
                 ...state, cards: state.cards.map(m => m._id === action.payload.cardsPack_id
@@ -121,7 +126,7 @@ export const clearQuestionAnswerName = () => ({
 
 //---- Thunks
 export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsActionsType>, getState: () => AppRootStateType) => {
-    dispatch(setStatusLoadingApp(true))
+    dispatch(setLoading(true))
     const {sortCards, answer, question, page, pageCount} = getState().cards
     const payload: GetCardsParamsType = {
         cardAnswer: answer,
@@ -137,7 +142,7 @@ export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsAction
     cardsApi.getCards(payload)
         .then((res) => {
             dispatch(setCards(res.data))
-
+            console.log(res.data)
             // dispatch(setCardsThunk(packId))
 
         })
@@ -145,11 +150,11 @@ export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsAction
             dispatch(setError(err.response.data.error))
         })
         .finally(() => {
-            dispatch(setStatusLoadingApp(false))
+            dispatch(setLoading(false))
         })
 }
 export const addCardThunk = (cardsPack_id: string, question: string, answer: string) => (dispatch: Dispatch<any>) => {
-    dispatch(setStatusLoadingApp(true))
+    dispatch(setLoading(true))
     cardsApi.addCards({cardsPack_id, question, answer})
         .then(() => {
             dispatch(setCardsThunk(cardsPack_id))
@@ -158,11 +163,11 @@ export const addCardThunk = (cardsPack_id: string, question: string, answer: str
             dispatch(setError(err.response.data.error))
         })
         .finally(() => {
-            dispatch(setStatusLoadingApp(false))
+            dispatch(setLoading(false))
         })
 }
 export const deleteCardThunk = (cardsPack_id: string, cardsId: string) => (dispatch: Dispatch<any>) => {
-    dispatch(setStatusLoadingApp(true))
+    dispatch(setLoading(true))
     cardsApi.deleteCard(cardsId)
         .then(() => {
             dispatch(setCardsThunk(cardsPack_id))
@@ -171,11 +176,11 @@ export const deleteCardThunk = (cardsPack_id: string, cardsId: string) => (dispa
             dispatch(setError(err.response.data.error))
         })
         .finally(() => {
-            dispatch(setStatusLoadingApp(false))
+            dispatch(setLoading(false))
         })
 }
 export const editCardThunk = (cardsPack_id: string, _id: string, newQuestion: string, comment?: string) => (dispatch: Dispatch<any>) => {
-    dispatch(setStatusLoadingApp(true))
+    dispatch(setLoading(true))
     cardsApi.editCard({_id, question: newQuestion, comments: comment})
         .then(() => {
             dispatch(setCardsThunk(cardsPack_id))
@@ -184,7 +189,7 @@ export const editCardThunk = (cardsPack_id: string, _id: string, newQuestion: st
             dispatch(setError(err.response.data.error))
         })
         .finally(() => {
-            dispatch(setStatusLoadingApp(false))
+            dispatch(setLoading(false))
         })
 }
 
@@ -198,8 +203,7 @@ export type CardsActionsType =
     ReturnType<typeof setAnswerName> |
     ReturnType<typeof clearQuestionAnswerName>
     | setCatchErrorType
-    | setLoadingAppType
-
+    | setLoadingType
 
 
 

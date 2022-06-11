@@ -49,7 +49,9 @@ const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, card
     }, [question])
 
     return (
+
         <div className={s.card}>
+
             <SuperEditableSpan
                 id={'question'}
                 type={'text'}
@@ -62,6 +64,7 @@ const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, card
             <div>{answer}</div>
             <div>{lastUpdated}</div>
             <div className={s.rating_result}>
+
                 <span className={finalClass1}> </span>
                 <span className={finalClass2}> </span>
                 <span className={finalClass3}> </span>

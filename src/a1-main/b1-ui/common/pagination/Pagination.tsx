@@ -9,11 +9,14 @@ const Pagination: React.FC = () => {
     const packsTotalCount = useAppSelector(state => state.packs.totalCount)
     const packsPerPage = useAppSelector(state => state.packs.pageCount)
     const currentPage = useAppSelector(state => state.packs.page)
-
+    const cardsTotalCount = useAppSelector(state=>state.cards.cardsTotalCount)
+    const cardsPerPage = useAppSelector(state=>state.cards.pageCount)
+    console.log(cardsTotalCount/cardsPerPage)
     const portionSize = 5;
 
 
-    const pagesTotalCount = Math.ceil(packsTotalCount / packsPerPage);
+    const pagesTotalCount = Math.ceil(packsTotalCount / packsPerPage && cardsTotalCount/cardsPerPage);
+    debugger
     const pageNumbers: any[] = [];
     for (let i = 1; i < pagesTotalCount; i++) {
         pageNumbers.push(i == currentPage ? {page: i, isActive: true} : {page: i, isActive: false})
@@ -35,7 +38,7 @@ const Pagination: React.FC = () => {
 
     return (
         <div>
-            {/*{packs ? packs.map((p: any) => <li>{p.user_name}</li>) : <Preloader/>}*/}
+
 
             <nav className={s.pagination}>
                 <ul>

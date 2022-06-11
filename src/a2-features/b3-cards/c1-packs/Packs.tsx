@@ -1,20 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {AppRootStateType, useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
-import {
-    clearFilterPackName,
-    setPacksCount,
-    setPacksThunk,
-    showMyOrAllPacks
-} from "../../../a1-main/b2-bll/packsReducer";
+import {clearFilterPackName, setPacksThunk} from "../../../a1-main/b2-bll/packsReducer";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
 import HeaderPacks from "./c2-headerPacks/HeaderPacks";
 import Pack from "./pack/pack";
 import s from './Packs.module.css'
 import {useSelector} from "react-redux";
-import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
-import SuperButton from "../../../a1-main/b1-ui/common/superButton/SuperButton";
 import Loading from "../../../a1-main/b1-ui/common/loading/Loading";
 
 
@@ -47,6 +40,7 @@ const Packs = () => {
             <HeaderPacks/>
             <ul className={s.packs}>
                 {loading && <Loading/>}
+                <Loading/>
                 {packs.length > 0 ? packs.map(pack => {
                     return (
                         <Pack key={pack._id}

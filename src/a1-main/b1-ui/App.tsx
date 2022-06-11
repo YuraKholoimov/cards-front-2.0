@@ -3,7 +3,6 @@ import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from '../b2-bll/store';
 import {initializeAppThunk} from '../b2-bll/appReducer';
 import Preloader from './common/preloader/Preloader';
-import {Header} from './header/Header';
 import {RoutesComponent} from './routes/RoutesComponent';
 
 function App() {
@@ -21,7 +20,6 @@ function App() {
     }
     return (
         <div className="App">
-            <Header/>
             <RoutesComponent/>
         </div>
     );

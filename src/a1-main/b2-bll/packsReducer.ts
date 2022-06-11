@@ -32,6 +32,7 @@ export const packsReducer = (state = initialState, action: PacksActionsType): In
                 totalCount: action.payload.data.cardPacksTotalCount
             }
         case "PACKS/SET-FILTER-PACKS":
+            console.log('action',action)
             return {...state, sortPacks: `${action.payload.value}${action.payload.nameValue}`}
         case "PACKS/SET-PACKS-COUNT" :
             return {...state, pageCount: action.payload.value}
