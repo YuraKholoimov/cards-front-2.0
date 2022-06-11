@@ -17,6 +17,9 @@ export const appReducer = (state = initialState, action: AppActionsType): Initia
             return {...state, isInitializedApp: action.payload.isInitialized}
         case "APP/SET-LOADING-APP":
             return {...state, loadingApp: action.payload.status}
+        case "APP/SET-LOADING" :
+            return {...state, isLoading: action.payload.value}
+
         default:
             return state
     }
@@ -45,7 +48,7 @@ export const initializeAppThunk = () => (dispatch: Dispatch<AppActionsType>) => 
 
 //---- Types
 export type InitialStateType = typeof initialState
-export type AppActionsType = isInitializedAppType | setLoadingAppType | setIsLoggedIn | setProfileType | setUserIdType
+export type AppActionsType = isInitializedAppType | setLoadingAppType | setIsLoggedIn | setProfileType | setUserIdType | setLoadingType
 export type setLoadingAppType = ReturnType<typeof setStatusLoadingApp>
 export type isInitializedAppType = ReturnType<typeof isInitializedApp>
 export type setUserIdType = ReturnType<typeof setUserId>

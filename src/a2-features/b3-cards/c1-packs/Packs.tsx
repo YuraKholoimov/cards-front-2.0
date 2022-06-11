@@ -15,6 +15,7 @@ import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
 import SuperButton from "../../../a1-main/b1-ui/common/superButton/SuperButton";
+import Loading from "../../../a1-main/b1-ui/common/loading/Loading";
 
 
 const Packs = () => {
@@ -22,7 +23,6 @@ const Packs = () => {
     const packs = useAppSelector<Array<PacksType>>(state => state.packs.cardsPack)
     const packsPerPage = useAppSelector<number>(state => state.packs.pageCount)
     const sortPacks = useAppSelector<string>(state => state.packs.sortPacks)
-    const userId = useAppSelector<string>(state => state.profile._id)
     const id = useAppSelector<string>(state => state.packs.user_id)
     const packName = useAppSelector<string>(state => state.packs.packName)
     const min = useAppSelector((state) => state.packs.min)
@@ -41,31 +41,12 @@ const Packs = () => {
     }, [])
 
 
-    const loading = useSelector<AppRootStateType, boolean>(state => state.app.loadingApp)
-    if (loading) {
-        return <Preloader/>
-    }
-
-    // const showMorePacks = () => {
-    //     dispatch(setPacksCount(100))
-    // }
-    // const showMyPacksHandler = () => {
-    //     dispatch(showMyOrAllPacks(userId))
-    // }
-    // const showAllPacksHandler = () => {
-    //     dispatch(showMyOrAllPacks(''))
-    // }
-
+    const loading = useSelector<AppRootStateType, boolean>(state => state.app.isLoading)
     return (
         <div className={s.table}>
-            {/*<div>*/}
-            {/*    <button>user</button>*/}
-            {/*    <button onClick={showMorePacks}>выводить на страницу по 10</button>*/}
-            {/*    <button onClick={showMyPacksHandler}>Показать мои паки</button>*/}
-            {/*    <button onClick={showAllPacksHandler}>Показать все паки</button>*/}
-            {/*</div>*/}
             <HeaderPacks/>
             <ul className={s.packs}>
+                {loading && <Loading/>}
                 {packs.length > 0 ? packs.map(pack => {
                     return (
                         <Pack key={pack._id}
