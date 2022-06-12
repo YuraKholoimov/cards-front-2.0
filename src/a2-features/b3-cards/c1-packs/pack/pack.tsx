@@ -14,7 +14,7 @@ type PackType = {
 }
 
 
-const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId, userId}) => {
+const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,userId}) => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const deletePackHandler = () => {
@@ -34,31 +34,21 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId, 
 
 
     return (
-        <tr className={s.tr}>
-            <td className={s.cardsName}>
+        <div>
+            <div className={s.pack}>
                 <div className={s.name} onClick={redirectToPackCards}>{name}</div>
-            </td>
-            <td className={s.cardsCount}>
                 <div>{cardsCount}</div>
-            </td>
-            <td className={s.cardsUpdated}>
                 <div>{updated}</div>
-            </td>
-            <td className={s.cardsUserName}>
                 <div>{userName}</div>
-            </td>
-
-            <td className={s.cardsBtn}>
-                {myUserID === userId && <>
-                    <button className={s.delete} onClick={deletePackHandler}>delete</button>
-                    <button className={s.learn} onClick={editPackNameHandler}>edit</button>
-                </>}
-                <span>
-                        <button className={s.learn}>learn</button>
-                    </span>
-            </td>
-        </tr>
-
+                <div>
+                    {myUserID === userId && <div>
+                        <button onClick={deletePackHandler}>delete</button>
+                        <button onClick={editPackNameHandler}>edit</button>
+                    </div>}
+                    <button className={s.learn}>learn</button>
+                </div>
+            </div>
+        </div>
     );
 };
 

@@ -22,8 +22,10 @@ const Packs = () => {
     const max = useAppSelector((state) => state.packs.max)
     const page = useAppSelector(state => state.packs.page)
     const packsTotalCount = useAppSelector(state => state.packs.totalCount)
+
     const arrValue = ['5', '10', '15', '20']
     const [value, setValue] = useState(arrValue[0])
+
     useEffect(() => {
         dispatch(setPacksThunk())
     }, [packsPerPage, sortPacks, id, packName, min, max, page])
