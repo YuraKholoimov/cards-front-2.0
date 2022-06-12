@@ -20,7 +20,6 @@ type CardType = {
 const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, cardId, deleteCard, userId}) => {
     const myUserId = useAppSelector(state => state.auth.userId)
     const grade = useAppSelector(state => state.cards.grade)
-   //  const card = useAppSelector(state => state.cards.cards)
     let rating = +grade.toFixed(0)
     const finalClass1 = `${1 <= rating ? `${s.active}` : ``}`
     const finalClass2 = `${2 <= rating ? `${s.active}` : ``}`

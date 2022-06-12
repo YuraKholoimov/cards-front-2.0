@@ -3,6 +3,7 @@ import s from "./pack.module.css";
 import {deletePackThunk, updatePackThunk} from "../../../../a1-main/b2-bll/packsReducer";
 import {useAppDispatch, useAppSelector} from "../../../../a1-main/b2-bll/store";
 import {useNavigate} from "react-router-dom";
+import SuperButton from '../../../../a1-main/b1-ui/common/superButton/SuperButton';
 
 type PackType = {
     name: string
@@ -40,10 +41,10 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
                 <div>{cardsCount}</div>
                 <div>{updated}</div>
                 <div>{userName}</div>
-                <div>
-                    {myUserID === userId && <div>
-                        <button onClick={deletePackHandler}>delete</button>
-                        <button onClick={editPackNameHandler}>edit</button>
+                <div >
+                    {myUserID === userId && <div className={s.btn}>
+                        <SuperButton className={s.deleteBtn} onClick={deletePackHandler}>delete</SuperButton>
+                        <SuperButton className={s.editBtn} onClick={editPackNameHandler}>edit</SuperButton>
                     </div>}
                     <button className={s.learn}>learn</button>
                 </div>
