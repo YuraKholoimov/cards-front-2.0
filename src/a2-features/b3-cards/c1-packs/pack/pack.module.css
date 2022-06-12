@@ -43,3 +43,24 @@
 .name {
     cursor: pointer;
 }
+.btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+   align-items: center;
+}
+.deleteBtn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10px;
+    height: 3px;
+}
+
+.editBtn{
+    display: flex;
+    justify-content: center;
+    width: 10px;
+    height: 3px;
+    align-items: center;
+}

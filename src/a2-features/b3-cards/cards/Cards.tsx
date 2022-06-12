@@ -40,7 +40,7 @@ const Cards = () => {
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const cardsPerPage = useAppSelector(state => state.cards.pageCount)
     const currentPage = useAppSelector(state => state.cards.page)
-    const pageCardsCount =  useAppSelector(state => state.cards.pageCount)
+    const pageCardsCount = useAppSelector(state => state.cards.pageCount)
 
     console.log('cardsTotalCount', cardsTotalCount)
     console.log('cardsPerPage', cardsPerPage)
@@ -95,24 +95,21 @@ const Cards = () => {
                                          fieldName={'Search cards by question...'}/>
                             <SearchField searchItemName={cardsAnswer} setSearchItemName={setAnswerName}
                                          fieldName={'Search cards by answer...'}/>
-
+                            {myUserId === userPackId && <SuperButton  onClick={addCardHandler}>add card</SuperButton>}
                         </div>
 
                     </div>
 
-
                     <CardsHeader/>
+
                     <div className={s.loadingDiv}>
 
                     </div>
-                    {myUserId === userPackId && <button onClick={addCardHandler}>add card</button>}
+
                     {loading && <Loading/>}
                     <div className={s.cards}>
-                    {cards.map(m => {
-
-                        return (
-
-
+                        {cards.map(m => {
+                            return (
                                 <Card key={m._id}
                                       deleteCard={deleteCardHandler}
                                       editCard={editCardHandler}
@@ -122,13 +119,14 @@ const Cards = () => {
                                       answer={m.answer}
                                       lastUpdated={m.updated}
                                 />
-                        )
-                    })}
+                            )
+                        })}
                     </div>
                 </div>
                 <div className={s.pagination}>
-                    <Pagination TotalCount={cardsTotalCount} countPerPage={cardsPerPage} currentPage={currentPage} selectCardsPage={paginate}/>
-                    <SuperSelect value={cardsValue} options={arrCardsValue}  onChangeCardsOption={setCardsValue}/>
+                    <Pagination TotalCount={cardsTotalCount} countPerPage={cardsPerPage} currentPage={currentPage}
+                                selectCardsPage={paginate}/>
+                    <SuperSelect value={cardsValue} options={arrCardsValue} onChangeCardsOption={setCardsValue}/>
                 </div>
             </CardFrame>
         </div>
@@ -136,21 +134,6 @@ const Cards = () => {
 };
 
 export default Cards;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // import React, {useEffect, useState} from 'react';
