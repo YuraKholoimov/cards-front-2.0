@@ -1,7 +1,7 @@
 .loading_line {
     position: absolute;
     height: 4px;
-    background-color: #9890C7;
+    background-color: #f86113;
     left: 0;
     animation: animation_line 2s infinite ease;
 }

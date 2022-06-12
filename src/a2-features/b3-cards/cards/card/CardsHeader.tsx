@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import s from "../../c1-packs/c2-headerPacks/HeaderPacks.module.css";
+import s from "./CardsHeader.module.css"
 import {useAppDispatch} from "../../../../a1-main/b2-bll/store";
 import {setFilterCards} from "../../../../a1-main/b2-bll/cardsReducer";
 

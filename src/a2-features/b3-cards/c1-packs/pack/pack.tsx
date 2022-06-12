@@ -35,7 +35,7 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
 
     return (
         <div>
-            <div className={s.cards}>
+            <div className={s.pack}>
                 <div className={s.name} onClick={redirectToPackCards}>{name}</div>
                 <div>{cardsCount}</div>
                 <div>{updated}</div>
