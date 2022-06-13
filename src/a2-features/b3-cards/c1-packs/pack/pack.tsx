@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import s from "./pack.module.css";
 import {deletePackThunk, updatePackThunk} from "../../../../a1-main/b2-bll/packsReducer";
 import {useAppDispatch, useAppSelector} from "../../../../a1-main/b2-bll/store";
 import {useNavigate} from "react-router-dom";
+import SuperButton from "../../../../a1-main/b1-ui/common/superButton/SuperButton";
+import {PATH} from "../../../../a1-main/b1-ui/routes/RoutesComponent";
+import {DeletePackForm} from "../../../../a1-main/b1-ui/common/modal/DeletePackForm/DeletePackForm";
+import {EditPackForm} from "../../../../a1-main/b1-ui/common/modal/EditPackForm/EditPackForm";
 
 type PackType = {
     name: string
