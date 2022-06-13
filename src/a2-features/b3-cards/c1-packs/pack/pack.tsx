@@ -3,6 +3,7 @@ import s from "./pack.module.css";
 import {deletePackThunk, updatePackThunk} from "../../../../a1-main/b2-bll/packsReducer";
 import {useAppDispatch, useAppSelector} from "../../../../a1-main/b2-bll/store";
 import {useNavigate} from "react-router-dom";
+import { PATH } from '../../../../a1-main/b1-ui/routes/RoutesComponent';
 
 type PackType = {
     name: string
@@ -30,6 +31,10 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
         navigate(`/cards/${packId}`)
     }
 
+    const redirectToLearnCard = () => {
+        navigate(PATH.LEARN + `/${packId}`)
+    }
+
     const myUserID = useAppSelector(state => state.auth.userId)
 
 
@@ -45,7 +50,7 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
                         <button onClick={deletePackHandler}>delete</button>
                         <button onClick={editPackNameHandler}>edit</button>
                     </div>}
-                    <button className={s.learn}>learn</button>
+                    <button className={s.learn} onClick={redirectToLearnCard}>learn</button>
                 </div>
             </div>
         </div>
