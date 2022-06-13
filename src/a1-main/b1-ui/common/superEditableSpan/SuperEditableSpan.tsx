@@ -66,15 +66,11 @@ const SuperEditableSpan: React.FC<SuperEditableSpanType> = (
                         <span
                             className={` ${!children && s.fillInField }   ${spanClassName} `}
                             onDoubleClick={onDoubleClickCallBack}
-
                             {...restSpanProps}
                         >
                         {/*если нет захардкодженного текста для спана, то значение инпута*/}
 
                             {children || restProps.value}
-                            <img style={{height:'30px', padding: "0 0 0 10px"}}
-                                 src="https://cdn.icon-icons.com/icons2/1744/PNG/512/3643749-edit-pen-pencil-write-writing_113397.png"
-                                 alt=""/>
                     </span>
                     )
             }

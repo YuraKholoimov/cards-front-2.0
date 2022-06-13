@@ -3,18 +3,16 @@ import CardsHeader from "./card/CardsHeader";
 import {useAppDispatch, useAppSelector} from "../../../a1-main/b2-bll/store";
 import {
     addCardThunk,
-    CardsType,
-    clearQuestionAnswerName,
+    CardsType, clearQuestionAnswerName,
     deleteCardThunk,
     editCardThunk,
     setAnswerName,
-    setCardsThunk,
-    setCurrentCardsPage,
-    setQuestionName
+    setCardsThunk, setQuestionName
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
 import {useNavigate, useParams} from "react-router-dom";
 import {PacksType} from "../../../a1-main/b3-dal/packsApi";
+import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 import backPage from '../../../a3-assets/images/backPage.svg';
 import s from './Cards.module.css';
 import {CardFrame} from "./CardFrame/CardFrame";
@@ -23,6 +21,8 @@ import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
 import Loading from "../../../a1-main/b1-ui/common/loading/Loading";
+import {setCurrentPage, setTotalCardsCount} from "../../../a1-main/b2-bll/packsReducer";
+import {AddCardForm} from "../../../a1-main/b1-ui/common/modal/AddCardForm/AddCardForm";
 
 
 const Cards = () => {
@@ -34,18 +34,26 @@ const Cards = () => {
     const cards = useAppSelector<Array<CardsType>>(state => state.cards.cards)
     const cardPacks = useAppSelector<Array<PacksType>>(state => state.packs.cardsPack)
     const myUserId = useAppSelector(state => state.auth.userId)
-    const loading = useAppSelector<boolean>(state => state.app.isLoading)
+    const loading = useAppSelector<boolean>(state => state.app.loadingApp)
     const cardsQuestion = useAppSelector((state) => state.cards.question)
     const cardsAnswer = useAppSelector((state) => state.cards.answer)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
     const cardsPerPage = useAppSelector(state => state.cards.pageCount)
     const currentPage = useAppSelector(state => state.cards.page)
+    const pageCardsCount = useAppSelector(state => state.cards.pageCount)
 
-    const arrValue = ['5', '10', '15', '20']
-    const [value, setValue] = useState(arrValue[0])
+    console.log('cardsTotalCount', cardsTotalCount)
+    console.log('cardsPerPage', cardsPerPage)
+    console.log('currentPage', currentPage)
+    console.log('pageCardsCount', pageCardsCount)
+
+    const arrCardsValue = ['5', '10', '15', '20']
+    const [cardsValue, setCardsValue] = useState(arrCardsValue[0])
+    const [isAddingOpen, setIsAddingOpen] = useState<boolean>(false)
+
     useEffect(() => {
         dispatch(setCardsThunk(token))
-    }, [filterValue, cardsQuestion, cardsAnswer, currentPage,cardsPerPage])
+    }, [filterValue, cardsQuestion, cardsAnswer, currentPage, pageCardsCount])
 
     useEffect(() => {
         return () => {
@@ -56,6 +64,9 @@ const Cards = () => {
     const paginate = (num: number) => {
         dispatch(setCurrentCardsPage(num))
     }
+
+
+
     const userPackId = cardPacks.find(p => p._id === token)?.user_id
 
     const addCardHandler = () => {
@@ -73,37 +84,40 @@ const Cards = () => {
         newQuestion && dispatch(editCardThunk(token, _id, newQuestion))
     }
     return (
-        <div>
+        <div >
             <CardFrame>
-
                 <div className={s.main}>
 
-                    <div className={s.search}>
+                    <div className={s.backBtn}>
 
                         <SuperButton onClick={() => navigate(-1)}><img src={backPage} alt={"backPage"}/></SuperButton>
-                        <div className={s.field}>
+                        <div className={s.searchFields}>
 
                             <SearchField searchItemName={cardsQuestion} setSearchItemName={setQuestionName}
                                          fieldName={'Search cards by question...'}/>
                             <SearchField searchItemName={cardsAnswer} setSearchItemName={setAnswerName}
                                          fieldName={'Search cards by answer...'}/>
-
+                            {myUserId === userPackId && <SuperButton  onClick={addCardHandler}>add card</SuperButton>}
+                                         fieldName={'Search cards by answer...'}/>
+                            {myUserId === userPackId && <button onClick={() => setIsAddingOpen(true)}>add card</button>}
+                            <AddCardForm isOpen={isAddingOpen} setIsAddingClose={() => {
+                                setIsAddingOpen(false)
+                            }} token={token}/>
                         </div>
 
                     </div>
 
 
                     <CardsHeader/>
+
                     <div className={s.loadingDiv}>
 
                     </div>
-                    {myUserId === userPackId && <button onClick={addCardHandler}>add card</button>}
+
                     {loading && <Loading/>}
-                    {cards.map(m => {
-
-                        return (
-                            <div className={s.cards}>
-
+                    <div className={s.cards}>
+                        {cards.map(m => {
+                            return (
                                 <Card key={m._id}
                                       deleteCard={deleteCardHandler}
                                       editCard={editCardHandler}
@@ -113,15 +127,14 @@ const Cards = () => {
                                       answer={m.answer}
                                       lastUpdated={m.updated}
                                 />
-
-                            </div>
-
-                        )
-                    })}
+                            )
+                        })}
+                    </div>
                 </div>
                 <div className={s.pagination}>
-                    <Pagination TotalCount={cardsTotalCount} countPerPage={cardsPerPage} currentPage={currentPage} selectCardsPage={paginate}/>
-                    <SuperSelect value={value} options={arrValue} onChangeOption={setValue}/>
+                    <Pagination TotalCount={cardsTotalCount} countPerPage={cardsPerPage} currentPage={currentPage}
+                                selectCardsPage={paginate}/>
+                    <SuperSelect value={cardsValue} options={arrCardsValue} onChangeCardsOption={setCardsValue}/>
                 </div>
             </CardFrame>
         </div>

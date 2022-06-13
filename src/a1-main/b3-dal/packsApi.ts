@@ -36,7 +36,7 @@ export const packsApi = {
     getPacks(params: Partial<GetPacksParamsType>) {
         return instance.get<PacksResponseType>('/cards/pack', {params: {...params}})
     },
-    addNewPack(cardsPack: { name: string }) {
+    addNewPack(cardsPack: { name: string, isPrivate: boolean }) {
         return instance.post('/cards/pack', {cardsPack})
     },
     deletePack(id: string) {

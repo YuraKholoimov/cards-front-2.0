@@ -20,13 +20,13 @@ type CardType = {
 const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, cardId, deleteCard, userId}) => {
     const myUserId = useAppSelector(state => state.auth.userId)
     const grade = useAppSelector(state => state.cards.grade)
-   // const card = useAppSelector(state => state.cards.cards)
     let rating = +grade.toFixed(0)
     const finalClass1 = `${1 <= rating ? `${s.active}` : ``}`
     const finalClass2 = `${2 <= rating ? `${s.active}` : ``}`
     const finalClass3 = `${3 <= rating ? `${s.active}` : ``}`
     const finalClass4 = `${4 <= rating ? `${s.active}` : ``}`
     const finalClass5 = `${5 <= rating ? `${s.active}` : ``}`
+
 
 
     const deleteCardHandler = () => {
@@ -52,15 +52,17 @@ const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, card
 
         <div className={s.card}>
 
-            <SuperEditableSpan
-                id={'question'}
-                type={'text'}
-                onEnter={() => {
-                    formik.handleSubmit()
-                }}
+            <div>
+                <SuperEditableSpan
+                    id={'question'}
+                    type={'text'}
+                    onEnter={() => {
+                        formik.handleSubmit()
+                    }}
 
-                {...formik.getFieldProps('question')}
-            />
+                    {...formik.getFieldProps('question')}
+                />
+            </div>
             <div>{answer}</div>
             <div>{lastUpdated}</div>
             <div className={s.rating_result}>
@@ -77,10 +79,7 @@ const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, card
                     <button onClick={editCardHandler}>edit</button>
                 </div>
             }
-
             </div>
-
-
         </div>
     );
 };
