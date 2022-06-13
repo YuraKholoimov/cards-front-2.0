@@ -20,7 +20,6 @@ const Pagination: React.FC<PaginationPropsType> = ({
                                                    }) => {
     const portionSize = 5;
     const pagesTotalCount = Math.ceil(TotalCount / countPerPage);
-    // debugger
     const pageNumbers: any[] = [];
     for (let i = 1; i < pagesTotalCount; i++) {
         pageNumbers.push(i == currentPage ? {page: i, isActive: true} : {page: i, isActive: false})

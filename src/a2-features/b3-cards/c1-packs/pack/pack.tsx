@@ -1,11 +1,8 @@
-import React, {useState} from 'react';
+import React from 'react';
 import s from "./pack.module.css";
-import {useAppSelector} from "../../../../a1-main/b2-bll/store";
+import {deletePackThunk, updatePackThunk} from "../../../../a1-main/b2-bll/packsReducer";
+import {useAppDispatch, useAppSelector} from "../../../../a1-main/b2-bll/store";
 import {useNavigate} from "react-router-dom";
-import { PATH } from '../../../../a1-main/b1-ui/routes/RoutesComponent';
-import SuperButton from '../../../../a1-main/b1-ui/common/superButton/SuperButton';
-import {DeletePackForm} from '../../../../a1-main/b1-ui/common/modal/DeletePackForm/DeletePackForm';
-import {EditPackForm} from "../../../../a1-main/b1-ui/common/modal/EditPackForm/EditPackForm";
 
 type PackType = {
     name: string
@@ -19,7 +16,10 @@ type PackType = {
 
 const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,userId}) => {
     const navigate = useNavigate()
-
+    const dispatch = useAppDispatch()
+    const deletePackHandler = () => {
+        dispatch(deletePackThunk(packId))
+    }
 
     const [isDeleteOpen, setDeleteOpen] = useState<boolean>(false)
     const [isEditeOpen, setIsEditeOpen] = useState<boolean>(false)
@@ -31,6 +31,7 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
     const redirectToLearnCard = () => {
         navigate(PATH.LEARN + `/${packId}`)
     }
+
     const myUserID = useAppSelector(state => state.auth.userId)
     return (
         <div>
@@ -44,7 +45,7 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
                         <SuperButton className={s.deleteBtn} onClick={() => setDeleteOpen(true)}>delete</SuperButton>
                         <SuperButton className={s.editBtn} onClick={() => setIsEditeOpen(true)}>edit</SuperButton>
                     </div>}
-                    <SuperButton className={s.learn} onClick={redirectToLearnCard}>learn</SuperButton>
+                    <button className={s.learn} onClick={redirectToLearnCard}>learn</button>
                 </div>
                 <DeletePackForm isOpen={isDeleteOpen} setDeleteClose={() => setDeleteOpen(false)} packId={packId} packName={name}/>
                 <EditPackForm isOpen={isEditeOpen} setEditClose={() => setIsEditeOpen(false)}  packId={packId}/>
