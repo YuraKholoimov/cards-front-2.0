@@ -113,9 +113,9 @@ export const setPacksThunk = () => (dispatch: Dispatch<PacksActionsType>, getSta
             dispatch(setStatusLoadingApp(false))
         })
 }
-export const addPackThunk = (name: string) => (dispatch: Dispatch<any>) => {
+export const addPackThunk = (name: string, isPrivate: boolean) => (dispatch: Dispatch<any>) => {
     dispatch(setStatusLoadingApp(true))
-    packsApi.addNewPack({name})
+    packsApi.addNewPack({name, isPrivate})
         .then(() => {
             dispatch(setPacksThunk())
 

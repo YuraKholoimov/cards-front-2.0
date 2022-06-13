@@ -20,6 +20,7 @@ import SuperButton from "../../../a1-main/b1-ui/common/superButton/SuperButton";
 import {SearchField} from "../../../a1-main/b1-ui/common/searchField/SearchField";
 import Pagination from "../../../a1-main/b1-ui/common/pagination/Pagination";
 import SuperSelect from "../../../a1-main/b1-ui/common/seperSelect/SuperSelect";
+import {AddCardForm} from "../../../a1-main/b1-ui/common/modal/AddCardForm/AddCardForm";
 
 
 const Cards = () => {
@@ -37,6 +38,7 @@ const Cards = () => {
 
     const arrValue = ['5', '10', '15', '20']
     const [value, setValue] = useState(arrValue[0])
+    const [isAddingOpen, setIsAddingOpen] = useState<boolean>(false)
 
     useEffect(() => {
         dispatch(setCardsThunk(token))
@@ -52,7 +54,6 @@ const Cards = () => {
     if (loading) {
         return <Preloader/>
     }
-
 
 
     const userPackId = cardPacks.find(p => p._id === token)?.user_id
@@ -72,7 +73,7 @@ const Cards = () => {
         newQuestion && dispatch(editCardThunk(token, _id, newQuestion))
     }
     return (
-        <div >
+        <div>
             <CardFrame>
                 <div className={s.main}>
                     <div className={s.search}>
@@ -81,7 +82,11 @@ const Cards = () => {
                             <SearchField searchItemName={cardsQuestion} setSearchItemName={setQuestionName}
                                          fieldName={'Search cards by question...'}/>
                             <SearchField searchItemName={cardsAnswer} setSearchItemName={setAnswerName}
-                                        fieldName={'Search cards by answer...'}/>
+                                         fieldName={'Search cards by answer...'}/>
+                            {myUserId === userPackId && <button onClick={() => setIsAddingOpen(true)}>add card</button>}
+                            <AddCardForm isOpen={isAddingOpen} setIsAddingClose={() => {
+                                setIsAddingOpen(false)
+                            }} token={token}/>
                         </div>
 
                     </div>
@@ -89,7 +94,6 @@ const Cards = () => {
 
                     <CardsHeader/>
 
-                    {myUserId === userPackId && <button onClick={addCardHandler}>add card</button>}
 
                     {cards.map(m => {
                         return (

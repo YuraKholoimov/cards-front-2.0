@@ -29,6 +29,7 @@ const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, card
     const finalClass5 = `${5 <= rating ? `${s.active}` : ``}`
 
 
+
     const deleteCardHandler = () => {
         deleteCard(cardId)
     }
