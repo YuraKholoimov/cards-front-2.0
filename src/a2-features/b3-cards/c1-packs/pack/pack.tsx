@@ -47,4 +47,5 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
     );
 };
 
+// PushPack
 export default Pack;
