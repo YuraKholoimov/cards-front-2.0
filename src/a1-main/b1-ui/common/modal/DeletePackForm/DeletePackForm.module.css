@@ -1,0 +1,10 @@
+.deleteForm {
+    display: flex;
+    flex-direction: column;
+}
+
+.deleteFormTitle {
+    color: white;
+    font-weight: bold;
+    margin: 10px 0;
+}
