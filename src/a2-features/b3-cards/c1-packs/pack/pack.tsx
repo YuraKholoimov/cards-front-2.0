@@ -18,10 +18,7 @@ type PackType = {
 
 const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,userId}) => {
     const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-    const deletePackHandler = () => {
-        dispatch(deletePackThunk(packId))
-    }
+
 
     const [isDeleteOpen, setDeleteOpen] = useState<boolean>(false)
     const [isEditeOpen, setIsEditeOpen] = useState<boolean>(false)
@@ -35,21 +32,17 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
 
     return (
         <div>
-            <div className={s.cards}>
+            <div className={s.pack}>
                 <div className={s.name} onClick={redirectToPackCards}>{name}</div>
                 <div>{cardsCount}</div>
                 <div>{updated}</div>
                 <div>{userName}</div>
-                <div >
+                <div className={s.btn} >
                     {myUserID === userId && <div className={s.btn}>
-                        <SuperButton className={s.deleteBtn} onClick={deletePackHandler}>delete</SuperButton>
-                        <SuperButton className={s.editBtn} onClick={editPackNameHandler}>edit</SuperButton>
-                <div>
-                    {myUserID === userId && <div>
-                        <button onClick={() => setDeleteOpen(true)}>delete</button>
-                        <button onClick={() => setIsEditeOpen(true)}>edit</button>
+                        <SuperButton className={s.deleteBtn} onClick={() => setDeleteOpen(true)}>delete</SuperButton>
+                        <SuperButton className={s.editBtn} onClick={() => setIsEditeOpen(true)}>edit</SuperButton>
                     </div>}
-                    <button className={s.learn}>learn</button>
+                    <SuperButton className={s.learn}>learn</SuperButton>
                 </div>
                 <DeletePackForm isOpen={isDeleteOpen} setDeleteClose={() => setDeleteOpen(false)} packId={packId} packName={name}/>
                 <EditPackForm isOpen={isEditeOpen} setEditClose={() => setIsEditeOpen(false)}  packId={packId}/>

@@ -7,7 +7,7 @@ import {
     deleteCardThunk,
     editCardThunk,
     setAnswerName,
-    setCardsThunk, setQuestionName
+    setCardsThunk, setCurrentCardsPage, setPageCount, setQuestionName
 } from "../../../a1-main/b2-bll/cardsReducer";
 import Card from "./card/Card";
 import {useNavigate, useParams} from "react-router-dom";
@@ -34,7 +34,7 @@ const Cards = () => {
     const cards = useAppSelector<Array<CardsType>>(state => state.cards.cards)
     const cardPacks = useAppSelector<Array<PacksType>>(state => state.packs.cardsPack)
     const myUserId = useAppSelector(state => state.auth.userId)
-    const loading = useAppSelector<boolean>(state => state.app.loadingApp)
+    const loading = useAppSelector<boolean>(state => state.app.isLoading)
     const cardsQuestion = useAppSelector((state) => state.cards.question)
     const cardsAnswer = useAppSelector((state) => state.cards.answer)
     const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
@@ -69,13 +69,6 @@ const Cards = () => {
 
     const userPackId = cardPacks.find(p => p._id === token)?.user_id
 
-    const addCardHandler = () => {
-        const question = prompt('Введите вопрос')
-        const answer = prompt('Введите Ответ')
-        if (token && question && answer)
-            dispatch(addCardThunk(token, question, answer))
-    }
-
     const deleteCardHandler = (cardId: string) => {
         dispatch(deleteCardThunk(token, cardId))
     }
@@ -97,9 +90,7 @@ const Cards = () => {
                                          fieldName={'Search cards by question...'}/>
                             <SearchField searchItemName={cardsAnswer} setSearchItemName={setAnswerName}
                                          fieldName={'Search cards by answer...'}/>
-                            {myUserId === userPackId && <SuperButton  onClick={addCardHandler}>add card</SuperButton>}
-                                         fieldName={'Search cards by answer...'}/>
-                            {myUserId === userPackId && <button onClick={() => setIsAddingOpen(true)}>add card</button>}
+                            {myUserId === userPackId && <SuperButton onClick={() => setIsAddingOpen(true)}>add card</SuperButton>}
                             <AddCardForm isOpen={isAddingOpen} setIsAddingClose={() => {
                                 setIsAddingOpen(false)
                             }} token={token}/>
