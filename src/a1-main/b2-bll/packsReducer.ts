@@ -3,6 +3,7 @@ import {setLoading, setLoadingAppType, setLoadingType, setStatusLoadingApp} from
 import {GetPacksParamsType, packsApi, PacksResponseType, PacksType} from "../b3-dal/packsApi";
 import {setCatchErrorType, setError} from "./loginReducer";
 import {AppRootStateType} from "./store";
+import {setCardsThunk} from "./cardsReducer";
 
 type InitialStateType = GetPacksParamsType & {
     cardsPack: Array<PacksType>

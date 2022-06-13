@@ -156,9 +156,6 @@ export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsAction
     cardsApi.getCards(payload)
         .then((res) => {
             dispatch(setCards(res.data))
-            console.log(res.data)
-            // dispatch(setCardsThunk(packId))
-
         })
         .catch((err) => {
             dispatch(setError(err.response.data.error))

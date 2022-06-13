@@ -31,10 +31,7 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
     const redirectToLearnCard = () => {
         navigate(PATH.LEARN + `/${packId}`)
     }
-
     const myUserID = useAppSelector(state => state.auth.userId)
-
-
     return (
         <div>
             <div className={s.pack}>
@@ -48,7 +45,6 @@ const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,u
                         <SuperButton className={s.editBtn} onClick={() => setIsEditeOpen(true)}>edit</SuperButton>
                     </div>}
                     <SuperButton className={s.learn} onClick={redirectToLearnCard}>learn</SuperButton>
-
                 </div>
                 <DeletePackForm isOpen={isDeleteOpen} setDeleteClose={() => setDeleteOpen(false)} packId={packId} packName={name}/>
                 <EditPackForm isOpen={isEditeOpen} setEditClose={() => setIsEditeOpen(false)}  packId={packId}/>
