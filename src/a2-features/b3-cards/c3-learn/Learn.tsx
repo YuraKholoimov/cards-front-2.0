@@ -19,7 +19,7 @@ export const Learn: React.FC<PropsType> = ({children}) => {
 
     const dispatch = useDispatch<any>()
     const navigate = useNavigate()
-    const {packId} = useParams<{packId: string}>()
+    const {packId} = useParams<{ packId: string }>()
     const packName = useAppSelector<string>(state => state.packs.cardsPack.filter((p: any) => p._id === packId)[0]?.name)
     const [isVisible, setIsVisible] = useState(false)
     const [rating, setRating] = useState("")
@@ -33,18 +33,22 @@ export const Learn: React.FC<PropsType> = ({children}) => {
 
     }, [])
 
+    const onNextClick = () => {
+        console.log('onNextClick')
+    }
+
     return (
         <div className={s.wrapper}>
             <span>Learn {packName}</span>
-                <p><b>Question: </b>
-                    {cards[0].question}
-                </p>
+            <p><b>Question: </b>
+                {cards[0].question}
+            </p>
 
             {
                 isVisible && <>
                     <h3>Answer:</h3>
-                <p>{cards[0].answer}</p>
-                <h3>Rate yourself:</h3>
+                    <p>{cards[0].answer}</p>
+                    <h3>Rate yourself:</h3>
                     <SuperRadioSelect
                         name={'radio'}
                         options={grades}
@@ -52,12 +56,15 @@ export const Learn: React.FC<PropsType> = ({children}) => {
                         onChangeOption={setRating}
                     />
                 </>
-
             }
 
             <nav>
                 <SuperButton onClick={() => navigate(PATH.PACKS)}>Cansel</SuperButton>
-                <SuperButton onClick={() => setIsVisible(true)}>Show answer</SuperButton>
+                {
+                    isVisible
+                        ? <SuperButton onClick={onNextClick} disabled={!rating}>Next</SuperButton>
+                        : <SuperButton onClick={() => setIsVisible(true)}>Show answer</SuperButton>
+                }
             </nav>
         </div>
     );
