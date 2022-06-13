@@ -59,7 +59,7 @@ export const Learn: React.FC<PropsType> = ({children}) => {
             }
 
             <nav>
-                <SuperButton onClick={() => navigate(PATH.PACKS)}>Cansel</SuperButton>
+                <SuperButton onClick={() => navigate(PATH.PROFILE)}>Cansel</SuperButton>
                 {
                     isVisible
                         ? <SuperButton onClick={onNextClick} disabled={!rating}>Next</SuperButton>
