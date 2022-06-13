@@ -11,6 +11,7 @@ import {NewPassword} from '../../../a2-features/b1-auth/password/newPassword/New
 import Packs from "../../../a2-features/b3-cards/c1-packs/Packs";
 import Cards from "../../../a2-features/b3-cards/cards/Cards";
 import MyProfile from '../common/packFrame/myProfile/myProfile';
+import {Learn} from "../../../a2-features/b3-cards/c3-learn/Learn";
 
 export const PATH = {
     LOGIN: '/login',
@@ -22,7 +23,8 @@ export const PATH = {
     NOT_FOUND: '/404',
     EDIT_PROFILE: '/edit-c1-profile',
     PACKS: '/packs',
-    CARDS: '/cards'
+    CARDS: '/cards',
+    LEARN: '/learn',
 }
 
 export const RoutesComponent = () => {
@@ -40,6 +42,7 @@ export const RoutesComponent = () => {
                 <Route path={PATH.NEW_PASSWORD + `/*`} element={<NewPassword/>}/>
                 <Route path={PATH.PACKS} element={<LoadingHOC><Packs/></LoadingHOC>}/>
                 <Route path={PATH.CARDS + '/*'} element={<Cards/>}/>
+                <Route path={PATH.LEARN + '/:packId'} element={<Learn/>}/>
             </Routes>
         </>
     );

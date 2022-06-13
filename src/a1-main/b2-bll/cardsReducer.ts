@@ -206,6 +206,30 @@ export const editCardThunk = (cardsPack_id: string, _id: string, newQuestion: st
             dispatch(setLoading(false))
         })
 }
+export const learnCardsThunk = (packUserId: string) =>
+    (dispatch: Dispatch) => {
+        dispatch(setLoading(true))
+        const data: GetCardsParamsType = {
+            cardAnswer: "",
+            cardQuestion: "",
+            cardsPack_id: packUserId,
+            min: 0,
+            max: 0,
+            sortCards: "0question",
+            page: 1,
+            pageCount: 1000,
+        }
+        cardsApi.getCards(data)
+            .then((res) => {
+                dispatch(setCards(res.data));
+            })
+            .catch(e => {
+                console.log(e.message)
+            })
+            .finally(() => {
+                dispatch(setLoading(false));
+            })
+    };
 
 export type CardsActionsType =
     ReturnType<typeof setCards> |
