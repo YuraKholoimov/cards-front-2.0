@@ -9,6 +9,7 @@ import {PATH} from "../../../a1-main/b1-ui/routes/RoutesComponent";
 import {CardsType, clearCards, learnCardsThunk, setCardsThunk} from '../../../a1-main/b2-bll/cardsReducer';
 import SuperRadioSelect from "../../../a1-main/b1-ui/common/SuperRadioSelect/SuperRadioSelect";
 import {CardType} from "../../../a1-main/b3-dal/cardsApi";
+import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 
 type PropsType = {
     children?: ReactNode
@@ -34,7 +35,7 @@ export const Learn: React.FC<PropsType> = ({children}) => {
     const getCard = (cards: CardType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
         const rand = Math.random() * sum;
-        const res = cards.reduce((acc: { sum: number, id: number}, card, i) => {
+        const res = cards.reduce((acc: { sum: number, id: number }, card, i) => {
                 const newSum = acc.sum + (6 - card.grade) * (6 - card.grade);
                 return {sum: newSum, id: newSum < rand ? i : acc.id}
             }
@@ -70,37 +71,40 @@ export const Learn: React.FC<PropsType> = ({children}) => {
     }
 
     return (
-        <div>{!!card ? <div className={s.wrapper}>
-            <span>Learn {packName}</span>
-            <p><b>Question: </b>
-                {card.question}
-            </p>
-
+        <div>
             {
-                isVisible && <>
-                    <h3>Answer:</h3>
-                    <p>{card.answer}</p>
-                    <h3>Rate yourself:</h3>
-                    <SuperRadioSelect
-                        name={'radio'}
-                        options={grades}
-                        value={rating}
-                        onChangeOption={setRating}
-                    />
-                </>
+                !!card
+                    ? <div className={s.wrapper}>
+                        <span>Learn {packName}</span>
+                        <p><b>Question: </b>
+                            {card.question}
+                        </p>
+
+                        {
+                            isVisible && <>
+                                <h3>Answer:</h3>
+                                <p>{card.answer}</p>
+                                <h3>Rate yourself:</h3>
+                                <SuperRadioSelect
+                                    name={'radio'}
+                                    options={grades}
+                                    value={rating}
+                                    onChangeOption={setRating}
+                                />
+                            </>
+                        }
+
+                        <nav>
+                            <SuperButton onClick={() => navigate(PATH.PACKS)}>Cansel</SuperButton>
+                            {
+                                isVisible
+                                    ? <SuperButton onClick={onNextClick} disabled={!rating}>Next</SuperButton>
+                                    : <SuperButton onClick={() => setIsVisible(true)}>Show answer</SuperButton>
+                            }
+                        </nav>
+                    </div>
+                    : <Preloader/>
             }
-
-            <nav>
-                <SuperButton onClick={() => navigate(PATH.PACKS)}>Cansel</SuperButton>
-                {
-                    isVisible
-                        ? <SuperButton onClick={onNextClick} disabled={!rating}>Next</SuperButton>
-                        : <SuperButton onClick={() => setIsVisible(true)}>Show answer</SuperButton>
-                }
-            </nav>
-        </div> : <h1>Карточки не созданы</h1> }</div>
-
-
-
+        </div>
     );
 };
