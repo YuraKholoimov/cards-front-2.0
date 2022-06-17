@@ -1,17 +1,30 @@
 .spanClassName {
-    display: flex;
-    justify-content: center;
-    color: #b2b2b2;
-    font-style: italic;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 2fr;
+    justify-items: flex-start;
     height: 30px;
-    padding: 0 0 15px;
     font-size: 20px;
-    cursor: pointer;
+    text-align: center;
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*color: #b2b2b2;*/
+    /*font-style: italic;*/
+    /*padding: 0 0 15px;*/
+    /*font-size: 20px;*/
+    /*cursor: pointer;*/
+    /*min-width: 93vh;*/
 }
 
 .fillInField {
-    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 17px;
     color: black;
     font-style: normal;
     cursor: pointer;
+    position: relative;
+    text-align: center;
+    margin: 5px 0;
+    overflow: auto;
 }

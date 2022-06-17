@@ -1,71 +1,56 @@
-.cards {
+.pack {
     display: grid;
     grid-template-columns: 2fr 1fr 2fr 2fr 2fr;
-    padding-left: 20px;
-    column-gap: 12%;
-    font-weight: bolder;
-
-    align-items: center;
+    justify-items: flex-start;
+    height: 30px;
+    font-size: 20px;
+    min-width: 93vh;;
+    padding-left: 40px;
 }
-/*.item {*/
-/*    display: flex;*/
-/*    flex-direction: row;*/
-/*    justify-content: space-between;*/
-/*    flex-wrap: wrap;*/
-/*    align-items: center;*/
-/*    height: 50px;*/
-/*    font-weight: 500;*/
-/*    font-size: 20px;*/
-/*    width: 100%;*/
-/*}*/
+
 
 .learn {
-    margin: 10px;
-    padding: 10px 20px;
-    text-align: center;
-    text-transform: uppercase;
-    transition: 0.5s;
-    background-size: 200% auto;
-    color: white;
-    border-radius: 10px;
-    border: 0px;
-    font-weight: 700;
-    box-shadow: 0px 0px 14px -7px #f09819;
-    background-image: linear-gradient(45deg, #FF512F 0%, #F09819 51%, #FF512F 100%);
-    cursor: pointer;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10px;
+    height: 3px;
 }
 
-.learn:hover {
-    background-position: right center;
-    text-decoration: none;
-}
-
-.cards {
+.pack {
     position: relative;
-    box-shadow: 0px 4px 14px rgba(45, 46, 70, 0.15);
     width: 95%;
     text-align: left;
     color: #000;
     line-height: 16px;
     margin: 24px 0;
-    overflow: auto;
-    flex-grow: 1;
-    scrollbar-width: thin;
     font-size: 17px;
-}
-
-.cards::-webkit-scrollbar {
-    width: 4px;
-    ackground-color: rgb(253, 222, 171);
-}
-
-.cards::-webkit-scrollbar-thumb {
-    background-color: rgb(253, 222, 171);
 }
 
 .name {
     cursor: pointer;
+}
+
+.btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.deleteBtn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 10px;
+    height: 3px;
+}
+
+.editBtn {
+    display: flex;
+    justify-content: center;
+    width: 10px;
+    height: 3px;
+    align-items: center;
 }

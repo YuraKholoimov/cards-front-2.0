@@ -3,6 +3,7 @@ import {setLoading, setLoadingAppType, setLoadingType, setStatusLoadingApp} from
 import {GetPacksParamsType, packsApi, PacksResponseType, PacksType} from "../b3-dal/packsApi";
 import {setCatchErrorType, setError} from "./loginReducer";
 import {AppRootStateType} from "./store";
+import {setCardsThunk} from "./cardsReducer";
 
 type InitialStateType = GetPacksParamsType & {
     cardsPack: Array<PacksType>
@@ -25,14 +26,12 @@ const initialState: InitialStateType = {
 export const packsReducer = (state = initialState, action: PacksActionsType): InitialStateType => {
     switch (action.type) {
         case "PACKS/SET-PACKS":
-            return {
-                ...state,
+            return {...state,
                 cardsPack: action.payload.data.cardPacks,
                 maxCardsCount: action.payload.data.maxCardsCount,
                 totalCount: action.payload.data.cardPacksTotalCount
             }
         case "PACKS/SET-FILTER-PACKS":
-            console.log('action',action)
             return {...state, sortPacks: `${action.payload.value}${action.payload.nameValue}`}
         case "PACKS/SET-PACKS-COUNT" :
             return {...state, pageCount: action.payload.value}
@@ -115,9 +114,9 @@ export const setPacksThunk = () => (dispatch: Dispatch<PacksActionsType>, getSta
             dispatch(setLoading(false))
         })
 }
-export const addPackThunk = (name: string) => (dispatch: Dispatch<any>) => {
+export const addPackThunk = (name: string, isPrivate: boolean) => (dispatch: Dispatch<any>) => {
     dispatch(setLoading(true))
-    packsApi.addNewPack({name})
+    packsApi.addNewPack({name, isPrivate})
         .then(() => {
             dispatch(setPacksThunk())
 

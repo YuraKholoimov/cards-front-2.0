@@ -15,6 +15,7 @@ type PropsType = {
 }
 
 export const Learn: React.FC<PropsType> = ({children}) => {
+    debugger
 
     const grades = ["Did not know", "Forgot", "A lot of thought", "Confused", "Knew the answer"];
 
@@ -27,7 +28,7 @@ export const Learn: React.FC<PropsType> = ({children}) => {
     const [first, setFirst] = useState<boolean>(true)
 
     const cards = useAppSelector<any>(state => state.cards.cards)
-    const [card, setCard] = useState<any>();
+    const [card, setCard] = useState<any>(null);
     const isLoading = useAppSelector<boolean>(state => state.app.isLoading)
 
     const getCard = (cards: CardType[]) => {
@@ -50,14 +51,18 @@ export const Learn: React.FC<PropsType> = ({children}) => {
         }
 
         // packId && dispatch(learnCardsThunk(packId))
-
-        setCard(getCard(cards))
+        // if (cards.length > 0)  setCard(getCard(cards))
 
         return () => {
             dispatch(clearCards())
         }
 
-    }, [])
+    }, [dispatch, packId, cards, first])
+
+    useEffect(() => {
+        if (cards.length > 0) setCard(getCard(cards));
+        console.log(cards)
+    }, [cards])
 
     const onNextClick = () => {
         setIsVisible(false)
@@ -65,7 +70,7 @@ export const Learn: React.FC<PropsType> = ({children}) => {
     }
 
     return (
-        <div className={s.wrapper}>
+        <div>{!!card ? <div className={s.wrapper}>
             <span>Learn {packName}</span>
             <p><b>Question: </b>
                 {card.question}
@@ -93,6 +98,9 @@ export const Learn: React.FC<PropsType> = ({children}) => {
                         : <SuperButton onClick={() => setIsVisible(true)}>Show answer</SuperButton>
                 }
             </nav>
-        </div>
+        </div> : <h1>Карточки не созданы</h1> }</div>
+
+
+
     );
 };
