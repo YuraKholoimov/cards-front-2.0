@@ -1,8 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import SuperEditableSpan from "../../../../a1-main/b1-ui/common/superEditableSpan/SuperEditableSpan";
 import {useFormik} from "formik";
 import {useAppSelector} from "../../../../a1-main/b2-bll/store";
 import s from "./Card.module.css";
+import SuperButton from "../../../../a1-main/b1-ui/common/superButton/SuperButton";
+import {DeleteCardForm} from "../../../../a1-main/b1-ui/common/modal/DeleteCardForm/DeleteCardForm";
+import {EditCardForm} from "../../../../a1-main/b1-ui/common/modal/EditCardForm/EditCardForm";
 
 
 type CardType = {
@@ -11,15 +14,15 @@ type CardType = {
     lastUpdated: string
     cardId: string
     deleteCard: (cardId: string) => void
-    editCard: (_id: string, question: string) => void
+    editCard: (_id: string, question: string, answer: string) => void
     userId: string
 }
-
-
 
 const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, cardId, deleteCard, userId}) => {
     const myUserId = useAppSelector(state => state.auth.userId)
     const grade = useAppSelector(state => state.cards.grade)
+    const [isDeleteOpen, setDeleteOpen] = useState<boolean>(false)
+    const [isEditeOpen, setIsEditeOpen] = useState<boolean>(false)
     let rating = +grade.toFixed(0)
     const finalClass1 = `${1 <= rating ? `${s.active}` : ``}`
     const finalClass2 = `${2 <= rating ? `${s.active}` : ``}`
@@ -29,18 +32,18 @@ const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, card
 
 
 
-    const deleteCardHandler = () => {
-        deleteCard(cardId)
-    }
-    const editCardHandler = () => {
-        formik.handleSubmit()
-    }
+    // const deleteCardHandler = () => {
+    //     deleteCard(cardId)
+    // }
+    // const editCardHandler = () => {
+    //     formik.handleSubmit()
+    // }
     const formik = useFormik({
         initialValues: {
             question: question
         },
         onSubmit: values => {
-            editCard(cardId, values.question)
+
         }
     })
     //    формик кеширует, перезапрашиваем
@@ -75,8 +78,10 @@ const Card: React.FC<CardType> = ({lastUpdated, question, editCard, answer, card
             </div>
             <div>{myUserId === userId &&
                 <div>
-                    <button onClick={deleteCardHandler}>delete</button>
-                    <button onClick={editCardHandler}>edit</button>
+                    <SuperButton className={s.deleteBtn} onClick={() => setDeleteOpen(true)}>delete</SuperButton>
+                    <SuperButton className={s.editBtn} onClick={() => setIsEditeOpen(true)}>edit</SuperButton>
+                    <DeleteCardForm isOpen={isDeleteOpen} setDeleteClose={() => setDeleteOpen(false)} cardId={cardId} deleteCard={deleteCard}/>
+                    <EditCardForm isOpen={isEditeOpen} setEditClose={() => setIsEditeOpen(false)} cardId={cardId} editCard={editCard}/>
                 </div>
             }
             </div>

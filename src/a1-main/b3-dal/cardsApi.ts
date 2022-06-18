@@ -34,7 +34,7 @@ export const cardsApi = {
     deleteCard(cardId: string) {
         return instance.delete<CardsResponseType>(`/cards/card?id=${cardId}`)
     },
-    editCard(card:{_id: string, question: string, comments?: string}) {
+    editCard(card:{_id: string, question: string, answer: string, comments?: string}) {
         return instance.put<CardsResponseType>(`/cards/card`, {card})
     },
 }

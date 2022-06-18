@@ -193,9 +193,9 @@ export const deleteCardThunk = (cardsPack_id: string, cardsId: string) => (dispa
             dispatch(setLoading(false))
         })
 }
-export const editCardThunk = (cardsPack_id: string, _id: string, newQuestion: string, comment?: string) => (dispatch: Dispatch<any>) => {
+export const editCardThunk = (cardsPack_id: string, _id: string, newQuestion: string, newAnswer: string, comment?: string) => (dispatch: Dispatch<any>) => {
     dispatch(setLoading(true))
-    cardsApi.editCard({_id, question: newQuestion, comments: comment})
+    cardsApi.editCard({_id, question: newQuestion, answer: newAnswer, comments: comment})
         .then(() => {
             dispatch(setCardsThunk(cardsPack_id))
         })

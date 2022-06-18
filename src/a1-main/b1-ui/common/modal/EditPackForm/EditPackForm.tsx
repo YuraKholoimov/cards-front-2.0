@@ -6,17 +6,18 @@ import SuperInputText from "../../superInputText/SuperInputText";
 import SuperButton from "../../superButton/SuperButton";
 import { updatePackThunk } from "../../../../b2-bll/packsReducer";
 
-type DeletePackFormPropsType = {
+type EditPackFormPropsType = {
     setEditClose: () => void
     isOpen: boolean
     packId: string
 }
-export const EditPackForm: React.FC<DeletePackFormPropsType> = memo(({setEditClose, isOpen, packId}) => {
+export const EditPackForm: React.FC<EditPackFormPropsType> = memo(({setEditClose, isOpen, packId}) => {
 
     const [name, setName] = useState<string>('')
 
     const onClickEditPack = () => {
         dispatch(updatePackThunk({_id: packId, name}))
+        onClickCleanUpStates()
     }
 
     const onClickCleanUpStates = () => {

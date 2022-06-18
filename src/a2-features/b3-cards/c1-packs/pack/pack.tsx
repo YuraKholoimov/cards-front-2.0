@@ -19,7 +19,6 @@ type PackType = {
 const Pack: React.FC<PackType> = ({name, cardsCount, userName, updated, packId,userId}) => {
     const navigate = useNavigate()
 
-
     const [isDeleteOpen, setDeleteOpen] = useState<boolean>(false)
     const [isEditeOpen, setIsEditeOpen] = useState<boolean>(false)
 
