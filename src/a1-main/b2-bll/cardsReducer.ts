@@ -91,6 +91,8 @@ export const cardsReducer = (state = initialState, action: CardsActionsType): In
             return {...state, answer: '', question: ''}
         case "SET-CURRENT-CARDS-PAGE":
             return {...state, page: action.payload.page}
+        case "CARDS/CLEAR-CARDS":
+            return initialState
         case "CARDS/SET-PAGE-COUNT":
             return {...state, pageCount: action.payload.value}
         default:
@@ -132,6 +134,9 @@ export const setCurrentCardsPage = (page: number) => ({
     type: 'SET-CURRENT-CARDS-PAGE',
     payload: {page}
 }as const)
+export const clearCards = () => ({
+    type: 'CARDS/CLEAR-CARDS'
+} as const)
 
 export const setPageCount = (value: number) => ({
     type: 'CARDS/SET-PAGE-COUNT',
@@ -139,7 +144,8 @@ export const setPageCount = (value: number) => ({
 }as const)
 
 //---- Thunks
-export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsActionsType>, getState: () => AppRootStateType) => {
+export const setCardsThunk = (packId: string) =>
+    (dispatch: Dispatch<CardsActionsType>, getState: () => AppRootStateType) => {
     dispatch(setLoading(true))
     const {sortCards, answer, question, page, pageCount} = getState().cards
     const payload: GetCardsParamsType = {
@@ -152,9 +158,9 @@ export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsAction
         page: page,
         pageCount: pageCount,
     }
-
     cardsApi.getCards(payload)
         .then((res) => {
+            debugger
             dispatch(setCards(res.data))
             console.log(res.data)
             // dispatch(setCardsThunk(packId))
@@ -206,6 +212,30 @@ export const editCardThunk = (cardsPack_id: string, _id: string, newQuestion: st
             dispatch(setLoading(false))
         })
 }
+export const learnCardsThunk = (packUserId: string) =>
+    (dispatch: Dispatch) => {
+        dispatch(setLoading(true))
+        const data: GetCardsParamsType = {
+            cardAnswer: "",
+            cardQuestion: "",
+            cardsPack_id: packUserId,
+            min: 0,
+            max: 0,
+            sortCards: "0question",
+            page: 1,
+            pageCount: 1000,
+        }
+        cardsApi.getCards(data)
+            .then((res) => {
+                dispatch(setCards(res.data));
+            })
+            .catch(e => {
+                console.log(e.message)
+            })
+            .finally(() => {
+                dispatch(setLoading(false));
+            })
+    };
 
 export type CardsActionsType =
     ReturnType<typeof setCards> |
@@ -216,6 +246,7 @@ export type CardsActionsType =
     ReturnType<typeof setQuestionName> |
     ReturnType<typeof setAnswerName> |
     ReturnType<typeof clearQuestionAnswerName> |
+    ReturnType<typeof clearCards> |
     ReturnType<typeof setCurrentCardsPage> |
     ReturnType<typeof setPageCount>
     | setCatchErrorType
