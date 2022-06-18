@@ -11,15 +11,13 @@ import SuperRadioSelect from "../../../a1-main/b1-ui/common/SuperRadioSelect/Sup
 import {CardType} from "../../../a1-main/b3-dal/cardsApi";
 import Preloader from "../../../a1-main/b1-ui/common/preloader/Preloader";
 
+const grades = ["Did not know", "Forgot", "A lot of thought", "Confused", "Knew the answer"];
+
 type PropsType = {
     children?: ReactNode
 }
 
 export const Learn: React.FC<PropsType> = ({children}) => {
-    debugger
-
-    const grades = ["Did not know", "Forgot", "A lot of thought", "Confused", "Knew the answer"];
-
     const dispatch = useDispatch<any>()
     const navigate = useNavigate()
     const {packId} = useParams<{ packId: string }>()
@@ -46,19 +44,12 @@ export const Learn: React.FC<PropsType> = ({children}) => {
     }
 
     useEffect(() => {
-        if (first) {
             packId && dispatch(setCardsThunk(packId))
-            setFirst(false)
-        }
-
-        // packId && dispatch(learnCardsThunk(packId))
-        // if (cards.length > 0)  setCard(getCard(cards))
-
         return () => {
             dispatch(clearCards())
         }
 
-    }, [dispatch, packId, cards, first])
+    }, [])
 
     useEffect(() => {
         if (cards.length > 0) setCard(getCard(cards));
@@ -67,7 +58,10 @@ export const Learn: React.FC<PropsType> = ({children}) => {
 
     const onNextClick = () => {
         setIsVisible(false)
-        setCard(getCard(cards))
+        console.log(cards)
+        if (cards.length > 0) {
+            setCard(getCard(cards));
+        }
     }
 
     return (

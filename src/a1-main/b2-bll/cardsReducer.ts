@@ -144,8 +144,8 @@ export const setPageCount = (value: number) => ({
 }as const)
 
 //---- Thunks
-export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsActionsType>, getState: () => AppRootStateType) => {
-    debugger
+export const setCardsThunk = (packId: string) =>
+    (dispatch: Dispatch<CardsActionsType>, getState: () => AppRootStateType) => {
     dispatch(setLoading(true))
     const {sortCards, answer, question, page, pageCount} = getState().cards
     const payload: GetCardsParamsType = {
@@ -158,9 +158,9 @@ export const setCardsThunk = (packId: string) => (dispatch: Dispatch<CardsAction
         page: page,
         pageCount: pageCount,
     }
-
     cardsApi.getCards(payload)
         .then((res) => {
+            debugger
             dispatch(setCards(res.data))
             console.log(res.data)
             // dispatch(setCardsThunk(packId))
