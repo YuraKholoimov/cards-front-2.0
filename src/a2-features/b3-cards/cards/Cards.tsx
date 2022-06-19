@@ -39,11 +39,6 @@ const Cards = () => {
     const currentPage = useAppSelector(state => state.cards.page)
     const pageCardsCount = useAppSelector(state => state.cards.pageCount)
 
-    console.log('cardsTotalCount', cardsTotalCount)
-    console.log('cardsPerPage', cardsPerPage)
-    console.log('currentPage', currentPage)
-    console.log('pageCardsCount', pageCardsCount)
-
     const arrCardsValue = ['5', '10', '15', '20']
     const [cardsValue, setCardsValue] = useState(arrCardsValue[0])
     const [isAddingOpen, setIsAddingOpen] = useState<boolean>(false)
