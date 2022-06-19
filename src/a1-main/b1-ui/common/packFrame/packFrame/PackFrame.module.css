@@ -1,12 +1,12 @@
 .packFrame {
-    max-width: 100%;
+    width: 80%;
+    height: 86vh;
     background-image: linear-gradient(315deg, #fffcf9 0%, #ffd166 74%);
     border-radius: 8px;
-    width: 96%;
     margin: 24px auto;
     display: flex;
+    justify-content: space-evenly;
     overflow: hidden;
-    height: 86vh;
     text-align: left;
     border: #484848 3px solid;
 }

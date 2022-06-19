@@ -43,7 +43,7 @@ const initialState: InitialStateType = {
     maxGrade: 0,
     minGrade: 0,
     page: 1,
-    pageCount: 2,
+    pageCount: 20,
     searchCard: '',
     sortCards: '0updated',
     packUserId: '',

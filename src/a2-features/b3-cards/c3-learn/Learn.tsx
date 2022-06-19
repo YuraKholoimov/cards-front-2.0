@@ -28,7 +28,7 @@ export const Learn: React.FC<PropsType> = ({children}) => {
 
     const cards = useAppSelector<any>(state => state.cards.cards)
     const [card, setCard] = useState<any>(null);
-    const isLoading = useAppSelector<boolean>(state => state.app.isLoading)
+    // const isLoading = useAppSelector<boolean>(state => state.app.isLoading)
 
     const getCard = (cards: CardType[]) => {
         const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
@@ -59,9 +59,7 @@ export const Learn: React.FC<PropsType> = ({children}) => {
     const onNextClick = () => {
         setIsVisible(false)
         console.log(cards)
-        if (cards.length > 0) {
-            setCard(getCard(cards));
-        }
+        if (cards.length > 0) setCard(getCard(cards));
     }
 
     return (
